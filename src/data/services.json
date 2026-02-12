@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "construction-project",
+    "title": "Construction Project",
+    "subtitle": "Construction Project(Villas, Apartment, Commercial, Community)",
+    "heroImage": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839420/2_wlstfd.webp",
+    "image": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839420/2_wlstfd.webp",
+    "shortDescription": "From Ground to Handover - With Control at Every Stage",
+    "detailIntro": "Construction at JAZ Builders & Promoters is executed through a stage-wise, system-driven process.",
+    "detailBody": "Each project progresses through clearly defined checkpoints—planning, structural execution, coordination, and finishing—ensuring quality control, cost efficiency, and execution clarity.",
+    "detailBody2": "We deliver residential, commercial, and industrial construction with a strong emphasis on build ability, long-term durability, and disciplined execution, avoiding rushed or unplanned site practices.",
+    "highlights": [
+      "Structured execution system",
+      "Quality checks at each construction stage",
+      "Clear coordination between site, design, and client"
+    ]
+  },
+  {
+    "slug": "peb",
+    "title": "PEB (Pre-Engineered Buildings)",
+    "subtitle": "PEB (Pre-Engineered Buildings)",
+    "heroImage": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839507/5_an2puc.webp",
+    "image": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839507/5_an2puc.webp",
+    "shortDescription": "Engineered Structures, Executed with Precision",
+    "detailIntro": "Our PEB solutions are designed for speed, structural strength, and long-term industrial performance.",
+    "detailBody": "From concept and load calculations to fabrication and erection, we follow standardized engineering practices that reduce wastage and increase execution speed.",
+    "detailBody2": "PEB systems are ideal for warehouses, manufacturing units, and commercial structures where durability and timeline are equally important.",
+    "highlights": [
+      "Optimized steel design and detailing",
+      "Fast-track erection methodology",
+      "Cost-effective large-span solutions"
+    ]
+  },
+  {
+    "slug": "real-estate",
+    "title": "Real Estate",
+    "subtitle": "Real Estate",
+    "heroImage": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839451/1_ijrbcy.webp",
+    "image": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839451/1_ijrbcy.webp",
+    "shortDescription": "Development with Practical Feasibility",
+    "detailIntro": "Our real estate development approach combines market understanding with practical execution planning.",
+    "detailBody": "We evaluate project potential through location study, demand analysis, cost planning, and long-term value before execution decisions are made.",
+    "detailBody2": "This ensures each development remains sustainable, profitable, and aligned with customer expectations and regional growth.",
+    "highlights": [
+      "Feasibility-driven decision making",
+      "Balanced planning for ROI and usability",
+      "Long-term value focused development"
+    ]
+  },
+  {
+    "slug": "joint-venture",
+    "title": "Joint Venture",
+    "subtitle": "Joint Venture",
+    "heroImage": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839496/6_pyxvuv.webp",
+    "image": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839496/6_pyxvuv.webp",
+    "shortDescription": "Collaboration Backed by Planning & Execution",
+    "detailIntro": "Our joint venture model is built on trust, transparency, and process-led execution.",
+    "detailBody": "We partner with landowners and stakeholders through clearly defined agreements, development scopes, and timeline commitments.",
+    "detailBody2": "With strong planning and legal clarity, we ensure mutually beneficial outcomes and smooth project delivery.",
+    "highlights": [
+      "Transparent partnership framework",
+      "Legally structured development process",
+      "Mutual value creation for stakeholders"
+    ]
+  },
+  {
+    "slug": "architectural-design",
+    "title": "Architectural Design",
+    "subtitle": "Architectural Design (Architectural, MEP, Structural)",
+    "heroImage": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839522/3_k2rh8c.webp",
+    "image": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839522/3_k2rh8c.webp",
+    "shortDescription": "Design That Supports Execution",
+    "detailIntro": "We create architectural designs that are visually strong and technically executable.",
+    "detailBody": "Our design workflow integrates architecture, structural planning, and MEP coordination to reduce rework during execution.",
+    "detailBody2": "The result is a practical design package that supports quality construction, schedule certainty, and efficient site implementation.",
+    "highlights": [
+      "Integrated architecture + engineering workflow",
+      "Execution-friendly design outputs",
+      "Reduced site-level rework and delays"
+    ]
+  },
+  {
+    "slug": "project-consulting",
+    "title": "Project Consulting",
+    "subtitle": "Project Consulting",
+    "heroImage": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839469/4_ay7yki.webp",
+    "image": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839469/4_ay7yki.webp",
+    "shortDescription": "Clarity Before Construction Begins",
+    "detailIntro": "Our consulting services help clients make informed construction decisions before project execution starts.",
+    "detailBody": "We support planning, budgeting, sequencing, resource strategy, and risk identification to avoid costly surprises during construction.",
+    "detailBody2": "With structured advisory and practical insights, clients gain clarity, control, and confidence throughout the project lifecycle.",
+    "highlights": [
+      "Early-stage planning and budgeting clarity",
+      "Risk-aware execution strategies",
+      "Advisory support through project lifecycle"
+    ]
+  }
+]
