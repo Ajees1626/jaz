@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { FiCheck, FiChevronRight, FiMail, FiPhone } from 'react-icons/fi'
 import { HiOutlineBuildingOffice2 } from 'react-icons/hi2'
@@ -7,6 +8,71 @@ import SmoothParagraph from '../components/SmoothParagraph'
 function ServiceDetail() {
   const { slug } = useParams()
   const service = services.find((item) => item.slug === slug)
+  const heroRef = useRef(null)
+  const contentRef = useRef(null)
+  const [heroVisible, setHeroVisible] = useState(false)
+  const [contentVisible, setContentVisible] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    if (heroRef.current) observer.observe(heroRef.current)
+    return () => observer.disconnect()
+  }, [])
+
+  /* CONTENT OBSERVER – observe article so animation runs when content area is in view */
+  useEffect(() => {
+    if (!service) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setContentVisible(entry.isIntersecting),
+      { threshold: 0.05, rootMargin: '0px 0px -80px 0px' }
+    )
+    const raf = requestAnimationFrame(() => {
+      if (contentRef.current) observer.observe(contentRef.current)
+    })
+    return () => {
+      cancelAnimationFrame(raf)
+      observer.disconnect()
+    }
+  }, [service])
+
+  const AnimatedLetters = ({ text, visible, delay = 0 }) => (
+    <>
+      {(text != null ? String(text) : '').split('').map((char, i) => (
+        <span
+          key={i}
+          style={{ transitionDelay: `${i * 30 + delay}ms` }}
+          className={`inline-block transition-all duration-500 ease-out ${
+            visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          }`}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </>
+  )
+
+  /* Word-by-word animation (same as AboutHistorySection) – no mid-word break */
+  const AnimatedWords = ({ text, visible, delay = 0 }) =>
+    (text != null ? String(text) : '')
+      .split(/(\s+)/)
+      .map((part, index) => {
+        const isSpace = /^\s+$/.test(part)
+        if (isSpace) return <span key={index}>{part}</span>
+        return (
+          <span
+            key={index}
+            className={`inline transition-all duration-300 ease-out ${
+              visible ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
+            }`}
+            style={{ transitionDelay: `${delay + index * 25}ms` }}
+          >
+            {part}
+          </span>
+        )
+      })
 
   if (!service) {
     return (
@@ -22,18 +88,27 @@ function ServiceDetail() {
   return (
     <>
       <section
+        ref={heroRef}
         className="relative flex min-h-[110vh] items-center justify-center overflow-hidden pt-20"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('${service.heroImage || service.image}')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed',
-        }}
       >
-        <div className="w-full px-4 text-center text-white sm:px-6 md:px-8 lg:px-10 xl:px-12">
-          <h1 className="mb-5 text-3xl font-medium tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">{service.title}</h1>
-          <div className="flex flex-wrap items-center justify-center gap-3 text-base text-white/90">
+        <div
+          className={`hero-bg-zoom absolute inset-0 z-0 bg-cover bg-center bg-no-repeat ${
+            heroVisible ? 'is-visible' : ''
+          }`}
+          style={{
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('${service.heroImage || service.image}')`,
+            backgroundAttachment: 'fixed',
+          }}
+        />
+        <div className="relative z-10 w-full overflow-hidden px-4 text-center text-white sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <h1 className="mb-5 text-3xl font-medium tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+            <AnimatedLetters text={service.title} visible={heroVisible} />
+          </h1>
+          <div
+            className={`flex flex-wrap items-center justify-center gap-3 text-base text-white/90 transition-all duration-500 ${
+              heroVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+            }`}
+          >
             <Link to="/" className="transition-colors duration-200 ease-out hover:text-white">
               Home
             </Link>
@@ -98,39 +173,88 @@ function ServiceDetail() {
             </div>
           </aside>
 
-          <article className="rounded-lg bg-transparent p-6">
+          <article ref={contentRef} className="rounded-lg bg-transparent">
             <img
               src={service.image}
               alt={service.title}
               className="w-full rounded-2xl object-cover shadow-lg aspect-[4/3] sm:aspect-[16/10] lg:aspect-[2/1]"
             />
 
-            <div className="mt-8 space-y-6 text-slate-600">
-              <SmoothParagraph className="text-base leading-relaxed sm:text-md">
-                <span className="font-semibold text-slate-800">{service.detailIntro} </span>
-                {service.detailBody}
-              </SmoothParagraph>
-              <SmoothParagraph className="text-base leading-relaxed sm:text-md">{service.detailBody2}</SmoothParagraph>
+            {/* CONTENT */}
+            <div className="mt-10 space-y-8 overflow-hidden text-slate-600">
+              {/* Paragraph 1 – word-by-word like AboutHistorySection */}
+              <p className="text-base leading-relaxed sm:text-lg">
+                <span className="font-semibold text-slate-800">
+                  <AnimatedWords
+                    text={`${service.detailIntro} `}
+                    visible={contentVisible}
+                    delay={0}
+                  />
+                </span>
+                <AnimatedWords
+                  text={service.detailBody}
+                  visible={contentVisible}
+                  delay={300}
+                />
+              </p>
+
+              {/* Paragraph 2 */}
+              <p className="text-base leading-relaxed sm:text-lg">
+                <AnimatedWords
+                  text={service.detailBody2}
+                  visible={contentVisible}
+                  delay={600}
+                />
+              </p>
             </div>
 
-            <div className="mt-8 rounded-xl border border-jaz-dark/60 bg-white p-6">
-              <div className="grid gap-5 sm:grid-cols-2">
-                {service.highlights.map((point) => (
-                  <SmoothParagraph key={point} className="flex items-start gap-3 text-base leading-relaxed text-slate-700">
-                    <FiCheck className="mt-0.5 h-4 w-4 shrink-0 text-jaz-dark" />
-                    <span>{point}</span>
-                  </SmoothParagraph>
+            {/* HIGHLIGHTS */}
+            <div
+              className={`mt-10 rounded-xl border border-jaz-dark/60 bg-white p-8 shadow-sm transition-all duration-700 ${
+                contentVisible
+                  ? 'translate-y-0 opacity-100'
+                  : 'translate-y-10 opacity-0'
+              }`}
+            >
+              <div className="grid gap-6 sm:grid-cols-2">
+                {service.highlights.map((point, idx) => (
+                  <div
+                    key={point}
+                    className={`flex items-start gap-3 transition-all duration-700 ${
+                      contentVisible
+                        ? 'translate-y-0 opacity-100'
+                        : 'translate-y-6 opacity-0'
+                    }`}
+                    style={{ transitionDelay: `${idx * 150}ms` }}
+                  >
+                    <FiCheck className="mt-1 h-4 w-4 shrink-0 text-jaz-dark" />
+
+                    <span>
+                      <AnimatedLetters
+                        text={point}
+                        visible={contentVisible}
+                        delay={idx * 200}
+                      />
+                    </span>
+                  </div>
                 ))}
               </div>
             </div>
 
-            <div className="mt-8">
+            {/* BUTTON */}
+            <div
+              className={`mt-12 transition-all duration-700 ${
+                contentVisible
+                  ? 'translate-y-0 opacity-100'
+                  : 'translate-y-8 opacity-0'
+              }`}
+            >
               <Link
                 to="/service"
-                className="inline-flex items-center gap-2 rounded-lg bg-jaz-dark px-6 py-3 text-base font-medium text-white transition-colors duration-200 ease-out hover:bg-jaz"
+                className="group inline-flex items-center gap-2 rounded-lg bg-jaz-dark px-6 py-3 text-base font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-jaz"
               >
                 Back to Services
-                <FiChevronRight className="h-4 w-4" />
+                <FiChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
           </article>

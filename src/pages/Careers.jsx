@@ -1,11 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiX } from 'react-icons/fi'
 import HomeBuildTogetherSection from '../components/HomeBuildTogetherSection'
 import SmoothParagraph from '../components/SmoothParagraph'
 
 function Careers() {
+  const heroRef = useRef(null)
+  const [heroVisible, setHeroVisible] = useState(false)
   const [selectedJob, setSelectedJob] = useState(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    if (heroRef.current) observer.observe(heroRef.current)
+    return () => observer.disconnect()
+  }, [])
 
   const jobs = [
     {
@@ -51,22 +62,47 @@ function Careers() {
     setSelectedJob(null)
   }
 
+  const AnimatedLetters = ({ text, visible }) => (
+    <>
+      {text.split('').map((char, i) => (
+        <span
+          key={i}
+          style={{ transitionDelay: `${i * 35}ms` }}
+          className={`inline-block transition-all duration-500 ease-out ${
+            visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          }`}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </>
+  )
+
   return (
     <>
       <section
+        ref={heroRef}
         className="relative flex min-h-[110vh] items-center justify-center overflow-hidden pt-20"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839697/Career_wvucaf.webp')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed',
-        }}
       >
-        <div className="w-full px-4 text-center text-white sm:px-6 md:px-8 lg:px-10 xl:px-12">
-          <h1 className="mb-5 text-4xl font-normal sm:text-6xl md:text-7xl lg:text-8xl">CAREERS</h1>
-          <div className="flex items-center justify-center gap-3 text-base text-white/90">
+        <div
+          className={`hero-bg-zoom absolute inset-0 z-0 bg-cover bg-center bg-no-repeat ${
+            heroVisible ? 'is-visible' : ''
+          }`}
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839697/Career_wvucaf.webp')",
+            backgroundAttachment: 'fixed',
+          }}
+        />
+        <div className="relative z-10 w-full overflow-hidden px-4 text-center text-white sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <h1 className="mb-5 text-4xl font-normal sm:text-6xl md:text-7xl lg:text-8xl">
+            <AnimatedLetters text="CAREERS" visible={heroVisible} />
+          </h1>
+          <div
+            className={`flex items-center justify-center gap-3 text-base text-white/90 transition-all duration-500 ${
+              heroVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+            }`}
+          >
             <Link to="/" className="transition-colors duration-200 ease-out hover:text-white">
               Home
             </Link>

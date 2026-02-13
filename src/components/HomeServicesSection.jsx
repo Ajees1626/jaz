@@ -1,11 +1,24 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import services from '../data/services.json'
 
 function HomeServicesSection() {
+  const sectionRef = useRef(null)
+  const [isInView, setIsInView] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [visibleCount, setVisibleCount] = useState(3)
   const [enableTransition, setEnableTransition] = useState(true)
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.18, rootMargin: '0px 0px -50px 0px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     const updateVisibleCount = () => {
@@ -73,15 +86,18 @@ function HomeServicesSection() {
   }
 
   return (
-    <section className="bg-jaz-light py-12 sm:py-16 md:py-20">
+    <section ref={sectionRef} className="bg-jaz-light py-12 sm:py-16 md:py-20">
       <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-        <div className="mb-12 text-center">
-          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white">
-            Our Services
-          </span>
-        </div>
+        <div
+          className={`services-section-reveal ${isInView ? 'services-section-reveal-visible' : ''}`}
+        >
+          <div className="mb-12 text-center">
+            <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white">
+              Our Services
+            </span>
+          </div>
 
-        <div className="overflow-hidden pt-4">
+          <div className="overflow-hidden pt-4">
           <div
             className="flex"
             style={{
@@ -136,53 +152,54 @@ function HomeServicesSection() {
           </div>
         </div>
 
-        <div className="mt-10 flex items-center justify-center gap-2">
-          {services.map((_, dotIndex) => (
+          <div className="services-reveal-item services-reveal-item-1 mt-10 flex items-center justify-center gap-2">
+            {services.map((_, dotIndex) => (
+              <button
+                key={dotIndex}
+                type="button"
+                onClick={() => setCurrentIndex(dotIndex + visibleCount)}
+                className={`h-2.5 rounded-full transition-all ${
+                  dotIndex === logicalIndex ? 'w-8 bg-jaz-dark' : 'w-2.5 bg-jaz-dark/40'
+                }`}
+                aria-label={`Go to slide ${dotIndex + 1}`}
+              />
+            ))}
+          </div>
+
+          <div className="services-reveal-item services-reveal-item-2 mt-6 flex items-center justify-center gap-4">
             <button
-              key={dotIndex}
               type="button"
-              onClick={() => setCurrentIndex(dotIndex + visibleCount)}
-              className={`h-2.5 rounded-full transition-all ${
-                dotIndex === logicalIndex ? 'w-8 bg-jaz-dark' : 'w-2.5 bg-jaz-dark/40'
-              }`}
-              aria-label={`Go to slide ${dotIndex + 1}`}
-            />
-          ))}
-        </div>
+              onClick={handlePrevious}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-jaz-dark transition-colors duration-200 ease-out hover:bg-white/40"
+              aria-label="Previous"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-jaz-dark transition-colors duration-200 ease-out hover:bg-white/40"
+              aria-label="Next"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
 
-        <div className="mt-6 flex items-center justify-center gap-4">
-          <button
-            type="button"
-            onClick={handlePrevious}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-jaz-dark transition-colors duration-200 ease-out hover:bg-white/40"
-            aria-label="Previous"
-          >
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            onClick={handleNext}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-jaz-dark transition-colors duration-200 ease-out hover:bg-white/40"
-            aria-label="Next"
-          >
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-
-        <div className="mt-10 text-center">
-          <Link
-            to="/service"
-            className="inline-flex items-center gap-2 rounded-xl bg-jaz-dark px-8 py-3 text-sm font-medium text-white shadow-md transition-opacity duration-200 ease-out hover:opacity-90"
-          >
-            View All Services
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
+          <div className="services-reveal-item services-reveal-item-3 mt-10 text-center">
+            <Link
+              to="/service"
+              className="inline-flex items-center gap-2 rounded-xl bg-jaz-dark px-8 py-3 text-sm font-medium text-white shadow-md transition-opacity duration-200 ease-out hover:opacity-90"
+            >
+              View All Services
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

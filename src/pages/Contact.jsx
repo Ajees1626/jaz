@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiPhone, FiSmartphone, FiMail, FiMapPin } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
@@ -38,23 +39,77 @@ const MAP_DIRECTIONS_URL = 'https://www.google.com/maps/dir//174%2F5-5,+Railway+
 const MAP_VIEW_URL = 'https://www.google.com/maps/search/?api=1&query=JAZ+Builders+Promoters+Tenkasi'
 
 function Contact() {
+  const heroRef = useRef(null)
+  const cardsRef = useRef(null)
+  const formRef = useRef(null)
+  const mapRef = useRef(null)
+  const [heroVisible, setHeroVisible] = useState(false)
+  const [cardsVisible, setCardsVisible] = useState(false)
+  const [formVisible, setFormVisible] = useState(false)
+  const [mapVisible, setMapVisible] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target
+          if (el === heroRef.current) setHeroVisible(entry.isIntersecting)
+          else if (el === cardsRef.current) setCardsVisible(entry.isIntersecting)
+          else if (el === formRef.current) setFormVisible(entry.isIntersecting)
+          else if (el === mapRef.current) setMapVisible(entry.isIntersecting)
+        })
+      },
+      { threshold: 0.15 }
+    )
+    if (heroRef.current) observer.observe(heroRef.current)
+    if (cardsRef.current) observer.observe(cardsRef.current)
+    if (formRef.current) observer.observe(formRef.current)
+    if (mapRef.current) observer.observe(mapRef.current)
+    return () => observer.disconnect()
+  }, [])
+
+  const AnimatedLetters = ({ text, delay = 0, visible }) => (
+    <>
+      {text.split('').map((char, index) => (
+        <span
+          key={index}
+          style={{ transitionDelay: `${index * 35 + delay}ms` }}
+          className={`inline-block transition-all duration-500 ease-out ${
+            visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          }`}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </>
+  )
+
   return (
     <>
-      {/* Hero section - same as other pages */}
+      {/* Hero section */}
       <section
+        ref={heroRef}
         className="relative flex min-h-[110vh] items-center justify-center overflow-hidden pt-20"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839710/contact_ongaeq.webp')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed',
-        }}
       >
-        <div className="w-full px-4 text-center text-white sm:px-6 md:px-8 lg:px-10 xl:px-12">
-          <h1 className="mb-5 text-4xl font-normal sm:text-6xl md:text-7xl lg:text-8xl">CONTACT US</h1>
-          <div className="flex items-center justify-center gap-3 text-base text-white/90">
+        <div
+          className={`hero-bg-zoom absolute inset-0 z-0 bg-cover bg-center bg-no-repeat ${
+            heroVisible ? 'is-visible' : ''
+          }`}
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839710/contact_ongaeq.webp')",
+            backgroundAttachment: 'fixed',
+          }}
+        />
+        <div className="relative z-10 w-full overflow-hidden px-4 text-center text-white sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <h1 className="mb-5 text-4xl font-normal sm:text-6xl md:text-7xl lg:text-8xl">
+            <AnimatedLetters text="CONTACT US" visible={heroVisible} />
+          </h1>
+          <div
+            className={`flex items-center justify-center gap-3 text-base text-white/90 transition-all duration-500 ${
+              heroVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+            }`}
+          >
             <Link to="/" className="transition-colors duration-200 ease-out hover:text-white">
               Home
             </Link>
@@ -64,19 +119,30 @@ function Contact() {
         </div>
       </section>
 
-      {/* Contact info cards - off-white container with rounded top */}
-      <section className="relative z-20 -mt-16 rounded-t-[3rem] bg-jaz-dark pt-4 sm:-mt-20 sm:rounded-t-[4rem]">
+      {/* Contact info cards */}
+      <section
+        ref={cardsRef}
+        className="relative z-20 -mt-16 rounded-t-[3rem] bg-jaz-dark pt-4 sm:-mt-20 sm:rounded-t-[4rem]"
+      >
         <div className="w-full px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-16 lg:px-10 lg:py-20 xl:px-12">
-          {/* Decorative dot */}
-          <div className="mb-8 flex justify-center">
+          <div
+            className={`mb-8 flex justify-center transition-all duration-500 ${
+              cardsVisible ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
             <span className="h-2 w-2 rounded-full bg-jaz-light" />
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {CONTACT_CARDS.slice(0, 3).map((item) => (
+            {CONTACT_CARDS.slice(0, 3).map((item, index) => (
               <div
                 key={item.title}
-                className="rounded-xl bg-white p-6 shadow-lg transition-shadow duration-200 ease-out hover:shadow-xl"
+                className={`rounded-xl bg-white p-6 shadow-lg transition-all duration-600 ease-out hover:shadow-xl ${
+                  cardsVisible
+                    ? 'translate-y-0 opacity-100'
+                    : 'translate-y-10 opacity-0'
+                }`}
+                style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="mb-3 flex justify-center">
                   <span className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-jaz-light text-jaz-dark">
@@ -104,10 +170,13 @@ function Contact() {
           </div>
 
           <div className="mt-6 grid gap-6 sm:grid-cols-2">
-            {CONTACT_CARDS.slice(3).map((item) => (
+            {CONTACT_CARDS.slice(3).map((item, index) => (
               <div
                 key={item.title}
-                className="rounded-xl bg-white p-6 shadow-lg transition-shadow duration-200 ease-out hover:shadow-xl"
+                className={`rounded-xl bg-white p-6 shadow-lg transition-all duration-600 ease-out hover:shadow-xl ${
+                  cardsVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                }`}
+                style={{ transitionDelay: `${(3 + index) * 100}ms` }}
               >
                 <div className="mb-3 flex justify-center">
                   <span className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-jaz-light text-jaz-dark">
@@ -149,7 +218,7 @@ function Contact() {
       <section className="bg-slate-100 py-12 sm:py-16">
         <div className="mx-auto max-w-2xl px-4 sm:px-6">
           <div className="rounded-2xl bg-white p-6 shadow-xl sm:p-8">
-            <h2 className="mb-6 text-left text-3xl font- text-jaz-dark sm:text-4xl">
+            <h2 className="mb-6 text-left text-3xl font-semibold text-jaz-dark sm:text-4xl">
               Contact Us
             </h2>
             <form

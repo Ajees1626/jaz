@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { FiCheck, FiChevronRight, FiMail, FiPhone } from 'react-icons/fi'
 import { HiOutlineBuildingOffice2 } from 'react-icons/hi2'
@@ -7,6 +8,71 @@ import SmoothParagraph from '../components/SmoothParagraph'
 function ProjectDetail() {
   const { slug } = useParams()
   const project = projects.find((item) => item.slug === slug)
+  const heroRef = useRef(null)
+  const contentRef = useRef(null)
+  const [heroVisible, setHeroVisible] = useState(false)
+  const [contentVisible, setContentVisible] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    if (heroRef.current) observer.observe(heroRef.current)
+    return () => observer.disconnect()
+  }, [])
+
+  /* CONTENT OBSERVER – observe article so animation runs when content area is in view */
+  useEffect(() => {
+    if (!project) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setContentVisible(entry.isIntersecting),
+      { threshold: 0.05, rootMargin: '0px 0px -80px 0px' }
+    )
+    const raf = requestAnimationFrame(() => {
+      if (contentRef.current) observer.observe(contentRef.current)
+    })
+    return () => {
+      cancelAnimationFrame(raf)
+      observer.disconnect()
+    }
+  }, [project])
+
+  const AnimatedLetters = ({ text, visible, delay = 0 }) => (
+    <>
+      {(text != null ? String(text) : '').split('').map((char, i) => (
+        <span
+          key={i}
+          style={{ transitionDelay: `${i * 30 + delay}ms` }}
+          className={`inline-block transition-all duration-500 ease-out ${
+            visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          }`}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </>
+  )
+
+  /* Word-by-word animation (same as AboutHistorySection) – no mid-word break */
+  const AnimatedWords = ({ text, visible, delay = 0 }) =>
+    (text != null ? String(text) : '')
+      .split(/(\s+)/)
+      .map((part, index) => {
+        const isSpace = /^\s+$/.test(part)
+        if (isSpace) return <span key={index}>{part}</span>
+        return (
+          <span
+            key={index}
+            className={`inline transition-all duration-300 ease-out ${
+              visible ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
+            }`}
+            style={{ transitionDelay: `${delay + index * 25}ms` }}
+          >
+            {part}
+          </span>
+        )
+      })
 
   if (!project) {
     return (
@@ -22,18 +88,27 @@ function ProjectDetail() {
   return (
     <>
       <section
+        ref={heroRef}
         className="relative flex min-h-[110vh] items-center justify-center overflow-hidden pt-20"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('${project.heroImage || project.image}')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed',
-        }}
       >
-        <div className="w-full px-4 text-center text-white sm:px-6 md:px-8 lg:px-10 xl:px-12">
-          <h1 className="mb-5 text-3xl font-medium tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">{project.title}</h1>
-          <div className="flex flex-wrap items-center justify-center gap-3 text-base text-white/90">
+        <div
+          className={`hero-bg-zoom absolute inset-0 z-0 bg-cover bg-center bg-no-repeat ${
+            heroVisible ? 'is-visible' : ''
+          }`}
+          style={{
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('${project.heroImage || project.image}')`,
+            backgroundAttachment: 'fixed',
+          }}
+        />
+        <div className="relative z-10 w-full overflow-hidden px-4 text-center text-white sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <h1 className="mb-5 text-3xl font-medium tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+            <AnimatedLetters text={project.title} visible={heroVisible} />
+          </h1>
+          <div
+            className={`flex flex-wrap items-center justify-center gap-3 text-base text-white/90 transition-all duration-500 ${
+              heroVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+            }`}
+          >
             <Link to="/" className="transition-colors duration-200 ease-out hover:text-white">
               Home
             </Link>
@@ -97,54 +172,88 @@ function ProjectDetail() {
             </div>
           </aside>
 
-          <article className="rounded-lg bg-transparent">
+          <article ref={contentRef} className="rounded-lg bg-transparent">
             <img
               src={project.image}
               alt={project.title}
               className="w-full rounded-2xl object-cover shadow-lg aspect-[4/3] sm:aspect-[16/10] lg:aspect-[2/1]"
             />
 
-            <div className="mt-8 space-y-6 text-slate-600">
-              <SmoothParagraph className="text-base leading-relaxed sm:text-lg">
-                <span className="font-semibold text-slate-800">{project.detailIntro} </span>
-                {project.detailBody}
-              </SmoothParagraph>
-              <SmoothParagraph className="text-base leading-relaxed sm:text-lg">{project.description}</SmoothParagraph>
+            {/* CONTENT */}
+            <div className="mt-10 space-y-8 overflow-hidden text-slate-600">
+              {/* Paragraph 1 – word-by-word like AboutHistorySection */}
+              <p className="text-base leading-relaxed sm:text-lg">
+                <span className="font-semibold text-slate-800">
+                  <AnimatedWords
+                    text={`${project.detailIntro} `}
+                    visible={contentVisible}
+                    delay={0}
+                  />
+                </span>
+                <AnimatedWords
+                  text={project.detailBody}
+                  visible={contentVisible}
+                  delay={300}
+                />
+              </p>
+
+              {/* Paragraph 2 */}
+              <p className="text-base leading-relaxed sm:text-lg">
+                <AnimatedWords
+                  text={project.description}
+                  visible={contentVisible}
+                  delay={600}
+                />
+              </p>
             </div>
 
-            <div className="mt-8 rounded-xl border border-jaz-dark/60 bg-white p-6">
-              <div className="grid gap-5 sm:grid-cols-2">
-                {project.highlights.map((point) => (
-                  <SmoothParagraph key={point} className="flex items-start gap-3 text-base leading-relaxed text-slate-700">
-                    <FiCheck className="mt-0.5 h-4 w-4 shrink-0 text-jaz-dark" />
-                    <span>{point}</span>
-                  </SmoothParagraph>
+            {/* HIGHLIGHTS */}
+            <div
+              className={`mt-10 rounded-xl border border-jaz-dark/60 bg-white p-8 shadow-sm transition-all duration-700 ${
+                contentVisible
+                  ? 'translate-y-0 opacity-100'
+                  : 'translate-y-10 opacity-0'
+              }`}
+            >
+              <div className="grid gap-6 sm:grid-cols-2">
+                {project.highlights.map((point, idx) => (
+                  <div
+                    key={point}
+                    className={`flex items-start gap-3 transition-all duration-700 ${
+                      contentVisible
+                        ? 'translate-y-0 opacity-100'
+                        : 'translate-y-6 opacity-0'
+                    }`}
+                    style={{ transitionDelay: `${idx * 150}ms` }}
+                  >
+                    <FiCheck className="mt-1 h-4 w-4 shrink-0 text-jaz-dark" />
+
+                    <span>
+                      <AnimatedLetters
+                        text={point}
+                        visible={contentVisible}
+                        delay={idx * 200}
+                      />
+                    </span>
+                  </div>
                 ))}
               </div>
             </div>
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-xl bg-white p-5 shadow-sm">
-                <SmoothParagraph className="text-sm font-medium uppercase tracking-wide text-slate-500">Type</SmoothParagraph>
-                <SmoothParagraph className="mt-1 text-base font-semibold text-slate-800">{project.type}</SmoothParagraph>
-              </div>
-              <div className="rounded-xl bg-white p-5 shadow-sm">
-                <SmoothParagraph className="text-sm font-medium uppercase tracking-wide text-slate-500">Location</SmoothParagraph>
-                <SmoothParagraph className="mt-1 text-base font-semibold text-slate-800">{project.location}</SmoothParagraph>
-              </div>
-              <div className="rounded-xl bg-white p-5 shadow-sm">
-                <SmoothParagraph className="text-sm font-medium uppercase tracking-wide text-slate-500">Year</SmoothParagraph>
-                <SmoothParagraph className="mt-1 text-base font-semibold text-slate-800">{project.year}</SmoothParagraph>
-              </div>
-            </div>
-
-            <div className="mt-8">
+            {/* BUTTON */}
+            <div
+              className={`mt-12 transition-all duration-700 ${
+                contentVisible
+                  ? 'translate-y-0 opacity-100'
+                  : 'translate-y-8 opacity-0'
+              }`}
+            >
               <Link
                 to="/project"
-                className="inline-flex items-center gap-2 rounded-lg bg-jaz-dark px-6 py-3 text-base font-medium text-white transition-colors duration-200 ease-out hover:bg-jaz"
+                className="group inline-flex items-center gap-2 rounded-lg bg-jaz-dark px-6 py-3 text-base font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-jaz"
               >
                 Back to Projects
-                <FiChevronRight className="h-4 w-4" />
+                <FiChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
           </article>

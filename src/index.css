@@ -84,6 +84,229 @@ body {
   }
 }
 
+/* HomeAboutSection – right-to-left slide-in on scroll */
+@media (prefers-reduced-motion: no-preference) {
+  .about-slide-in-right {
+    opacity: 0;
+    transform: translateX(56px);
+    transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+  }
+  .about-slide-in-right.about-slide-in-right-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-slide-in-right {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* HomeServicesSection – scroll reveal (replays every time section enters view) */
+@media (prefers-reduced-motion: no-preference) {
+  .services-section-reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  .services-section-reveal.services-section-reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Each child block animates on its own with stagger */
+  .services-section-reveal .services-reveal-item {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+  }
+  .services-section-reveal.services-section-reveal-visible .services-reveal-item-1 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.15s;
+  }
+  .services-section-reveal.services-section-reveal-visible .services-reveal-item-2 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+  }
+  .services-section-reveal.services-section-reveal-visible .services-reveal-item-3 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.45s;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .services-section-reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .services-section-reveal .services-reveal-item {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* HomeWhyChooseSection – icon rotate animation */
+@keyframes whyChooseIconRotate {
+  from {
+    transform: rotate(-180deg);
+    opacity: 0.85;
+  }
+  to {
+    transform: rotate(0);
+    opacity: 1;
+  }
+}
+
+/* HomeWhyChooseSection – scroll reveal + letter animation + staggered cards */
+@media (prefers-reduced-motion: no-preference) {
+  .why-choose-reveal .why-choose-icon {
+    transform: rotate(-180deg);
+    opacity: 0.85;
+  }
+  .why-choose-reveal-visible .why-choose-card-1 .why-choose-icon {
+    animation: whyChooseIconRotate 0.55s ease-out 0.1s forwards;
+  }
+  .why-choose-reveal-visible .why-choose-card-2 .why-choose-icon {
+    animation: whyChooseIconRotate 0.55s ease-out 0.2s forwards;
+  }
+  .why-choose-reveal-visible .why-choose-card-3 .why-choose-icon {
+    animation: whyChooseIconRotate 0.55s ease-out 0.3s forwards;
+  }
+  .why-choose-reveal-visible .why-choose-card-4 .why-choose-icon {
+    animation: whyChooseIconRotate 0.55s ease-out 0.4s forwards;
+  }
+  .why-choose-reveal .why-choose-card {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  .why-choose-reveal-visible .why-choose-card-1 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+  }
+  .why-choose-reveal-visible .why-choose-card-2 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+  }
+  .why-choose-reveal-visible .why-choose-card-3 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+  }
+  .why-choose-reveal-visible .why-choose-card-4 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.4s;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .why-choose-reveal .why-choose-card {
+    opacity: 1;
+    transform: none;
+  }
+  .why-choose-reveal .why-choose-icon {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* HomeProjectsSection – scroll reveal: header/footer slide up, cards slide in from sides */
+@media (prefers-reduced-motion: no-preference) {
+  .projects-section-reveal .projects-reveal-header,
+  .projects-section-reveal .projects-reveal-footer {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  .projects-section-reveal .projects-reveal-card {
+    opacity: 0;
+    transition: opacity 0.5s ease-out, transform 0.55s ease-out;
+  }
+  .projects-section-reveal .projects-reveal-card:nth-child(odd) {
+    transform: translateX(-56px);
+  }
+  .projects-section-reveal .projects-reveal-card:nth-child(even) {
+    transform: translateX(56px);
+  }
+  .projects-section-reveal-visible .projects-reveal-header {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.05s;
+  }
+  .projects-section-reveal-visible .projects-reveal-card:nth-child(1) { opacity: 1; transform: translateX(0); transition-delay: 0.12s; }
+  .projects-section-reveal-visible .projects-reveal-card:nth-child(2) { opacity: 1; transform: translateX(0); transition-delay: 0.2s; }
+  .projects-section-reveal-visible .projects-reveal-card:nth-child(3) { opacity: 1; transform: translateX(0); transition-delay: 0.28s; }
+  .projects-section-reveal-visible .projects-reveal-card:nth-child(4) { opacity: 1; transform: translateX(0); transition-delay: 0.36s; }
+  .projects-section-reveal-visible .projects-reveal-card:nth-child(5) { opacity: 1; transform: translateX(0); transition-delay: 0.44s; }
+  .projects-section-reveal-visible .projects-reveal-card:nth-child(6) { opacity: 1; transform: translateX(0); transition-delay: 0.52s; }
+  .projects-section-reveal-visible .projects-reveal-footer {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.55s;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .projects-section-reveal .projects-reveal-header,
+  .projects-section-reveal .projects-reveal-card,
+  .projects-section-reveal .projects-reveal-footer {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* HomeBuildTogetherSection – scroll reveal (replays when section re-enters view) + image + blocks */
+@media (prefers-reduced-motion: no-preference) {
+  .build-together-reveal .build-together-actions,
+  .build-together-reveal .build-together-stats {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  .build-together-reveal .build-together-image > div:first-child {
+    opacity: 0;
+    transform: translateX(48px) scale(0.98);
+    transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+  }
+  .build-together-reveal .build-together-floating {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  .build-together-reveal-visible .build-together-actions {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.35s;
+  }
+  .build-together-reveal-visible .build-together-stats {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s;
+  }
+  .build-together-reveal-visible .build-together-image > div:first-child {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    transition-delay: 0.2s;
+  }
+  .build-together-reveal-visible .build-together-floating {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.45s;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .build-together-reveal .build-together-actions,
+  .build-together-reveal .build-together-stats,
+  .build-together-reveal .build-together-image > div:first-child,
+  .build-together-reveal .build-together-floating {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Hero letter-by-letter animation – smooth staggered reveal */
 @keyframes heroLetterReveal {
   from {
@@ -108,5 +331,22 @@ body {
   .hero-letter {
     opacity: 1;
     animation: none;
+  }
+}
+
+/* Hero background zoom – runs when hero is in view (page load / navigate) */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-bg-zoom {
+    transform: scale(1.12);
+    transition: transform 1s ease-out;
+  }
+  .hero-bg-zoom.is-visible {
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-zoom.is-visible,
+  .hero-bg-zoom {
+    transform: scale(1);
   }
 }

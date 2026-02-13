@@ -1,7 +1,23 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import SmoothParagraph from './SmoothParagraph'
 
 function HomeAboutSection() {
+  const contentRef = useRef(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const el = contentRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true)
+      },
+      { threshold: 0.2, rootMargin: '0px 0px -40px 0px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section className="relative z-20 -mt-16 rounded-t-[3rem] bg-white pt-16 pb-12 sm:-mt-20 sm:rounded-t-[4rem] sm:pt-20 sm:pb-16 md:pb-20">
       <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
@@ -17,28 +33,31 @@ function HomeAboutSection() {
             </div>
           </div>
 
-          <div className="transition-all duration-300 ease-out opacity-100 translate-x-0">
-            <div className="mb-4 transition-all duration-300 ease-out opacity-100 translate-y-0">
+          <div
+            ref={contentRef}
+            className={`about-slide-in-right ${isVisible ? 'about-slide-in-right-visible' : ''}`}
+          >
+            <div className="mb-4">
               <span className="text-jaz text-sm sm:text-2xl font-normal uppercase tracking-wider">
                 ABOUT US
               </span>
             </div>
 
-            <SmoothParagraph className="text-gray-600 mb-4 sm:mb-6 text-base leading-relaxed text-left">
+            <p className="text-gray-600 mb-4 sm:mb-6 text-base leading-relaxed text-left"> 
                 JAZ Builders &amp; Promoters is a professional construction and real estate
                 company providing services in <strong>Construction, PEB structures, Real
                 estate, Joint Ventures, Architectural Design, and Project consulting.</strong>{' '}
                 We deliver practical, cost-effective, and reliable solutions for
                 residential, commercial, and industrial projects.
-            </SmoothParagraph>
+            </p>
 
-            <SmoothParagraph className="text-gray-600 mb-6 sm:mb-8 text-base leading-relaxed text-left">
+            <p className="text-gray-600 mb-4 sm:mb-6 text-base leading-relaxed text-left"> 
                 Our team focuses on quality execution, transparent processes, and timely
                 completion. From planning and design to execution and consulting, we handle
                 every project with clarity and responsibility.
-            </SmoothParagraph>
+            </p>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 transition-all duration-300 ease-out opacity-100 translate-y-0">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
               <Link
                 to="/contact"
                 className="group bg-jaz text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-normal hover:bg-jaz transition-all duration-200 ease-out transform hover:scale-105 shadow-lg flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
