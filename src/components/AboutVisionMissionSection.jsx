@@ -1,5 +1,7 @@
-import { FaBullseye, FaRegPaperPlane } from 'react-icons/fa'
-import { FiSend } from 'react-icons/fi'
+import { FaBullseye } from 'react-icons/fa'
+import { GiOnTarget, GiStrikingDiamonds, GiEyestalk } from 'react-icons/gi'
+import SmoothParagraph from './SmoothParagraph'
+
 
 function AboutVisionMissionSection() {
   const missionPoints = [
@@ -18,59 +20,59 @@ function AboutVisionMissionSection() {
 
   return (
     <section className="bg-white py-12 sm:py-16 md:py-20">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="mb-8 text-center sm:mb-10">
-          <h2 className="text-5xl font-medium text-jaz-dark sm:text-6xl">
-            Our Vision,Mission &amp; Values
+          <h2 className="text-2xl font-normal tracking-wide text-jaz-dark sm:text-5xl">
+            Our Vision, Mission &amp; Values
           </h2>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          <article className="rounded-2xl bg-white p-6 shadow-lg">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-stretch">
+          <article className="flex h-full w-full flex-col items-center rounded-2xl bg-white p-6 shadow-lg transition-shadow duration-200 ease-out hover:shadow-xl">
             <div className="mb-3 flex justify-center text-jaz-dark">
-              <FaBullseye className="h-10 w-10" />
+              <GiEyestalk className="h-20 w-20" />
             </div>
-            <h3 className="text-center text-4xl font-medium text-jaz-dark">Our Vision</h3>
+            <h3 className="text-center text-xl font-normal tracking-wide text-jaz-dark">Our Vision</h3>
             <div className="my-3 flex justify-center">
-              <span className="h-1.5 w-1.5 rounded-full bg-jaz-light" />
+              <span className="h-1 w-1 rounded-full bg-jaz-light" />
             </div>
-            <p className="text-2xl leading-relaxed text-slate-600">
+            <SmoothParagraph className="w-full text-center text-base leading-relaxed tracking-wide text-slate-600">
               To build premium-quality, affordable, eco-friendly, and sustainable
               developments that unlock property value and grow across South Tamil Nadu
               over the next three years through consistent quality and timely delivery.
-            </p>
+            </SmoothParagraph>
           </article>
 
-          <article className="rounded-2xl bg-white p-6 shadow-lg">
+          <article className="flex h-full w-full flex-col items-center rounded-2xl bg-white p-6 shadow-lg transition-shadow duration-200 ease-out hover:shadow-xl">
             <div className="mb-3 flex justify-center text-jaz-dark">
-              <FaRegPaperPlane className="h-10 w-10" />
+              <GiOnTarget className="h-20 w-20" />
             </div>
-            <h3 className="text-center text-4xl font-medium text-jaz-dark">Our Mission</h3>
+            <h3 className="text-center text-xl font-normal tracking-wide text-jaz-dark">Our Mission</h3>
             <div className="my-3 flex justify-center">
-              <span className="h-1.5 w-1.5 rounded-full bg-jaz-light" />
+              <span className="h-1 w-1 rounded-full bg-jaz-light" />
             </div>
-            <ul className="space-y-2 text-2xl leading-relaxed text-slate-600">
+            <ul className="mx-auto w-full max-w-sm space-y-2 text-left text-base leading-relaxed tracking-wide text-slate-600">
               {missionPoints.map((item) => (
                 <li key={item} className="flex items-start gap-2">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-jaz" />
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-jaz" />
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
           </article>
 
-          <article className="rounded-2xl bg-white p-6 shadow-lg">
+          <article className="flex h-full w-full flex-col items-center rounded-2xl bg-white p-6 shadow-lg transition-shadow duration-200 ease-out hover:shadow-xl">
             <div className="mb-3 flex justify-center text-jaz-dark">
-              <FiSend className="h-10 w-10" />
+              <GiStrikingDiamonds className="h-20 w-20" />
             </div>
-            <h3 className="text-center text-4xl font-medium text-jaz-dark">Core Values</h3>
+            <h3 className="text-center text-xl font-normal tracking-wide text-jaz-dark">Core Values</h3>
             <div className="my-3 flex justify-center">
-              <span className="h-1.5 w-1.5 rounded-full bg-jaz-light" />
+              <span className="h-1 w-1 rounded-full bg-jaz-light" />
             </div>
-            <ul className="space-y-2 text-2xl leading-relaxed text-slate-600">
+            <ul className="mx-auto w-full max-w-sm space-y-2 text-left text-base leading-relaxed tracking-wide text-slate-600">
               {valuePoints.map((item) => (
                 <li key={item} className="flex items-start gap-2">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-jaz" />
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-jaz" />
                   <span>{item}</span>
                 </li>
               ))}

@@ -74,7 +74,7 @@ function HomeServicesSection() {
 
   return (
     <section className="bg-jaz-light py-12 sm:py-16 md:py-20">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="mb-12 text-center">
           <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white">
             Our Services
@@ -86,7 +86,7 @@ function HomeServicesSection() {
             className="flex"
             style={{
               transform: `translateX(-${(currentIndex * 100) / visibleCount}%)`,
-              transition: enableTransition ? 'transform 850ms cubic-bezier(0.22, 0.61, 0.36, 1)' : 'none',
+              transition: enableTransition ? 'transform 0.35s ease-out' : 'none',
             }}
             onTransitionEnd={handleTrackTransitionEnd}
           >
@@ -98,12 +98,12 @@ function HomeServicesSection() {
               >
                 <Link
                   to={`/service/${service.slug}`}
-                  className="group relative block h-[460px] overflow-hidden rounded-2xl border-2 border-jaz-dark/30 bg-slate-900 transform-gpu transition-all duration-500 hover:z-20 hover:-translate-y-3 hover:scale-[1.02] hover:border-jaz hover:shadow-[0_26px_42px_-16px_rgba(0,163,160,0.62),0_14px_24px_-12px_rgba(15,23,42,0.6),inset_0_1px_0_rgba(255,255,255,0.26)]"
+                  className="group relative block h-[460px] overflow-hidden rounded-2xl border-2 border-jaz-dark/30 bg-slate-900 transform-gpu transition-all duration-300 ease-out hover:z-20 hover:-translate-y-3 hover:scale-[1.02] hover:border-jaz hover:shadow-[0_26px_42px_-16px_rgba(0,163,160,0.62),0_14px_24px_-12px_rgba(15,23,42,0.6),inset_0_1px_0_rgba(255,255,255,0.26)]"
                 >
                   <img
                     src={service.image}
                     alt={service.title}
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
                   />
 
                   <div className="absolute right-3 top-3 rounded-full bg-jaz-dark/90 p-2 text-white backdrop-blur-sm">
@@ -118,10 +118,10 @@ function HomeServicesSection() {
                   </div>
 
                   <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/95 via-black/70 to-transparent p-5">
-                    <h3 className="mb-1 text-3xl font-semibold text-white transition-colors duration-300 group-hover:text-jaz">
+                    <h3 className="mb-1 text-3xl font-semibold text-white transition-colors duration-200 ease-out group-hover:text-jaz">
                       {service.title}
                     </h3>
-                    <div className="flex items-center gap-2 text-sm text-jaz-light transition-colors duration-300 group-hover:text-jaz">
+                    <div className="flex items-center gap-2 text-sm text-jaz-light transition-colors duration-200 ease-out group-hover:text-jaz">
                       <span>Learn More</span>
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -129,7 +129,7 @@ function HomeServicesSection() {
                     </div>
                   </div>
 
-                  <div className="pointer-events-none absolute inset-0 rounded-2xl border-2 border-jaz-dark opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl border-2 border-jaz-dark opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
                 </Link>
               </div>
             ))}
@@ -154,7 +154,7 @@ function HomeServicesSection() {
           <button
             type="button"
             onClick={handlePrevious}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-jaz-dark transition hover:bg-white/40"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-jaz-dark transition-colors duration-200 ease-out hover:bg-white/40"
             aria-label="Previous"
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -164,7 +164,7 @@ function HomeServicesSection() {
           <button
             type="button"
             onClick={handleNext}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-jaz-dark transition hover:bg-white/40"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-jaz-dark transition-colors duration-200 ease-out hover:bg-white/40"
             aria-label="Next"
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -176,7 +176,7 @@ function HomeServicesSection() {
         <div className="mt-10 text-center">
           <Link
             to="/service"
-            className="inline-flex items-center gap-2 rounded-xl bg-jaz-dark px-8 py-3 text-sm font-medium text-white shadow-md transition hover:opacity-90"
+            className="inline-flex items-center gap-2 rounded-xl bg-jaz-dark px-8 py-3 text-sm font-medium text-white shadow-md transition-opacity duration-200 ease-out hover:opacity-90"
           >
             View All Services
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

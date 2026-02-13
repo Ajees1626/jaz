@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiChevronDown } from 'react-icons/fi'
 import { MdKeyboardArrowRight, MdOutlineApartment } from 'react-icons/md'
+import SmoothParagraph from './SmoothParagraph'
 
 const faqItems = [
   {
@@ -30,7 +31,7 @@ function HomeFaqSection() {
 
   return (
     <section className="relative z-10 bg-jaz py-12 sm:py-16 md:py-20">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="mb-8 text-center sm:mb-10">
           <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white">
             Frequently Asked Questions
@@ -84,12 +85,12 @@ function HomeFaqSection() {
               return (
                 <div
                   key={item.question}
-                  className="rounded-xl bg-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+                  className="rounded-xl bg-white shadow-md transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-lg"
                 >
                   <button
                     type="button"
                     onClick={() => toggleFaq(index)}
-                    className="flex w-full items-start gap-3 px-4 py-4 text-left transition-colors duration-300 hover:bg-jaz-light/15 sm:px-5"
+                    className="flex w-full items-start gap-3 px-4 py-4 text-left transition-colors duration-200 ease-out hover:bg-jaz-light/15 sm:px-5"
                     aria-expanded={isActive}
                   >
                     <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-jaz-light/35 text-sm font-semibold text-jaz-dark">
@@ -99,7 +100,7 @@ function HomeFaqSection() {
                       {item.question}
                     </span>
                     <span
-                      className={`mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-jaz-light/40 text-jaz-dark transition-transform duration-300 ${
+                      className={`mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-jaz-light/40 text-jaz-dark transition-transform duration-200 ease-out ${
                         isActive ? 'rotate-180' : 'rotate-0'
                       }`}
                     >
@@ -108,16 +109,16 @@ function HomeFaqSection() {
                   </button>
 
                   <div
-                    className={`grid transition-all duration-400 ease-in-out ${
+                    className={`grid transition-all duration-300 ease-out ${
                       isActive
                         ? 'grid-rows-[1fr] border-t border-slate-100'
                         : 'grid-rows-[0fr] border-t border-transparent'
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-4 pb-5 pt-3 text-base leading-relaxed text-slate-600 sm:px-5">
+                      <SmoothParagraph className="px-4 pb-5 pt-3 text-base leading-relaxed text-slate-600 sm:px-5">
                         {item.answer}
-                      </p>
+                      </SmoothParagraph>
                     </div>
                   </div>
                 </div>
@@ -129,12 +130,12 @@ function HomeFaqSection() {
         <div className="mt-10 text-center sm:mt-12">
           <div className="mx-auto w-full max-w-2xl rounded-2xl bg-white px-6 py-7 shadow-lg sm:px-7">
             <h3 className="text-2xl font-small text-jaz-dark">Still have questions?</h3>
-            <p className="mx-auto mt-3 max-w-2xl text-lg leading-relaxed text-slate-600">
+            <SmoothParagraph className="mx-auto mt-3 max-w-2xl text-lg leading-relaxed text-slate-600">
               Our team is here to help! Contact us today and we&apos;ll be happy to answer any questions you may have about our services.
-            </p>
+            </SmoothParagraph>
             <Link
               to="/contact"
-              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-jaz-dark px-7 py-3 text-sm font-medium text-white transition hover:opacity-90"
+              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-jaz-dark px-7 py-3 text-sm font-medium text-white transition-opacity duration-200 ease-out hover:opacity-90"
             >
               Contact Us
               <MdKeyboardArrowRight className="h-5 w-5" />

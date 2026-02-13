@@ -13,7 +13,7 @@ function Navbar() {
   ]
 
   const linkClass = ({ isActive }) =>
-    `inline-block border-b border-transparent pb-1 text-[15px] font-medium tracking-normal text-white transition hover:opacity-90 ${isActive ? 'border-white' : ''}`
+    `inline-block border-b border-transparent pb-1 text-[15px] font-medium tracking-normal text-white transition-opacity duration-200 ease-out hover:opacity-90 ${isActive ? 'border-white' : ''}`
 
   return (
     <header
@@ -21,20 +21,20 @@ function Navbar() {
       style={{ backgroundColor: '#00A3A0' }}
       role="banner"
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between  sm:px-6 lg:px-8">
+      <nav className="flex w-full items-center justify-between px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         {/* Logo - Left */}
         <Link to="/" className="inline-flex items-center" onClick={() => setMobileMenuOpen(false)}>
           <img
             src="https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839658/LOGO_1_wfi62m.webp"
             alt="JAZ Builders and Promoters"
-            className="h-20 w-auto object-contain sm:h-24"
+            className="h-16 w-auto max-w-full object-contain sm:h-20 md:h-24"
             loading="eager"
           />
         </Link>
 
         {/* Right side: Home to Contact Us */}
-        <div className="hidden items-center gap-6 md:flex lg:gap-8">
-          <ul className="flex items-center gap-6 lg:gap-8">
+        <div className="hidden items-center gap-4 sm:flex sm:gap-6 md:gap-6 lg:gap-8">
+          <ul className="flex items-center gap-4 sm:gap-6 lg:gap-8">
             {navLinks.map((link) => (
               <li key={link.to}>
                 <NavLink to={link.to} className={linkClass}>
@@ -45,7 +45,7 @@ function Navbar() {
           </ul>
           <Link
             to="/contact"
-            className="shrink-0 rounded-md border border-white/80 px-5 py-2 text-[15px] font-medium tracking-normal text-white transition hover:bg-white/10"
+            className="shrink-0 rounded-md border border-white/80 px-5 py-2 text-[15px] font-medium tracking-normal text-white transition-colors duration-200 ease-out hover:bg-white/10"
             onClick={() => setMobileMenuOpen(false)}
           >
             Contact Us
@@ -55,7 +55,7 @@ function Navbar() {
         {/* Mobile menu button */}
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white md:hidden"
+          className="inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white sm:hidden"
           aria-expanded={mobileMenuOpen}
           aria-controls="mobile-menu"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -76,7 +76,7 @@ function Navbar() {
       {/* Mobile menu */}
       <div
         id="mobile-menu"
-        className={`overflow-hidden transition-all duration-200 ease-in-out md:hidden ${mobileMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}
+        className={`overflow-hidden transition-all duration-200 ease-out sm:hidden ${mobileMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}
         style={{ backgroundColor: '#00A3A0' }}
         aria-hidden={!mobileMenuOpen}
       >

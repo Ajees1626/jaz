@@ -1,4 +1,5 @@
 import { FiCheckCircle, FiStar, FiSun } from 'react-icons/fi'
+import SmoothParagraph from './SmoothParagraph'
 
 const whyChooseItems = [
   {
@@ -34,7 +35,7 @@ const whyChooseItems = [
 function HomeWhyChooseSection() {
   return (
     <section className="bg-[#f7f8f9] py-12 sm:py-16 md:py-20">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="mb-12 text-center">
           <span className="inline-flex rounded-full bg-jaz-dark px-9 py-2.5 text-sm font-medium uppercase tracking-wide text-white">
             Why Choose Us?
@@ -54,15 +55,15 @@ function HomeWhyChooseSection() {
               <h3 className="mb-2 flex min-h-[72px] items-center justify-center text-xl font-light leading-tight text-jaz-dark sm:text-2xl">
                 {item.title}
               </h3>
-              <p className="mx-auto mb-4 flex min-h-[64px] max-w-[220px] items-start justify-center text-sm leading-relaxed text-slate-500 sm:text-base">
+              <SmoothParagraph className="mx-auto mb-4 flex min-h-[64px] max-w-[220px] items-start justify-center text-sm leading-relaxed text-slate-500 sm:text-base">
                 {item.description}
-              </p>
+              </SmoothParagraph>
 
               <div className="mt-auto rounded-md bg-linear-to-r from-jaz to-jaz-light px-4 py-5 text-white">
-                <p className="text-5xl font-medium leading-none">{item.value}</p>
-                <p className="mt-2 text-xs uppercase tracking-widest text-white/90">
+                <SmoothParagraph className="text-5xl font-medium leading-none">{item.value}</SmoothParagraph>
+                <SmoothParagraph className="mt-2 text-xs uppercase tracking-widest text-white/90">
                   {item.label}
-                </p>
+                </SmoothParagraph>
               </div>
             </article>
           ))}

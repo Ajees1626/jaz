@@ -66,14 +66,14 @@ function Footer() {
   return (
     <>
       <footer className="mt-auto bg-jaz-dark text-[15px] text-white" role="contentinfo">
-        <div className="mx-auto w-full max-w-[1200px] px-5 py-14 sm:px-6 lg:px-8">
-          <div className="grid items-start gap-8 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr_0.9fr_1.1fr]">
+        <div className="w-full px-4 py-14 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <div className="grid items-start gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr_0.9fr_1.1fr] lg:gap-12">
             <div>
               <Link to="/" className="inline-flex items-center">
                 <img
                   src="https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839658/LOGO_1_wfi62m.webp"
                   alt="JAZ Builders and Promoters"
-                  className="h-20 w-auto object-contain sm:h-40"
+                  className="h-16 w-auto max-w-full object-contain sm:h-24 md:h-32 lg:h-40"
                 />
               </Link>
 
@@ -218,7 +218,7 @@ function Footer() {
 
       {selectedPopup && (
         <div
-          className="fixed inset-0 z-120 flex items-center justify-center bg-black/45 px-4 py-6 backdrop-blur-sm"
+          className="fixed inset-0 z-120 flex items-center justify-center bg-black/45 px-4 py-6 backdrop-blur-sm sm:px-6 md:px-8"
           onClick={() => setActivePopup(null)}
           role="dialog"
           aria-modal="true"
@@ -228,8 +228,8 @@ function Footer() {
             className="w-full max-w-4xl overflow-hidden rounded-3xl bg-white shadow-2xl"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-slate-200 px-8 py-5">
-              <h3 className="text-3xl font-medium text-jaz-dark">{selectedPopup.title}</h3>
+            <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4 sm:px-6 md:px-8 md:py-5">
+              <h3 className="text-xl font-medium text-jaz-dark sm:text-2xl md:text-3xl">{selectedPopup.title}</h3>
               <button
                 type="button"
                 onClick={() => setActivePopup(null)}
@@ -240,7 +240,7 @@ function Footer() {
               </button>
             </div>
 
-            <div className="max-h-[72vh] overflow-y-auto px-8 py-6">
+            <div className="max-h-[72vh] overflow-y-auto px-4 py-4 sm:px-6 md:px-8 md:py-6">
               {selectedPopup.paragraphs.map((paragraph) => (
                 <p key={paragraph} className="mb-4 text-base leading-relaxed text-justify text-slate-700 last:mb-0">
                   {paragraph}

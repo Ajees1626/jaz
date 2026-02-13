@@ -1,5 +1,6 @@
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
+import SmoothParagraph from './SmoothParagraph'
 
 const socialLinks = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com', icon: FaLinkedinIn },
@@ -12,7 +13,7 @@ const socialLinks = [
 function HomeContactSection() {
   return (
     <section className="bg-[#f7f8fa] py-12 sm:py-16 md:py-20">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <h2 className="mb-6 text-5xl font-medium text-jaz-dark">Contact Us</h2>
 
         <div className="grid gap-6 lg:grid-cols-[2fr_1fr] lg:items-stretch">
@@ -47,9 +48,9 @@ function HomeContactSection() {
                 className="min-h-[180px] w-full rounded-md border border-slate-200 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
               />
 
-              <p className="text-sm text-slate-500">
+              <SmoothParagraph className="text-sm text-slate-500">
                 Verification will appear when you click Submit.
-              </p>
+              </SmoothParagraph>
 
               <button
                 type="submit"

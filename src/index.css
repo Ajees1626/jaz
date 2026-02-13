@@ -16,9 +16,97 @@
   --color-jaz: #55BAB5;
   --color-jaz-light: #96D5D1;
   --font-sans: "Montserrat", sans-serif;
+  /* Mobile 0-767 | Tablet 768+ | Laptop 1024+ | Desktop 1280+ | Large 1440+ */
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1280px;
+  --breakpoint-xl: 1440px;
 }
 
-:root,
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
 body {
+  overflow-x: hidden;
   font-family: "Montserrat", sans-serif;
+}
+
+:root {
+  font-family: "Montserrat", sans-serif;
+  /* Breakpoints: Mobile 0-767 | Tablet 768-1023 | Laptop 1024-1279 | Desktop 1280-1439 | Large 1440+ */
+}
+
+/* Smooth, performant transitions - use transform/opacity to avoid layout thrash */
+@media (prefers-reduced-motion: no-preference) {
+  [data-smooth] {
+    transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+  }
+}
+
+/* AboutHistorySection – smooth letter / text reveal on scroll */
+@keyframes aboutHistoryTextReveal {
+  from {
+    opacity: 0;
+    letter-spacing: 0.05em;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    letter-spacing: normal;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth letter animation for all paragraphs – reveal on scroll */
+@media (prefers-reduced-motion: no-preference) {
+  .smooth-letter-reveal {
+    opacity: 0;
+    letter-spacing: 0.04em;
+    transform: translateY(6px);
+    transition:
+      opacity 0.5s ease-out,
+      letter-spacing 0.5s ease-out,
+      transform 0.5s ease-out;
+  }
+  .smooth-letter-reveal.is-visible {
+    opacity: 1;
+    letter-spacing: normal;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .smooth-letter-reveal {
+    opacity: 1;
+    letter-spacing: normal;
+    transform: none;
+  }
+}
+
+/* Hero letter-by-letter animation – smooth staggered reveal */
+@keyframes heroLetterReveal {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-letter {
+    display: inline-block;
+    opacity: 0;
+    animation: heroLetterReveal 0.55s ease-out forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-letter {
+    opacity: 1;
+    animation: none;
+  }
 }

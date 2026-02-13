@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { FiChevronLeft, FiChevronRight, FiMapPin } from 'react-icons/fi'
 import { FaQuoteLeft, FaStar } from 'react-icons/fa'
+import SmoothParagraph from './SmoothParagraph'
 
 const testimonials = [
   {
@@ -93,7 +94,7 @@ function HomeTestimonialsSection() {
 
   return (
     <section className="relative z-10 bg-white py-10 sm:py-12 md:py-16">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="mb-7 text-center sm:mb-8">
           <span className="inline-flex rounded-full bg-jaz-dark px-6 py-1.5 text-xs font-medium uppercase tracking-wide text-white sm:px-7 sm:text-sm">
             Testimonials
@@ -137,17 +138,17 @@ function HomeTestimonialsSection() {
                 ))}
               </div>
 
-              <p className="mb-5 min-h-[190px] text-lg leading-relaxed text-slate-800 sm:min-h-[170px] sm:text-xl">
+              <SmoothParagraph className="mb-5 min-h-[190px] text-lg leading-relaxed text-slate-800 sm:min-h-[170px] sm:text-xl">
                 &quot;{activeItem.message}&quot;
-              </p>
+              </SmoothParagraph>
             </div>
 
             <div className="border-t border-slate-200 pt-4">
               <h3 className="text-xl font-medium text-jaz-dark sm:text-2xl">{activeItem.name}</h3>
-              <p className="mt-1 inline-flex items-center gap-1 text-sm text-slate-500">
+              <SmoothParagraph className="mt-1 inline-flex items-center gap-1 text-sm text-slate-500">
                 <FiMapPin className="h-4 w-4" />
                 {activeItem.place}
-              </p>
+              </SmoothParagraph>
             </div>
           </div>
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiX } from 'react-icons/fi'
 import HomeBuildTogetherSection from '../components/HomeBuildTogetherSection'
+import SmoothParagraph from '../components/SmoothParagraph'
 
 function Careers() {
   const [selectedJob, setSelectedJob] = useState(null)
@@ -53,20 +54,20 @@ function Careers() {
   return (
     <>
       <section
-        className="relative flex min-h-[62vh] items-center justify-center overflow-hidden pt-20"
+        className="relative flex min-h-[110vh] items-center justify-center overflow-hidden pt-20"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80')",
+            "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839697/Career_wvucaf.webp')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed',
         }}
       >
-        <div className="px-4 text-center text-white">
-          <h1 className="mb-5 text-6xl font-normal sm:text-7xl">CAREERS</h1>
+        <div className="w-full px-4 text-center text-white sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <h1 className="mb-5 text-4xl font-normal sm:text-6xl md:text-7xl lg:text-8xl">CAREERS</h1>
           <div className="flex items-center justify-center gap-3 text-base text-white/90">
-            <Link to="/" className="transition hover:text-white">
+            <Link to="/" className="transition-colors duration-200 ease-out hover:text-white">
               Home
             </Link>
             <span>/</span>
@@ -77,8 +78,8 @@ function Careers() {
 
       <article className="relative z-20 -mt-8 overflow-hidden rounded-t-2xl bg-white sm:-mt-12 sm:rounded-t-3xl md:-mt-16 md:rounded-t-[40px] lg:-mt-20 lg:rounded-t-[60px] xl:rounded-t-[80px]">
         <section aria-label="Job openings" className="bg-white px-4 py-8 sm:px-6 sm:py-10 md:px-8 md:py-12">
-          <div className="mx-auto w-full max-w-7xl">
-            <h2 className="mb-8 text-center text-5xl font-medium text-slate-900 sm:mb-10">
+          <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+            <h2 className="mb-8 text-center text-3xl font-normal text-slate-900 sm:mb-10 sm:text-4xl md:text-5xl py-8">
               We&apos;re Hiring
             </h2>
 
@@ -86,16 +87,16 @@ function Careers() {
               {jobs.map((job) => (
                 <article
                   key={job.title}
-                  className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl sm:p-6 md:p-8"
+                  className="rounded-xl border border-slate-200 bg-slate-50 p-5 shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl sm:p-6 md:p-8"
                   itemScope
                   itemType="https://schema.org/JobPosting"
                 >
-                  <h3 className="mb-3 text-3xl font-normal text-slate-800 sm:text-4xl" itemProp="title">
+                  <h3 className="mb-3 text-3xl py-2 font-normal text-slate-800 sm:text-4xl" itemProp="title">
                     {job.title}
                   </h3>
-                  <p className="mb-5 text-sm leading-relaxed text-slate-600 sm:text-base md:text-lg" itemProp="description">
+                  <SmoothParagraph className="mb-5 text-sm leading-relaxed text-slate-600 sm:text-base md:text-lg" itemProp="description">
                     {job.description}
-                  </p>
+                  </SmoothParagraph>
                   <button
                     type="button"
                     onClick={() => openApplyModal(job)}
@@ -108,7 +109,7 @@ function Careers() {
               ))}
             </div>
 
-            <p className="mx-auto mt-10 max-w-3xl text-center text-sm leading-relaxed text-slate-600 sm:text-base">
+            <SmoothParagraph className="mx-auto mt-10 max-w-3xl text-center text-sm leading-relaxed text-slate-600 sm:text-base">
               We&apos;re on the lookout for a skilled and experienced professional to join our
               dynamic team and grow with us. If you&apos;re passionate about making an impact with
               your expertise, please send your CV to{' '}
@@ -120,7 +121,7 @@ function Careers() {
                 info@jazbuildersgroup.com
               </a>
               .
-            </p>
+            </SmoothParagraph>
           </div>
         </section>
       </article>
@@ -134,33 +135,33 @@ function Careers() {
           aria-label={`Apply for ${selectedJob.title}`}
         >
           <div
-            className="w-full max-w-5xl overflow-hidden rounded-[28px] bg-[#f7f8fa] shadow-2xl"
+            className="w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="flex items-center justify-between bg-linear-to-r from-jaz-dark to-jaz px-6 py-5 text-white sm:px-10">
-              <h3 className="text-3xl font-medium sm:text-5xl">
+            <div className="flex items-center justify-between bg-linear-to-r from-jaz-dark to-jaz px-6 py-4 text-white sm:px-8">
+              <h3 className="text-xl font-medium sm:text-2xl">
                 Apply for <span className="font-semibold">{selectedJob.title}</span>
               </h3>
               <button
                 type="button"
                 onClick={closeApplyModal}
-                className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/25 transition hover:bg-white/35"
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/20 transition hover:bg-white/40 hover:scale-105"
                 aria-label="Close apply form"
               >
-                <FiX className="h-8 w-8" />
+                <FiX className="h-5 w-5" />
               </button>
             </div>
 
             <form
-              className="max-h-[76vh] overflow-y-auto px-6 py-6 sm:px-10 sm:py-8"
+              className="max-h-[76vh] overflow-y-auto px-5 py-5 sm:px-8 sm:py-6"
               onSubmit={(event) => {
                 event.preventDefault()
                 closeApplyModal()
               }}
             >
-              <div className="space-y-5">
+              <div className="space-y-4">
                 <div>
-                  <label htmlFor="fullName" className="mb-2 block text-xl font-semibold text-slate-800">
+                  <label htmlFor="fullName" className="mb-1.5 block text-sm font-medium text-slate-700">
                     Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -168,12 +169,12 @@ function Careers() {
                     type="text"
                     required
                     placeholder="Enter your full name"
-                    className="h-14 w-full rounded-2xl border border-slate-300 bg-white px-5 text-3xl text-slate-700 outline-none transition focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="mb-2 block text-xl font-semibold text-slate-800">
+                  <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-slate-700">
                     Email Address <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -181,12 +182,12 @@ function Careers() {
                     type="email"
                     required
                     placeholder="Enter your email address"
-                    className="h-14 w-full rounded-2xl border border-slate-300 bg-white px-5 text-3xl text-slate-700 outline-none transition focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="mb-2 block text-xl font-semibold text-slate-800">
+                  <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-slate-700">
                     Phone Number <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -194,12 +195,12 @@ function Careers() {
                     type="tel"
                     required
                     placeholder="Enter your phone number"
-                    className="h-14 w-full rounded-2xl border border-slate-300 bg-white px-5 text-3xl text-slate-700 outline-none transition focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="graduationYear" className="mb-2 block text-xl font-semibold text-slate-800">
+                  <label htmlFor="graduationYear" className="mb-1.5 block text-sm font-medium text-slate-700">
                     Year of Graduation <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -209,19 +210,19 @@ function Careers() {
                     max="2100"
                     required
                     placeholder="e.g., 2020"
-                    className="h-14 w-full rounded-2xl border border-slate-300 bg-white px-5 text-3xl text-slate-700 outline-none transition focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="gender" className="mb-2 block text-xl font-semibold text-slate-800">
+                  <label htmlFor="gender" className="mb-1.5 block text-sm font-medium text-slate-700">
                     Gender <span className="text-red-500">*</span>
                   </label>
                   <select
                     id="gender"
                     required
                     defaultValue=""
-                    className="h-14 w-full rounded-2xl border border-slate-300 bg-white px-5 text-3xl text-slate-700 outline-none transition focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   >
                     <option value="" disabled>
                       Select Gender
@@ -234,7 +235,7 @@ function Careers() {
                 </div>
 
                 <div>
-                  <label htmlFor="experience" className="mb-2 block text-xl font-semibold text-slate-800">
+                  <label htmlFor="experience" className="mb-1.5 block text-sm font-medium text-slate-700">
                     Experience in Years <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -244,12 +245,12 @@ function Careers() {
                     max="60"
                     required
                     placeholder="e.g., 5"
-                    className="h-14 w-full rounded-2xl border border-slate-300 bg-white px-5 text-3xl text-slate-700 outline-none transition focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="currentCtc" className="mb-2 block text-xl font-semibold text-slate-800">
+                  <label htmlFor="currentCtc" className="mb-1.5 block text-sm font-medium text-slate-700">
                     Current CTC <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -257,12 +258,12 @@ function Careers() {
                     type="text"
                     required
                     placeholder="e.g., 5,00,000"
-                    className="h-14 w-full rounded-2xl border border-slate-300 bg-white px-5 text-3xl text-slate-700 outline-none transition focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="expectedCtc" className="mb-2 block text-xl font-semibold text-slate-800">
+                  <label htmlFor="expectedCtc" className="mb-1.5 block text-sm font-medium text-slate-700">
                     Expected CTC <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -270,12 +271,12 @@ function Careers() {
                     type="text"
                     required
                     placeholder="e.g., 7,00,000"
-                    className="h-14 w-full rounded-2xl border border-slate-300 bg-white px-5 text-3xl text-slate-700 outline-none transition focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="noticePeriod" className="mb-2 block text-xl font-semibold text-slate-800">
+                  <label htmlFor="noticePeriod" className="mb-1.5 block text-sm font-medium text-slate-700">
                     Notice Period <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -283,12 +284,12 @@ function Careers() {
                     type="text"
                     required
                     placeholder="e.g., 30 days"
-                    className="h-14 w-full rounded-2xl border border-slate-300 bg-white px-5 text-3xl text-slate-700 outline-none transition focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="location" className="mb-2 block text-xl font-semibold text-slate-800">
+                  <label htmlFor="location" className="mb-1.5 block text-sm font-medium text-slate-700">
                     Current Location <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -296,18 +297,18 @@ function Careers() {
                     type="text"
                     required
                     placeholder="Enter your current location"
-                    className="h-14 w-full rounded-2xl border border-slate-300 bg-white px-5 text-3xl text-slate-700 outline-none transition focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
               </div>
 
-              <p className="mt-6 text-xl text-slate-500">
+              <SmoothParagraph className="mt-5 text-sm text-slate-500">
                 Verification will appear when you click Submit.
-              </p>
+              </SmoothParagraph>
 
               <button
                 type="submit"
-                className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-linear-to-r from-jaz-dark to-jaz px-6 py-4 text-4xl font-semibold text-white transition hover:opacity-90"
+                className="mt-5 w-full rounded-xl bg-linear-to-r from-jaz-dark to-jaz px-6 py-3.5 text-base font-semibold text-white shadow-md transition hover:opacity-95 hover:shadow-lg active:scale-[0.99]"
               >
                 Submit Application
               </button>
@@ -315,7 +316,7 @@ function Careers() {
           </div>
         </div>
       )}
-            <HomeBuildTogetherSection />
+      <HomeBuildTogetherSection/>
     </>
   )
 }

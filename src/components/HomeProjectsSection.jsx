@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiCalendar, FiEye, FiMapPin } from 'react-icons/fi'
 import projects from '../data/projects.json'
+import SmoothParagraph from './SmoothParagraph'
 
 function HomeProjectsSection() {
   const [activeIndex, setActiveIndex] = useState(null)
@@ -12,7 +13,7 @@ function HomeProjectsSection() {
 
   return (
     <section className="bg-jaz-light py-12 sm:py-16 md:py-20">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="mb-10 text-center">
           <span className="inline-flex rounded-full bg-jaz-dark px-7 py-2 text-sm font-medium uppercase tracking-wide text-white">
             Our Projects
@@ -30,7 +31,7 @@ function HomeProjectsSection() {
                 onClick={() => toggleCard(index)}
               >
                 <div
-                  className="relative h-full w-full transition-transform duration-700 ease-out"
+                  className="relative h-full w-full transition-transform duration-300 ease-out"
                   style={{
                     transformStyle: 'preserve-3d',
                     transform: isActive ? 'rotateY(180deg)' : 'rotateY(0deg)',
@@ -44,11 +45,11 @@ function HomeProjectsSection() {
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
                     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-                      <div className="absolute -left-[65%] top-0 h-full w-[45%] -skew-x-12 bg-linear-to-r from-transparent via-white/35 to-transparent opacity-0 transition-all duration-700 group-hover:left-[130%] group-hover:opacity-100" />
+                      <div className="absolute -left-[65%] top-0 h-full w-[45%] -skew-x-12 bg-linear-to-r from-transparent via-white/35 to-transparent opacity-0 transition-all duration-400 ease-out group-hover:left-[130%] group-hover:opacity-100" />
                     </div>
                     <div className="absolute right-3 top-3 rounded-full bg-jaz-dark/90 p-2 text-white">
                       <FiEye className="h-4 w-4" />
@@ -68,25 +69,25 @@ function HomeProjectsSection() {
                   >
                     <div>
                       <h3 className="mb-4 text-2xl font-normal leading-tight sm:text-3xl">{project.title}</h3>
-                      <p className="mb-6 text-sm leading-relaxed text-white/95 sm:text-base">
+                      <SmoothParagraph className="mb-6 text-sm leading-relaxed text-white/95 sm:text-base">
                         {project.description}
-                      </p>
+                      </SmoothParagraph>
                       <div className="space-y-2.5 text-base font-normal sm:text-lg">
-                        <p className="flex items-center gap-2.5">
+                        <SmoothParagraph className="flex items-center gap-2.5">
                           <FiMapPin className="h-5 w-5" />
                           <span>{project.location}</span>
-                        </p>
-                        <p className="flex items-center gap-2.5">
+                        </SmoothParagraph>
+                        <SmoothParagraph className="flex items-center gap-2.5">
                           <FiCalendar className="h-5 w-5" />
                           <span>{project.year}</span>
-                        </p>
+                        </SmoothParagraph>
                       </div>
                     </div>
 
                     <Link
                       to={`/project/${project.slug}`}
                       onClick={(event) => event.stopPropagation()}
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-5 py-3.5 text-lg font-medium text-jaz-dark transition hover:bg-white"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-5 py-3.5 text-lg font-medium text-jaz-dark transition-colors duration-200 ease-out hover:bg-white"
                     >
                       View Project
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -95,7 +96,7 @@ function HomeProjectsSection() {
                     </Link>
 
                     <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl">
-                      <div className="absolute -left-[65%] top-0 h-full w-[45%] -skew-x-12 bg-linear-to-r from-transparent via-white/40 to-transparent opacity-0 transition-all duration-700 group-hover:left-[130%] group-hover:opacity-100" />
+                      <div className="absolute -left-[65%] top-0 h-full w-[45%] -skew-x-12 bg-linear-to-r from-transparent via-white/40 to-transparent opacity-0 transition-all duration-400 ease-out group-hover:left-[130%] group-hover:opacity-100" />
                     </div>
                   </div>
                 </div>
@@ -107,7 +108,7 @@ function HomeProjectsSection() {
         <div className="mt-10 text-center">
           <Link
             to="/project"
-            className="inline-flex items-center gap-2 rounded-xl bg-jaz-dark px-8 py-3 text-sm font-medium text-white shadow-md transition hover:opacity-90"
+            className="inline-flex items-center gap-2 rounded-xl bg-jaz-dark px-8 py-3 text-sm font-medium text-white shadow-md transition-opacity duration-200 ease-out hover:opacity-90"
           >
             View All Projects
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
