@@ -40,22 +40,40 @@ function HomeWhyChooseSection() {
   useEffect(() => {
     const el = sectionRef.current
     if (!el) return
+
     const observer = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true)
+        }
+      },
+      { threshold: 0.2 }
     )
+
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
 
   return (
-    <section ref={sectionRef} className="bg-[#f7f8f9] py-12 sm:py-16 md:py-20">
-      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-        <div className={`why-choose-reveal ${isInView ? 'why-choose-reveal-visible' : ''}`}>
-          <div className="mb-12 text-center">
+    <section
+      ref={sectionRef}
+      className="overflow-hidden bg-[#f7f8f9] py-14 sm:py-16 md:py-20 lg:py-24"
+    >
+      {/* Proper Left & Right Space Container */}
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10">
+        {/* Section Animation */}
+        <div
+          className={`transition-all duration-1000 ease-out ${
+            isInView
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-10'
+          }`}
+        >
+          {/* Heading */}
+          <div className="mb-14 text-center">
             <AnimatedLetters
               as="span"
-              className="inline-flex rounded-full bg-jaz-dark px-9 py-2.5 text-sm font-medium uppercase tracking-wide text-white"
+              className="inline-flex rounded-full bg-jaz-dark px-9 py-2.5 text-sm font-medium uppercase tracking-wide text-white shadow-md"
               delayPerLetter={28}
               durationMs={400}
               triggerOnScroll
@@ -64,25 +82,40 @@ function HomeWhyChooseSection() {
             </AnimatedLetters>
           </div>
 
-          <div className="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Cards */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {whyChooseItems.map((item, index) => (
               <article
                 key={item.title}
-                className={`why-choose-card why-choose-card-${index + 1} flex h-full flex-col rounded-lg border border-slate-200 bg-white px-5 py-6 text-center shadow-sm`}
+                className={`group flex flex-col rounded-2xl border border-slate-200 bg-white px-6 py-8 text-center shadow-sm transition-all duration-700 hover:-translate-y-3 hover:shadow-2xl ${
+                  isInView
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-12'
+                }`}
+                style={{
+                  transitionDelay: `${index * 150}ms`,
+                }}
               >
-                <div className="why-choose-icon mx-auto mb-5 inline-flex h-[68px] w-[68px] items-center justify-center rounded-xl bg-jaz text-white shadow-md">
+                {/* Icon */}
+                <div className="mx-auto mb-6 inline-flex h-[72px] w-[72px] items-center justify-center rounded-2xl bg-gradient-to-br from-jaz to-jaz-light text-white shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
                   <item.icon className="h-9 w-9" />
                 </div>
 
-                <h3 className="mb-2 flex min-h-[72px] items-center justify-center text-xl font-light leading-tight text-jaz-dark sm:text-2xl">
+                {/* Title */}
+                <h3 className="mb-3 text-xl font-medium text-jaz-dark sm:text-2xl">
                   {item.title}
                 </h3>
-                <p className="mx-auto mb-4 flex min-h-[64px] max-w-[220px] items-start justify-center text-sm leading-relaxed text-slate-500 sm:text-base">
+
+                {/* Description */}
+                <p className="mb-6 text-sm leading-relaxed text-slate-500 sm:text-base">
                   {item.description}
                 </p>
 
-                <div className="mt-auto rounded-md bg-linear-to-r from-jaz to-jaz-light px-4 py-5 text-white">
-                  <p className="text-5xl font-medium leading-none">{item.value}</p>
+                {/* Bottom Highlight Box */}
+                <div className="mt-auto rounded-xl bg-gradient-to-r from-jaz to-jaz-light px-4 py-6 text-white shadow-inner transition-all duration-500 group-hover:scale-[1.03]">
+                  <p className="text-4xl font-semibold leading-none">
+                    {item.value}
+                  </p>
                   <p className="mt-2 text-xs uppercase tracking-widest text-white/90">
                     {item.label}
                   </p>

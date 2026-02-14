@@ -2,75 +2,151 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function HomeAboutSection() {
-  const contentRef = useRef(null)
+  const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    const el = contentRef.current
-    if (!el) return
+    const section = sectionRef.current
+    if (!section) return
+
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true)
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsVisible(entry.isIntersecting)
+        })
       },
-      { threshold: 0.2, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.25, rootMargin: '0px 0px -50px 0px' }
     )
-    observer.observe(el)
+
+    observer.observe(section)
     return () => observer.disconnect()
   }, [])
 
+  /* Word Animation (No Line Break Issue) */
+  const AnimatedWords = ({ children, delay = 0 }) => {
+    const words = children.split(' ')
+
+    return words.map((word, index) => (
+      <span
+        key={index}
+        style={{
+          transitionDelay: `${index * 80 + delay}ms`,
+        }}
+        className={`inline-block mr-1 transition-all duration-500 ease-out will-change-transform ${
+          isVisible
+            ? 'translate-y-0 opacity-100'
+            : 'translate-y-4 opacity-0'
+        }`}
+      >
+        {word}
+      </span>
+    ))
+  }
+
   return (
-    <section className="relative z-20 -mt-16 rounded-t-[3rem] bg-white pt-16 pb-12 sm:-mt-20 sm:rounded-t-[4rem] sm:pt-20 sm:pb-16 md:pb-20">
-      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-        
-          <div className="grid items-center gap-8 sm:gap-10 md:grid-cols-2 md:gap-12">
-          <div className="relative">
-            <div className="overflow-hidden rounded-lg shadow-2xl">
+    <section
+    ref={sectionRef}
+    className="relative z-20 -mt-16 overflow-hidden rounded-t-[3rem] bg-white 
+    pt-16 pb-12 sm:-mt-20 sm:rounded-t-[4rem] sm:pt-20 sm:pb-16 md:pb-20"
+  >
+    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10">
+  
+  
+
+        <div className="grid items-center gap-8 sm:gap-10 md:grid-cols-2 md:gap-12">
+
+          {/* IMAGE */}
+          <div
+            className={`transition-all duration-700 ease-out ${
+              isVisible
+                ? 'translate-x-0 opacity-100'
+                : '-translate-x-10 opacity-0'
+            }`}
+          >
+            <div className="overflow-hidden rounded-xl shadow-2xl will-change-transform">
               <img
                 src="https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839378/ABOUT_uwlhic.webp"
                 alt="House key and home model"
-                className="h-[280px] w-full object-cover sm:h-[340px] md:h-[380px]"
+                loading="lazy"
+                decoding="async"
+                className="h-[260px] w-full object-cover sm:h-[340px] md:h-[400px] lg:h-[420px]"
               />
             </div>
           </div>
 
+          {/* CONTENT */}
           <div
-            ref={contentRef}
-            className={`about-slide-in-right ${isVisible ? 'about-slide-in-right-visible' : ''}`}
+            className={`transition-all duration-700 ease-out ${
+              isVisible
+                ? 'translate-x-0 opacity-100'
+                : 'translate-x-10 opacity-0'
+            }`}
           >
+            {/* HEADING */}
             <div className="mb-4">
               <span className="text-jaz text-sm sm:text-2xl font-normal uppercase tracking-wider">
                 ABOUT US
               </span>
             </div>
 
-            <p className="text-gray-600 mb-4 sm:mb-6 text-base leading-relaxed text-left"> 
-                JAZ Builders &amp; Promoters is a professional construction and real estate
-                company providing services in <strong>Construction, PEB structures, Real
-                estate, Joint Ventures, Architectural Design, and Project consulting.</strong>{' '}
-                We deliver practical, cost-effective, and reliable solutions for
-                residential, commercial, and industrial projects.
+            {/* Paragraph 1 */}
+            <p className="mb-4 text-left text-sm leading-relaxed text-gray-600 sm:mb-6 sm:text-base md:text-lg">
+              <AnimatedWords delay={200}>
+                JAZ Builders & Promoters is a professional construction and real estate company providing services in
+              </AnimatedWords>{' '}
+              <strong className="font-semibold text-gray-800">
+                <AnimatedWords delay={800}>
+                  Construction, PEB structures, Real estate, Joint Ventures, Architectural Design, and Project consulting.
+                </AnimatedWords>
+              </strong>{' '}
+              <AnimatedWords delay={1600}>
+                We deliver practical, cost-effective, and reliable solutions for residential, commercial, and industrial projects.
+              </AnimatedWords>
             </p>
 
-            <p className="text-gray-600 mb-4 sm:mb-6 text-base leading-relaxed text-left"> 
-                Our team focuses on quality execution, transparent processes, and timely
-                completion. From planning and design to execution and consulting, we handle
-                every project with clarity and responsibility.
+            {/* Paragraph 2 */}
+            <p className="mb-6 text-left text-sm leading-relaxed text-gray-600 sm:text-base md:text-lg">
+              <AnimatedWords delay={2200}>
+                Our team focuses on quality execution, transparent processes, and timely completion.
+              </AnimatedWords>{' '}
+              <AnimatedWords delay={2800}>
+                From planning and design to execution and consulting, we handle every project with clarity and responsibility.
+              </AnimatedWords>
             </p>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+            {/* BUTTON */}
+            <div
+              className={`transition-all duration-700 delay-[3200ms] ease-out ${
+                isVisible
+                  ? 'translate-y-0 opacity-100'
+                  : 'translate-y-6 opacity-0'
+              }`}
+            >
               <Link
                 to="/contact"
-                className="group bg-jaz text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-normal hover:bg-jaz transition-all duration-200 ease-out transform hover:scale-105 shadow-lg flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
+                className="group flex w-full items-center justify-center gap-2 rounded-lg
+                bg-jaz px-6 py-3 text-sm font-normal text-white shadow-lg
+                transition-all duration-300 ease-out hover:scale-105
+                sm:w-auto sm:px-8 sm:py-4 sm:text-base"
               >
                 Get Free Quote
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-200 ease-out fill-none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg
+                  className="h-4 w-4 fill-none transition-transform duration-200 ease-out group-hover:translate-x-1 sm:h-5 sm:w-5"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </Link>
             </div>
+
           </div>
         </div>
-       
       </div>
     </section>
   )

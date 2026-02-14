@@ -1,25 +1,27 @@
-import { useEffect, useState } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect, useState, lazy, Suspense } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import ScrollToTop from './components/ScrollToTop'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import QuickEnquiryModal from './components/QuickEnquiryModal'
 import FloatingSocial from './components/FloatingSocial'
-import Home from './pages/Home'
-import About from './pages/About'
-import Service from './pages/Service'
-import ServiceDetail from './pages/ServiceDetail'
-import Project from './pages/Project'
-import ProjectDetail from './pages/ProjectDetail'
-import Careers from './pages/Careers'
-import Contact from './pages/Contact'
 import './App.css'
 
-function ScrollToTop() {
-  const { pathname } = useLocation()
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [pathname])
-  return null
+const Home = lazy(() => import('./pages/Home'))
+const About = lazy(() => import('./pages/About'))
+const Service = lazy(() => import('./pages/Service'))
+const ServiceDetail = lazy(() => import('./pages/ServiceDetail'))
+const Project = lazy(() => import('./pages/Project'))
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
+const Careers = lazy(() => import('./pages/Careers'))
+const Contact = lazy(() => import('./pages/Contact'))
+
+function PageLoader() {
+  return (
+    <div className="flex min-h-[60vh] items-center justify-center">
+      <div className="h-10 w-10 animate-spin rounded-full border-2 border-jaz-dark border-t-transparent" />
+    </div>
+  )
 }
 
 function App() {
@@ -31,21 +33,23 @@ function App() {
   }, [])
 
   return (
-    <div className="flex min-h-screen flex-col p">
+    <div className="flex min-h-screen flex-col">
       <ScrollToTop />
       <Navbar />
 
-      <main className="flex-1 ">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/service" element={<Service />} />
-          <Route path="/service/:slug" element={<ServiceDetail />} />
-          <Route path="/project" element={<Project />} />
-          <Route path="/project/:slug" element={<ProjectDetail />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+      <main className="flex-1">
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/service" element={<Service />} />
+            <Route path="/service/:slug" element={<ServiceDetail />} />
+            <Route path="/project" element={<Project />} />
+            <Route path="/project/:slug" element={<ProjectDetail />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </Suspense>
       </main>
 
       <Footer />

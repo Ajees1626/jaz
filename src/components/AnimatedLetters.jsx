@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
-const DEFAULT_DELAY_MS = 40
-const DEFAULT_DURATION_MS = 500
+const DEFAULT_DELAY_MS = 35
+const DEFAULT_DURATION_MS = 400
 
 /**
  * Splits text into letters and animates each with a staggered delay.

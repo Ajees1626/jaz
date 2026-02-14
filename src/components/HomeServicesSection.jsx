@@ -9,43 +9,58 @@ function HomeServicesSection() {
   const [visibleCount, setVisibleCount] = useState(3)
   const [enableTransition, setEnableTransition] = useState(true)
 
+  /* Intersection Observer */
   useEffect(() => {
     const el = sectionRef.current
     if (!el) return
+
     const observer = new IntersectionObserver(
       ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0.18, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.2, rootMargin: '0px 0px -60px 0px' }
     )
+
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
 
+  /* Responsive Visible Count */
   useEffect(() => {
     const updateVisibleCount = () => {
-      setVisibleCount(window.innerWidth < 768 ? 1 : 3)
+      const count = window.innerWidth < 768 ? 1 : 3
+      setVisibleCount((prev) => (prev !== count ? count : prev))
     }
 
     updateVisibleCount()
-    window.addEventListener('resize', updateVisibleCount)
+    const resizeHandler = () => requestAnimationFrame(updateVisibleCount)
 
-    return () => window.removeEventListener('resize', updateVisibleCount)
+    window.addEventListener('resize', resizeHandler)
+    return () => window.removeEventListener('resize', resizeHandler)
   }, [])
 
+  /* Reset Position */
   useEffect(() => {
     setEnableTransition(false)
     setCurrentIndex(visibleCount)
-    const restore = requestAnimationFrame(() => setEnableTransition(true))
-    return () => cancelAnimationFrame(restore)
+
+    const frame = requestAnimationFrame(() => {
+      setEnableTransition(true)
+    })
+
+    return () => cancelAnimationFrame(frame)
   }, [visibleCount])
 
+  /* Auto Slide Only When Visible */
   useEffect(() => {
+    if (!isInView) return
+
     const autoSlide = setInterval(() => {
       setCurrentIndex((prev) => prev + 1)
     }, 3200)
 
     return () => clearInterval(autoSlide)
-  }, [])
+  }, [isInView])
 
+  /* Infinite Loop Setup */
   const sliderItems = useMemo(() => {
     if (!services.length) return []
     const head = services.slice(-visibleCount)
@@ -59,13 +74,8 @@ function HomeServicesSection() {
     return ((offset % services.length) + services.length) % services.length
   }, [currentIndex, visibleCount])
 
-  const handlePrevious = () => {
-    setCurrentIndex((prev) => prev - 1)
-  }
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => prev + 1)
-  }
+  const handlePrevious = () => setCurrentIndex((prev) => prev - 1)
+  const handleNext = () => setCurrentIndex((prev) => prev + 1)
 
   const handleTrackTransitionEnd = () => {
     const minIndex = visibleCount
@@ -86,23 +96,40 @@ function HomeServicesSection() {
   }
 
   return (
-    <section ref={sectionRef} className="bg-jaz-light py-12 sm:py-16 md:py-20">
+    <section
+      ref={sectionRef}
+      className={`overflow-hidden bg-jaz-light py-12 sm:py-16 md:py-20 transition-all duration-1000 ease-out ${
+        isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+      }`}
+    >
       <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-        <div
-          className={`services-section-reveal ${isInView ? 'services-section-reveal-visible' : ''}`}
-        >
-          <div className="mb-12 text-center">
-            <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white">
-              Our Services
-            </span>
-          </div>
 
-          <div className="overflow-hidden pt-4">
+        {/* Heading Reveal */}
+        <div
+          className={`mb-12 text-center transition-all duration-700 delay-200 ease-out ${
+            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
+        >
+          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white">
+            Our Services
+          </span>
+        </div>
+
+        {/* Slider Reveal */}
+        <div
+          className={`overflow-hidden pt-4 transition-all duration-700 delay-300 ease-out ${
+            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <div
-            className="flex"
+            className="flex will-change-transform"
             style={{
-              transform: `translateX(-${(currentIndex * 100) / visibleCount}%)`,
-              transition: enableTransition ? 'transform 0.35s ease-out' : 'none',
+              transform: `translateX(-${
+                (currentIndex * 100) / visibleCount
+              }%)`,
+              transition: enableTransition
+                ? 'transform 0.35s ease-out'
+                : 'none',
             }}
             onTransitionEnd={handleTrackTransitionEnd}
           >
@@ -119,88 +146,58 @@ function HomeServicesSection() {
                   <img
                     src={service.image}
                     alt={service.title}
+                    loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
                   />
-
-                  <div className="absolute right-3 top-3 rounded-full bg-jaz-dark/90 p-2 text-white backdrop-blur-sm">
-                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01"
-                      />
-                    </svg>
-                  </div>
 
                   <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/95 via-black/70 to-transparent p-5">
                     <h3 className="mb-1 text-3xl font-semibold text-white transition-colors duration-200 ease-out group-hover:text-jaz">
                       {service.title}
                     </h3>
-                    <div className="flex items-center gap-2 text-sm text-jaz-light transition-colors duration-200 ease-out group-hover:text-jaz">
+                    <div className="flex items-center gap-2 text-sm text-jaz-light group-hover:text-jaz">
                       <span>Learn More</span>
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
                     </div>
                   </div>
-
-                  <div className="pointer-events-none absolute inset-0 rounded-2xl border-2 border-jaz-dark opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
                 </Link>
               </div>
             ))}
           </div>
         </div>
 
-          <div className="services-reveal-item services-reveal-item-1 mt-10 flex items-center justify-center gap-2">
-            {services.map((_, dotIndex) => (
-              <button
-                key={dotIndex}
-                type="button"
-                onClick={() => setCurrentIndex(dotIndex + visibleCount)}
-                className={`h-2.5 rounded-full transition-all ${
-                  dotIndex === logicalIndex ? 'w-8 bg-jaz-dark' : 'w-2.5 bg-jaz-dark/40'
-                }`}
-                aria-label={`Go to slide ${dotIndex + 1}`}
-              />
-            ))}
-          </div>
-
-          <div className="services-reveal-item services-reveal-item-2 mt-6 flex items-center justify-center gap-4">
+        {/* Dots Reveal */}
+        <div
+          className={`mt-10 flex items-center justify-center gap-2 transition-all duration-700 delay-500 ${
+            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
+        >
+          {services.map((_, dotIndex) => (
             <button
-              type="button"
-              onClick={handlePrevious}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-jaz-dark transition-colors duration-200 ease-out hover:bg-white/40"
-              aria-label="Previous"
-            >
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              type="button"
-              onClick={handleNext}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-jaz-dark transition-colors duration-200 ease-out hover:bg-white/40"
-              aria-label="Next"
-            >
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-
-          <div className="services-reveal-item services-reveal-item-3 mt-10 text-center">
-            <Link
-              to="/service"
-              className="inline-flex items-center gap-2 rounded-xl bg-jaz-dark px-8 py-3 text-sm font-medium text-white shadow-md transition-opacity duration-200 ease-out hover:opacity-90"
-            >
-              View All Services
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
+              key={dotIndex}
+              onClick={() => setCurrentIndex(dotIndex + visibleCount)}
+              className={`h-2.5 rounded-full transition-all ${
+                dotIndex === logicalIndex
+                  ? 'w-8 bg-jaz-dark'
+                  : 'w-2.5 bg-jaz-dark/40'
+              }`}
+            />
+          ))}
         </div>
+
+        {/* View All Button Reveal */}
+        <div
+          className={`mt-10 text-center transition-all duration-700 delay-700 ${
+            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
+        >
+          <Link
+            to="/service"
+            className="inline-flex items-center gap-2 rounded-xl bg-jaz-dark px-8 py-3 text-sm font-medium text-white shadow-md transition-opacity duration-200 ease-out hover:opacity-90"
+          >
+            View All Services →
+          </Link>
+        </div>
+
       </div>
     </section>
   )

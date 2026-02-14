@@ -25,82 +25,81 @@ function AboutVisionMissionSection() {
     if (!section) return
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setIsVisible(entry.isIntersecting) // repeat animation
-        })
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting) // repeat animation
       },
-      { threshold: 0.2 }
+      {
+        threshold: 0.25,
+        rootMargin: '0px 0px -80px 0px',
+      }
     )
 
     observer.observe(section)
     return () => observer.disconnect()
   }, [])
 
-  /* Letter Animation Component */
-  const AnimatedLetters = ({ text, delay = 0 }) => {
-    return (
-      <>
-        {text.split('').map((char, index) => (
-          <span
-            key={index}
-            style={{ transitionDelay: `${index * 25 + delay}ms` }}
-            className={`inline-block transition-all duration-500 ease-out ${
-              isVisible
-                ? 'translate-y-0 opacity-100'
-                : 'translate-y-6 opacity-0'
-            }`}
-          >
-            {char === ' ' ? '\u00A0' : char}
-          </span>
-        ))}
-      </>
-    )
-  }
+  /* Medium Smooth Letter Animation */
+  const AnimatedLetters = ({ text, delay = 0 }) => (
+    <>
+      {text.split('').map((char, index) => (
+        <span
+          key={index}
+          style={{
+            transitionDelay: `${index * 50 + delay}ms`,
+          }}
+          className={`inline-block transition-all duration-700 ease-out ${
+            isVisible
+              ? 'translate-y-0 opacity-100'
+              : 'translate-y-6 opacity-0'
+          }`}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </>
+  )
 
   return (
     <section
       ref={sectionRef}
-      className="overflow-hidden bg-white py-12 sm:py-16 md:py-20"
+      className="overflow-hidden bg-white py-12 sm:py-16 md:py-20 lg:py-24"
     >
-      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10">
 
-        {/* Section Heading Letter Animation */}
-        <div className="mb-8 text-center sm:mb-10">
-          <h2 className="text-2xl font-normal tracking-wide text-jaz-dark sm:text-5xl">
+        {/* Section Heading */}
+        <div className="mb-10 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal tracking-wide text-jaz-dark">
             <AnimatedLetters text="Our Vision, Mission & Values" />
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-stretch">
+        <div className="grid gap-8 sm:gap-10 lg:grid-cols-3">
 
           {/* VISION CARD */}
           <div
-            className={`flex flex-col items-center rounded-2xl bg-white p-6 shadow-lg transition-all duration-700 ease-out hover:shadow-xl ${
+            className={`flex flex-col items-center rounded-2xl bg-white p-6 sm:p-8 shadow-lg transition-all duration-700 ease-out hover:shadow-xl ${
               isVisible
                 ? 'translate-y-0 opacity-100'
                 : 'translate-y-16 opacity-0'
             }`}
           >
             <div
-              className={`mb-3 flex justify-center text-jaz-dark transition-all duration-700 ${
+              className={`mb-4 text-jaz-dark transition-all duration-700 ${
                 isVisible
                   ? 'scale-100 rotate-0 opacity-100'
-                  : 'scale-50 rotate-[-20deg] opacity-0'
+                  : 'scale-75 -rotate-12 opacity-0'
               }`}
             >
-              <GiEyestalk className="h-20 w-20" />
+              <GiEyestalk className="h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20" />
             </div>
 
-            <h3 className="text-center text-xl font-normal tracking-wide text-jaz-dark">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-normal text-jaz-dark text-center">
               <AnimatedLetters text="Our Vision" delay={200} />
             </h3>
 
-            <div className="my-3 flex justify-center">
-              <span className="h-1 w-1 rounded-full bg-jaz-light" />
-            </div>
+            <div className="my-4 h-1 w-8 rounded-full bg-jaz-light" />
 
-            <SmoothParagraph className="w-full text-center text-base leading-relaxed tracking-wide text-slate-600">
+            <SmoothParagraph className="text-center text-sm sm:text-base leading-relaxed text-slate-600">
               To build premium-quality, affordable, eco-friendly, and sustainable
               developments that unlock property value and grow across South Tamil Nadu.
             </SmoothParagraph>
@@ -108,42 +107,40 @@ function AboutVisionMissionSection() {
 
           {/* MISSION CARD */}
           <div
-            className={`flex flex-col items-center rounded-2xl bg-white p-6 shadow-lg transition-all duration-700 delay-150 ease-out hover:shadow-xl ${
+            className={`flex flex-col items-center rounded-2xl bg-white p-6 sm:p-8 shadow-lg transition-all duration-700 ease-out hover:shadow-xl ${
               isVisible
                 ? 'translate-y-0 opacity-100'
                 : 'translate-y-16 opacity-0'
             }`}
           >
             <div
-              className={`mb-3 flex justify-center text-jaz-dark transition-all duration-700 ${
+              className={`mb-4 text-jaz-dark transition-all duration-700 ${
                 isVisible
                   ? 'scale-100 rotate-0 opacity-100'
-                  : 'scale-50 rotate-[20deg] opacity-0'
+                  : 'scale-75 rotate-12 opacity-0'
               }`}
             >
-              <GiOnTarget className="h-20 w-20" />
+              <GiOnTarget className="h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20" />
             </div>
 
-            <h3 className="text-center text-xl font-normal tracking-wide text-jaz-dark">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-normal text-jaz-dark text-center">
               <AnimatedLetters text="Our Mission" delay={200} />
             </h3>
 
-            <div className="my-3 flex justify-center">
-              <span className="h-1 w-1 rounded-full bg-jaz-light" />
-            </div>
+            <div className="my-4 h-1 w-8 rounded-full bg-jaz-light" />
 
-            <ul className="mx-auto w-full max-w-sm space-y-2 text-left text-base leading-relaxed tracking-wide text-slate-600">
+            <ul className="w-full max-w-sm space-y-3 text-sm sm:text-base text-slate-600">
               {missionPoints.map((item, index) => (
                 <li
                   key={item}
-                  style={{ transitionDelay: `${index * 150}ms` }}
-                  className={`flex items-start gap-2 transition-all duration-500 ${
+                  style={{ transitionDelay: `${index * 180}ms` }}
+                  className={`flex items-start gap-3 transition-all duration-600 ${
                     isVisible
                       ? 'translate-x-0 opacity-100'
-                      : 'translate-x-6 opacity-0'
+                      : 'translate-x-8 opacity-0'
                   }`}
                 >
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-jaz" />
+                  <span className="mt-2 h-2 w-2 rounded-full bg-jaz shrink-0" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -152,42 +149,40 @@ function AboutVisionMissionSection() {
 
           {/* VALUES CARD */}
           <div
-            className={`flex flex-col items-center rounded-2xl bg-white p-6 shadow-lg transition-all duration-700 delay-300 ease-out hover:shadow-xl ${
+            className={`flex flex-col items-center rounded-2xl bg-white p-6 sm:p-8 shadow-lg transition-all duration-700 ease-out hover:shadow-xl ${
               isVisible
                 ? 'translate-y-0 opacity-100'
                 : 'translate-y-16 opacity-0'
             }`}
           >
             <div
-              className={`mb-3 flex justify-center text-jaz-dark transition-all duration-700 ${
+              className={`mb-4 text-jaz-dark transition-all duration-700 ${
                 isVisible
                   ? 'scale-100 rotate-0 opacity-100'
-                  : 'scale-50 rotate-[-20deg] opacity-0'
+                  : 'scale-75 -rotate-12 opacity-0'
               }`}
             >
-              <GiStrikingDiamonds className="h-20 w-20" />
+              <GiStrikingDiamonds className="h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20" />
             </div>
 
-            <h3 className="text-center text-xl font-normal tracking-wide text-jaz-dark">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-normal text-jaz-dark text-center">
               <AnimatedLetters text="Core Values" delay={200} />
             </h3>
 
-            <div className="my-3 flex justify-center">
-              <span className="h-1 w-1 rounded-full bg-jaz-light" />
-            </div>
+            <div className="my-4 h-1 w-8 rounded-full bg-jaz-light" />
 
-            <ul className="mx-auto w-full max-w-sm space-y-2 text-left text-base leading-relaxed tracking-wide text-slate-600">
+            <ul className="w-full max-w-sm space-y-3 text-sm sm:text-base text-slate-600">
               {valuePoints.map((item, index) => (
                 <li
                   key={item}
-                  style={{ transitionDelay: `${index * 120}ms` }}
-                  className={`flex items-start gap-2 transition-all duration-500 ${
+                  style={{ transitionDelay: `${index * 150}ms` }}
+                  className={`flex items-start gap-3 transition-all duration-600 ${
                     isVisible
                       ? 'translate-x-0 opacity-100'
-                      : 'translate-x-6 opacity-0'
+                      : 'translate-x-8 opacity-0'
                   }`}
                 >
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-jaz" />
+                  <span className="mt-2 h-2 w-2 rounded-full bg-jaz shrink-0" />
                   <span>{item}</span>
                 </li>
               ))}

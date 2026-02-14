@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap");
 @import "tailwindcss";
 
 @font-face {
@@ -88,8 +88,8 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .about-slide-in-right {
     opacity: 0;
-    transform: translateX(56px);
-    transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+    transform: translateX(40px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
   }
   .about-slide-in-right.about-slide-in-right-visible {
     opacity: 1;
@@ -107,8 +107,8 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .services-section-reveal {
     opacity: 0;
-    transform: translateY(36px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    transform: translateY(24px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
   }
   .services-section-reveal.services-section-reveal-visible {
     opacity: 1;
@@ -150,8 +150,8 @@ body {
 /* HomeWhyChooseSection – icon rotate animation */
 @keyframes whyChooseIconRotate {
   from {
-    transform: rotate(-180deg);
-    opacity: 0.85;
+    transform: rotate(-120deg);
+    opacity: 0.9;
   }
   to {
     transform: rotate(0);
@@ -166,21 +166,21 @@ body {
     opacity: 0.85;
   }
   .why-choose-reveal-visible .why-choose-card-1 .why-choose-icon {
-    animation: whyChooseIconRotate 0.55s ease-out 0.1s forwards;
+    animation: whyChooseIconRotate 0.4s ease-out 0.08s forwards;
   }
   .why-choose-reveal-visible .why-choose-card-2 .why-choose-icon {
-    animation: whyChooseIconRotate 0.55s ease-out 0.2s forwards;
+    animation: whyChooseIconRotate 0.4s ease-out 0.16s forwards;
   }
   .why-choose-reveal-visible .why-choose-card-3 .why-choose-icon {
-    animation: whyChooseIconRotate 0.55s ease-out 0.3s forwards;
+    animation: whyChooseIconRotate 0.4s ease-out 0.24s forwards;
   }
   .why-choose-reveal-visible .why-choose-card-4 .why-choose-icon {
-    animation: whyChooseIconRotate 0.55s ease-out 0.4s forwards;
+    animation: whyChooseIconRotate 0.4s ease-out 0.32s forwards;
   }
   .why-choose-reveal .why-choose-card {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
   }
   .why-choose-reveal-visible .why-choose-card-1 {
     opacity: 1;
@@ -337,16 +337,36 @@ body {
 /* Hero background zoom – runs when hero is in view (page load / navigate) */
 @media (prefers-reduced-motion: no-preference) {
   .hero-bg-zoom {
-    transform: scale(1.12);
-    transition: transform 1s ease-out;
+    transform: scale(1.08);
+    transition: transform 0.7s ease-out;
+    will-change: transform;
   }
   .hero-bg-zoom.is-visible {
     transform: scale(1);
+    will-change: auto;
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-bg-zoom.is-visible,
   .hero-bg-zoom {
     transform: scale(1);
+  }
+}
+
+/* Performance: content-visibility for below-fold sections */
+.reveal-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+}
+
+/* Responsive: tap targets, smooth touch */
+@media (hover: none) and (pointer: coarse) {
+  a, button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .min-touch {
+    min-height: 44px;
+    min-width: 44px;
   }
 }

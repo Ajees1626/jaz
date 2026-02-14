@@ -25,7 +25,7 @@ function HomeProjectsSection() {
   }
 
   return (
-    <section ref={sectionRef} className="bg-jaz-light py-12 sm:py-16 md:py-20">
+    <section ref={sectionRef} className="reveal-section bg-jaz-light py-12 sm:py-16 md:py-20">
       <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className={`projects-section-reveal ${isInView ? 'projects-section-reveal-visible' : ''}`}>
           <div className="projects-reveal-header mb-10 text-center">

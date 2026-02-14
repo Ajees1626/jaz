@@ -70,12 +70,12 @@ function Contact() {
 
   const AnimatedLetters = ({ text, delay = 0, visible }) => (
     <>
-      {text.split('').map((char, index) => (
+      {(text || '').split('').map((char, index) => (
         <span
           key={index}
-          style={{ transitionDelay: `${index * 35 + delay}ms` }}
-          className={`inline-block transition-all duration-500 ease-out ${
-            visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          style={{ transitionDelay: `${index * 28 + delay}ms` }}
+          className={`inline-block transition-all duration-400 ease-out ${
+            visible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
           }`}
         >
           {char === ' ' ? '\u00A0' : char}
@@ -122,7 +122,7 @@ function Contact() {
       {/* Contact info cards */}
       <section
         ref={cardsRef}
-        className="relative z-20 -mt-16 rounded-t-[3rem] bg-jaz-dark pt-4 sm:-mt-20 sm:rounded-t-[4rem]"
+        className="relative z-20 -mt-16 rounded-t-[3rem] bg-white pt-4 sm:-mt-20 sm:rounded-t-[4rem]"
       >
         <div className="w-full px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-16 lg:px-10 lg:py-20 xl:px-12">
           <div

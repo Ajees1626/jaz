@@ -1,8 +1,15 @@
 import { useState } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const location = useLocation()
+
+  const scrollToTopIfHome = (to) => {
+    if (to === '/' && location.pathname === '/') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    }
+  }
 
   const navLinks = [
     { label: 'Home', to: '/' },
@@ -23,7 +30,14 @@ function Navbar() {
     >
       <nav className="flex w-full items-center justify-between px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         {/* Logo - Left */}
-        <Link to="/" className="inline-flex items-center" onClick={() => setMobileMenuOpen(false)}>
+        <Link
+          to="/"
+          className="inline-flex items-center"
+          onClick={() => {
+            setMobileMenuOpen(false)
+            scrollToTopIfHome('/')
+          }}
+        >
           <img
             src="https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839658/LOGO_1_wfi62m.webp"
             alt="JAZ Builders and Promoters"
@@ -37,7 +51,7 @@ function Navbar() {
           <ul className="flex items-center gap-4 sm:gap-6 lg:gap-8">
             {navLinks.map((link) => (
               <li key={link.to}>
-                <NavLink to={link.to} className={linkClass}>
+                <NavLink to={link.to} className={linkClass} onClick={() => scrollToTopIfHome(link.to)}>
                   {link.label}
                 </NavLink>
               </li>
@@ -88,7 +102,10 @@ function Navbar() {
                 className={({ isActive }) =>
                   `block rounded-md px-3 py-2.5 text-white ${isActive ? 'font-semibold bg-white/10' : 'hover:bg-white/10'}`
                 }
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => {
+                  setMobileMenuOpen(false)
+                  scrollToTopIfHome(link.to)
+                }}
               >
                 {link.label}
               </NavLink>

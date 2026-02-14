@@ -14,26 +14,30 @@ const faqItems = [
   {
     question: 'What types of projects do you specialize in?',
     answer:
-      "We specialize in residential, commercial, and industrial construction projects.",
+      'We specialize in residential, commercial, and industrial construction projects.',
   },
   {
     question: 'How do I start a project with your company?',
     answer:
-      "Starting a project with us is easy! Contact us to schedule a consultation.",
+      'Starting a project with us is easy! Contact us to schedule a consultation.',
   },
 ]
 
-/* Letter Animation */
+/* Premium Letter Animation */
 const LetterAnimation = ({ text }) => {
   return (
     <>
       {text.split('').map((char, index) => (
         <motion.span
           key={index}
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: index * 0.03 }}
-          viewport={{ once: false }}
+          transition={{
+            duration: 0.4,
+            delay: index * 0.025,
+            ease: 'easeOut',
+          }}
+          viewport={{ once: true, amount: 0.6 }}
           className="inline-block"
         >
           {char === ' ' ? '\u00A0' : char}
@@ -51,33 +55,34 @@ function HomeFaqSection() {
   }
 
   return (
-    <section className="relative z-10 overflow-hidden bg-jaz py-12 sm:py-16 md:py-20">
-      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+    <section className="relative z-10 overflow-hidden bg-jaz py-14 sm:py-16 md:py-20 lg:py-24">
+      {/* Proper Container Spacing */}
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10">
 
-        {/* Heading Animation */}
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: -60 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: false }}
-          className="mb-8 text-center sm:mb-10"
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          viewport={{ once: true }}
+          className="mb-10 text-center"
         >
-          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white">
+          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white shadow-md">
             <LetterAnimation text="Frequently Asked Questions" />
           </span>
         </motion.div>
 
-        <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-10">
+        <div className="grid items-start gap-10 lg:grid-cols-2">
 
-          {/* Image Grid Animation */}
+          {/* Image Section */}
           <motion.div
-            initial={{ opacity: 0, x: -120 }}
+            initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9 }}
-            viewport={{ once: false }}
+            transition={{ duration: 0.9, ease: 'easeOut' }}
+            viewport={{ once: true }}
             className="relative"
           >
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 gap-4">
               {[
                 'https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839178/fq1_x20s4z.webp',
                 'https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839157/fq2_zp6y2w.webp',
@@ -86,47 +91,66 @@ function HomeFaqSection() {
               ].map((img, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, scale: 0.8 }}
+                  initial={{ opacity: 0, scale: 0.85 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: i * 0.2 }}
-                  viewport={{ once: false }}
+                  transition={{
+                    duration: 0.6,
+                    delay: i * 0.15,
+                    ease: 'easeOut',
+                  }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.05 }}
                   className="overflow-hidden rounded-xl shadow-lg"
                 >
                   <img
                     src={img}
                     alt="Project"
-                    className="h-52 w-full object-cover sm:h-64"
+                    className="h-48 w-full object-cover sm:h-56 md:h-64"
                   />
                 </motion.div>
               ))}
             </div>
 
+            {/* Center Icon Animation */}
             <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: false }}
+              initial={{ scale: 0, rotate: -180 }}
+              whileInView={{ scale: 1, rotate: 0 }}
+              transition={{ duration: 0.7, ease: 'backOut' }}
+              viewport={{ once: true }}
               className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
             >
-              <div className="inline-flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-jaz-dark text-white shadow-2xl">
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+                className="inline-flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-jaz-dark text-white shadow-2xl"
+              >
                 <MdOutlineApartment className="h-11 w-11" />
-              </div>
+              </motion.div>
             </motion.div>
           </motion.div>
 
-          {/* FAQ Animation */}
-          <div className="space-y-4">
+          {/* FAQ Section */}
+          <div className="space-y-5">
             {faqItems.map((item, index) => {
               const isActive = index === activeIndex
 
               return (
                 <motion.div
                   key={item.question}
-                  initial={{ opacity: 0, y: 80 }}
+                  initial={{ opacity: 0, y: 60 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: index * 0.15 }}
-                  viewport={{ once: false }}
-                  className="rounded-xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  transition={{
+                    duration: 0.7,
+                    delay: index * 0.12,
+                    ease: 'easeOut',
+                  }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -3 }}
+                  className="rounded-xl bg-white shadow-md transition-shadow duration-300 hover:shadow-xl"
                 >
                   <button
                     type="button"
@@ -137,18 +161,25 @@ function HomeFaqSection() {
                     <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-jaz-light/35 text-sm font-semibold text-jaz-dark">
                       {index + 1}
                     </span>
+
                     <span className="flex-1 text-lg font-medium text-slate-700 sm:text-xl">
                       {item.question}
                     </span>
-                    <span className={`mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-jaz-light/40 text-jaz-dark transition-transform duration-200 ${isActive ? 'rotate-180' : ''}`}>
+
+                    <motion.span
+                      animate={{ rotate: isActive ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-jaz-light/40 text-jaz-dark"
+                    >
                       <FiChevronDown className="h-4 w-4" />
-                    </span>
+                    </motion.span>
                   </button>
 
                   {isActive && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.4 }}
                       className="overflow-hidden border-t border-slate-100 px-4 pb-5 pt-3 sm:px-5"
                     >
@@ -163,15 +194,15 @@ function HomeFaqSection() {
           </div>
         </div>
 
-        {/* Bottom CTA Animation */}
+        {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 100 }}
+          initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: false }}
-          className="mt-10 text-center sm:mt-12"
+          viewport={{ once: true }}
+          className="mt-14 text-center"
         >
-          <div className="mx-auto w-full max-w-2xl rounded-2xl bg-white px-6 py-7 shadow-lg sm:px-7">
+          <div className="mx-auto w-full max-w-2xl rounded-2xl bg-white px-6 py-8 shadow-lg sm:px-7">
             <h3 className="text-2xl font-semibold text-jaz-dark sm:text-3xl">
               <LetterAnimation text="Still have questions?" />
             </h3>
@@ -182,7 +213,7 @@ function HomeFaqSection() {
 
             <Link
               to="/contact"
-              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-jaz-dark px-7 py-3 text-sm font-medium text-white transition-opacity duration-200 hover:opacity-90"
+              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-jaz-dark px-7 py-3 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:opacity-95"
             >
               Contact Us
               <MdKeyboardArrowRight className="h-5 w-5" />

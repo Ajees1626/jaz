@@ -38,14 +38,14 @@ function ProjectDetail() {
     }
   }, [project])
 
-  const AnimatedLetters = ({ text, visible, delay = 0 }) => (
+  const AnimatedLetters = ({ text, visible }) => (
     <>
       {(text != null ? String(text) : '').split('').map((char, i) => (
         <span
           key={i}
-          style={{ transitionDelay: `${i * 30 + delay}ms` }}
-          className={`inline-block transition-all duration-500 ease-out ${
-            visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          style={{ transitionDelay: `${i * 25}ms` }}
+          className={`inline-block transition-all duration-400 ease-out ${
+            visible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
           }`}
         >
           {char === ' ' ? '\u00A0' : char}
@@ -54,25 +54,16 @@ function ProjectDetail() {
     </>
   )
 
-  /* Word-by-word animation (same as AboutHistorySection) – no mid-word break */
-  const AnimatedWords = ({ text, visible, delay = 0 }) =>
-    (text != null ? String(text) : '')
-      .split(/(\s+)/)
-      .map((part, index) => {
-        const isSpace = /^\s+$/.test(part)
-        if (isSpace) return <span key={index}>{part}</span>
-        return (
-          <span
-            key={index}
-            className={`inline transition-all duration-300 ease-out ${
-              visible ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
-            }`}
-            style={{ transitionDelay: `${delay + index * 25}ms` }}
-          >
-            {part}
-          </span>
-        )
-      })
+  const AnimatedBlock = ({ children, visible, delay = 0 }) => (
+    <div
+      className={`transition-all duration-400 ease-out ${
+        visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+      }`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  )
 
   if (!project) {
     return (
@@ -176,35 +167,22 @@ function ProjectDetail() {
             <img
               src={project.image}
               alt={project.title}
+              loading="lazy"
+              decoding="async"
               className="w-full rounded-2xl object-cover shadow-lg aspect-[4/3] sm:aspect-[16/10] lg:aspect-[2/1]"
             />
 
             {/* CONTENT */}
             <div className="mt-10 space-y-8 overflow-hidden text-slate-600">
-              {/* Paragraph 1 – word-by-word like AboutHistorySection */}
-              <p className="text-base leading-relaxed sm:text-lg">
-                <span className="font-semibold text-slate-800">
-                  <AnimatedWords
-                    text={`${project.detailIntro} `}
-                    visible={contentVisible}
-                    delay={0}
-                  />
-                </span>
-                <AnimatedWords
-                  text={project.detailBody}
-                  visible={contentVisible}
-                  delay={300}
-                />
-              </p>
-
-              {/* Paragraph 2 */}
-              <p className="text-base leading-relaxed sm:text-lg">
-                <AnimatedWords
-                  text={project.description}
-                  visible={contentVisible}
-                  delay={600}
-                />
-              </p>
+              <AnimatedBlock visible={contentVisible} delay={0}>
+                <p className="text-base leading-relaxed sm:text-lg">
+                  <span className="font-semibold text-slate-800">{project.detailIntro} </span>
+                  {project.detailBody}
+                </p>
+              </AnimatedBlock>
+              <AnimatedBlock visible={contentVisible} delay={150}>
+                <p className="text-base leading-relaxed sm:text-lg">{project.description}</p>
+              </AnimatedBlock>
             </div>
 
             {/* HIGHLIGHTS */}
@@ -228,13 +206,7 @@ function ProjectDetail() {
                   >
                     <FiCheck className="mt-1 h-4 w-4 shrink-0 text-jaz-dark" />
 
-                    <span>
-                      <AnimatedLetters
-                        text={point}
-                        visible={contentVisible}
-                        delay={idx * 200}
-                      />
-                    </span>
+                    <span>{point}</span>
                   </div>
                 ))}
               </div>
