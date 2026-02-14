@@ -1,17 +1,50 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import SmoothParagraph from './SmoothParagraph'
+import { submitContact } from '../api'
 
 const socialLinks = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com', icon: FaLinkedinIn },
-  { label: 'Instagram', href: 'https://www.instagram.com', icon: FaInstagram },
-  { label: 'Facebook', href: 'https://www.facebook.com', icon: FaFacebookF },
-  { label: 'YouTube', href: 'https://www.youtube.com', icon: FaYoutube },
-  { label: 'X', href: 'https://x.com', icon: FaXTwitter },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jaz-builders-and-promoters-11aa662b1/', icon: FaLinkedinIn },
+  { label: 'Instagram', href: 'https://www.instagram.com/jazbuilders_promoters/', icon: FaInstagram },
+  { label: 'Facebook', href: 'https://www.facebook.com/people/Jaz-Builders-And-Promoters/61587101391523/', icon: FaFacebookF },
+  { label: 'YouTube', href: 'https://www.youtube.com/@jazbuilderspromoters', icon: FaYoutube },
+  { label: 'X', href: 'https://x.com/builders_jaz', icon: FaXTwitter },
 ]
 
 function HomeContactSection() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [subject, setSubject] = useState('')
+  const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [feedback, setFeedback] = useState(null)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setFeedback(null)
+    if (!name.trim() || !email.trim()) {
+      setFeedback({ type: 'error', text: 'Name and email are required.' })
+      return
+    }
+    setLoading(true)
+    try {
+      await submitContact({ name: name.trim(), email: email.trim(), phone: phone.trim(), subject: subject.trim(), message: message.trim() })
+      setFeedback({ type: 'success', text: 'Thank you! Your message has been sent. We will get back to you soon. A confirmation email has been sent to you.' })
+      setName('')
+      setEmail('')
+      setPhone('')
+      setSubject('')
+      setMessage('')
+    } catch (err) {
+      setFeedback({ type: 'error', text: err.message || 'Something went wrong. Please try again.' })
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <section className="overflow-hidden bg-[#f7f8fa] py-14 sm:py-16 md:py-20 lg:py-24">
       
@@ -41,28 +74,65 @@ function HomeContactSection() {
           >
             <form
               className="flex h-full flex-col space-y-4"
-              onSubmit={(event) => event.preventDefault()}
+              onSubmit={handleSubmit}
             >
+              {feedback && (
+                <p className={`rounded-md px-3 py-2 text-sm ${feedback.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                  {feedback.text}
+                </p>
+              )}
               <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
-                {['Enter Your Name', 'Enter Your Email', 'Phone Number', 'Subject'].map(
-                  (placeholder, index) => (
-                    <motion.input
-                      key={index}
-                      type={index === 1 ? 'email' : 'text'}
-                      placeholder={placeholder}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                      className="h-12 w-full rounded-md border border-slate-200 px-4 text-sm text-slate-700 outline-none transition-all duration-300 focus:scale-[1.02] focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
-                    />
-                  )
-                )}
+                <motion.input
+                  type="text"
+                  placeholder="Enter Your Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0 }}
+                  viewport={{ once: true }}
+                  className="h-12 w-full rounded-md border border-slate-200 px-4 text-sm text-slate-700 outline-none transition-all duration-300 focus:scale-[1.02] focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                />
+                <motion.input
+                  type="email"
+                  placeholder="Enter Your Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  viewport={{ once: true }}
+                  className="h-12 w-full rounded-md border border-slate-200 px-4 text-sm text-slate-700 outline-none transition-all duration-300 focus:scale-[1.02] focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                />
+                <motion.input
+                  type="tel"
+                  placeholder="Phone Number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className="h-12 w-full rounded-md border border-slate-200 px-4 text-sm text-slate-700 outline-none transition-all duration-300 focus:scale-[1.02] focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                />
+                <motion.input
+                  type="text"
+                  placeholder="Subject"
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  viewport={{ once: true }}
+                  className="h-12 w-full rounded-md border border-slate-200 px-4 text-sm text-slate-700 outline-none transition-all duration-300 focus:scale-[1.02] focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
+                />
               </div>
 
               <motion.textarea
                 rows={6}
                 placeholder="Message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
@@ -70,17 +140,14 @@ function HomeContactSection() {
                 className="min-h-[180px] w-full rounded-md border border-slate-200 px-4 py-3 text-sm text-slate-700 outline-none transition-all duration-300 focus:scale-[1.02] focus:border-jaz-dark focus:ring-1 focus:ring-jaz-dark"
               />
 
-              <SmoothParagraph className="text-sm text-slate-500">
-                Verification will appear when you click Submit.
-              </SmoothParagraph>
-
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="mt-auto inline-flex w-full items-center justify-center rounded-md bg-jaz px-4 py-3.5 text-base font-medium text-white shadow-sm transition-all duration-300 hover:bg-jaz-dark hover:shadow-lg"
+                disabled={loading}
+                whileHover={{ scale: loading ? 1 : 1.03 }}
+                whileTap={{ scale: loading ? 1 : 0.97 }}
+                className="mt-auto inline-flex w-full items-center justify-center rounded-md bg-jaz px-4 py-3.5 text-base font-medium text-white shadow-sm transition-all duration-300 hover:bg-jaz-dark hover:shadow-lg disabled:opacity-70"
               >
-                Submit
+                {loading ? 'Sending...' : 'Submit'}
               </motion.button>
             </form>
           </motion.div>

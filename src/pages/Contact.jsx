@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FiPhone, FiSmartphone, FiMail, FiMapPin } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import SmoothParagraph from '../components/SmoothParagraph'
+import { submitContact } from '../api'
 
 const CONTACT_CARDS = [
   {
@@ -47,6 +48,9 @@ function Contact() {
   const [cardsVisible, setCardsVisible] = useState(false)
   const [formVisible, setFormVisible] = useState(false)
   const [mapVisible, setMapVisible] = useState(false)
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', property_location: '', comment: '' })
+  const [formLoading, setFormLoading] = useState(false)
+  const [formFeedback, setFormFeedback] = useState(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -222,13 +226,43 @@ function Contact() {
             </h2>
             <form
               className="space-y-5"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={async (e) => {
+                e.preventDefault()
+                setFormFeedback(null)
+                if (!formData.name.trim() || !formData.email.trim()) {
+                  setFormFeedback({ type: 'error', text: 'Name and email are required.' })
+                  return
+                }
+                setFormLoading(true)
+                try {
+                  await submitContact({
+                    name: formData.name.trim(),
+                    phone: formData.phone.trim(),
+                    email: formData.email.trim(),
+                    property_location: formData.property_location.trim(),
+                    message: formData.comment.trim(),
+                  })
+                  setFormFeedback({ type: 'success', text: 'Thank you! Your message has been sent. We will get back to you soon. A confirmation email has been sent to you.' })
+                  setFormData({ name: '', phone: '', email: '', property_location: '', comment: '' })
+                } catch (err) {
+                  setFormFeedback({ type: 'error', text: err.message || 'Something went wrong. Please try again.' })
+                } finally {
+                  setFormLoading(false)
+                }
+              }}
             >
+              {formFeedback && (
+                <p className={`rounded-xl px-4 py-2 text-sm ${formFeedback.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                  {formFeedback.text}
+                </p>
+              )}
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <input
                     type="text"
                     placeholder="Name Of The Owner"
+                    value={formData.name}
+                    onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
                     className="h-12 w-full rounded-xl border border-slate-300 bg-white px-4 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
@@ -236,6 +270,8 @@ function Contact() {
                   <input
                     type="tel"
                     placeholder="Phone Number"
+                    value={formData.phone}
+                    onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
                     className="h-12 w-full rounded-xl border border-slate-300 bg-white px-4 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
@@ -245,6 +281,8 @@ function Contact() {
                   <input
                     type="email"
                     placeholder="Email Address"
+                    value={formData.email}
+                    onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
                     className="h-12 w-full rounded-xl border border-slate-300 bg-white px-4 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
@@ -252,6 +290,8 @@ function Contact() {
                   <input
                     type="text"
                     placeholder="Property Location"
+                    value={formData.property_location}
+                    onChange={(e) => setFormData((p) => ({ ...p, property_location: e.target.value }))}
                     className="h-12 w-full rounded-xl border border-slate-300 bg-white px-4 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
@@ -260,17 +300,17 @@ function Contact() {
                 <textarea
                   rows={5}
                   placeholder="Leave Your Comment"
+                  value={formData.comment}
+                  onChange={(e) => setFormData((p) => ({ ...p, comment: e.target.value }))}
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                 />
               </div>
-              <SmoothParagraph className="text-sm text-slate-500">
-                Verification will appear when you click Submit.
-              </SmoothParagraph>
               <button
                 type="submit"
-                className="w-full rounded-xl bg-jaz-dark px-6 py-4 text-xl font-normal text-white shadow-md transition-all duration-200 ease-out hover:opacity-95 hover:shadow-lg"
+                disabled={formLoading}
+                className="w-full rounded-xl bg-jaz-dark px-6 py-4 text-xl font-normal text-white shadow-md transition-all duration-200 ease-out hover:opacity-95 hover:shadow-lg disabled:opacity-70"
               >
-                Submit Form
+                {formLoading ? 'Sending...' : 'Submit Form'}
               </button>
             </form>
           </div>

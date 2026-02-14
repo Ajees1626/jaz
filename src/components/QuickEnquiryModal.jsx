@@ -1,10 +1,17 @@
 import { useEffect, useState } from 'react'
 import { FiX } from 'react-icons/fi'
 import SmoothParagraph from './SmoothParagraph'
+import { submitEnquiry } from '../api'
 
 function QuickEnquiryModal({ onClose: onEnquiryClose }) {
   const [isOpen, setIsOpen] = useState(false)
   const [hasShown, setHasShown] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [feedback, setFeedback] = useState(null)
 
   useEffect(() => {
     if (hasShown) return
@@ -17,7 +24,31 @@ function QuickEnquiryModal({ onClose: onEnquiryClose }) {
 
   const close = () => {
     setIsOpen(false)
+    setFeedback(null)
     onEnquiryClose?.()
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setFeedback(null)
+    if (!name.trim() || !email.trim()) {
+      setFeedback({ type: 'error', text: 'Name and email are required.' })
+      return
+    }
+    setLoading(true)
+    try {
+      await submitEnquiry({ name: name.trim(), email: email.trim(), phone: phone.trim(), message: message.trim() })
+      setFeedback({ type: 'success', text: 'Thank you! We have received your enquiry and will get back to you soon. A confirmation email has been sent to you.' })
+      setName('')
+      setEmail('')
+      setPhone('')
+      setMessage('')
+      setTimeout(() => close(), 3000)
+    } catch (err) {
+      setFeedback({ type: 'error', text: err.message || 'Something went wrong. Please try again or contact us directly.' })
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (!isOpen) return null
@@ -50,47 +81,55 @@ function QuickEnquiryModal({ onClose: onEnquiryClose }) {
         {/* Form body */}
         <form
           className="p-4 sm:p-5 md:p-6"
-          onSubmit={(e) => {
-            e.preventDefault()
-            close()
-          }}
+          onSubmit={handleSubmit}
         >
           <SmoothParagraph className="mb-4 sm:mb-5 text-sm sm:text-base text-slate-600">
             Fill out the form below and we&apos;ll get back to you soon!
           </SmoothParagraph>
 
+          {feedback && (
+            <p className={`mb-4 rounded-xl px-3 py-2 text-sm ${feedback.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+              {feedback.text}
+            </p>
+          )}
+
           <div className="space-y-3 sm:space-y-4">
             <input
               type="text"
               placeholder="Your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="h-10 sm:h-12 w-full rounded-xl border border-slate-300 bg-white px-3 sm:px-4 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
             />
             <input
               type="email"
               placeholder="Your Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="h-10 sm:h-12 w-full rounded-xl border border-slate-300 bg-white px-3 sm:px-4 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
             />
             <input
               type="tel"
               placeholder="Phone Number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
               className="h-10 sm:h-12 w-full rounded-xl border border-slate-300 bg-white px-3 sm:px-4 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
             />
             <textarea
               rows={3}
               placeholder="Your Message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
               className="w-full rounded-xl border border-slate-300 bg-white px-3 sm:px-4 py-2 sm:py-3 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
             />
           </div>
 
-          <SmoothParagraph className="mt-3 sm:mt-4 text-xs sm:text-sm text-slate-500">
-            Verification will appear when you click Submit.
-          </SmoothParagraph>
-
           <button
             type="submit"
-            className="mt-4 sm:mt-5 w-full rounded-xl bg-jaz-dark px-4 py-3 sm:py-3.5 text-sm sm:text-base font-semibold text-white transition-opacity duration-200 ease-out hover:opacity-95"
+            disabled={loading}
+            className="mt-4 sm:mt-5 w-full rounded-xl bg-jaz-dark px-4 py-3 sm:py-3.5 text-sm sm:text-base font-semibold text-white transition-opacity duration-200 ease-out hover:opacity-95 disabled:opacity-70"
           >
-            Submit Enquiry
+            {loading ? 'Sending...' : 'Submit Enquiry'}
           </button>
         </form>
       </div>

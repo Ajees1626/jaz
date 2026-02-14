@@ -10,7 +10,7 @@ const ICONS = [
   },
   {
     label: 'Instagram',
-    href: 'https://instagram.com/',
+    href: 'https://www.instagram.com/jazbuilders_promoters/',
     icon: FaInstagram,
     className: 'bg-gradient-to-b from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white',
   },

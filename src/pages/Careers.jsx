@@ -3,11 +3,18 @@ import { Link } from 'react-router-dom'
 import { FiX } from 'react-icons/fi'
 import HomeBuildTogetherSection from '../components/HomeBuildTogetherSection'
 import SmoothParagraph from '../components/SmoothParagraph'
+import { submitCareerApplication } from '../api'
 
 function Careers() {
   const heroRef = useRef(null)
   const [heroVisible, setHeroVisible] = useState(false)
   const [selectedJob, setSelectedJob] = useState(null)
+  const [careerForm, setCareerForm] = useState({
+    full_name: '', email: '', phone: '', graduation_year: '', gender: '',
+    experience: '', current_ctc: '', expected_ctc: '', notice_period: '', location: '',
+  })
+  const [careerLoading, setCareerLoading] = useState(false)
+  const [careerFeedback, setCareerFeedback] = useState(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -56,6 +63,8 @@ function Careers() {
 
   const openApplyModal = (job) => {
     setSelectedJob(job)
+    setCareerForm({ full_name: '', email: '', phone: '', graduation_year: '', gender: '', experience: '', current_ctc: '', expected_ctc: '', notice_period: '', location: '' })
+    setCareerFeedback(null)
   }
 
   const closeApplyModal = () => {
@@ -189,11 +198,43 @@ function Careers() {
 
             <form
               className="max-h-[76vh] overflow-y-auto px-5 py-5 sm:px-8 sm:py-6"
-              onSubmit={(event) => {
+              onSubmit={async (event) => {
                 event.preventDefault()
-                closeApplyModal()
+                setCareerFeedback(null)
+                if (!careerForm.full_name.trim() || !careerForm.email.trim()) {
+                  setCareerFeedback({ type: 'error', text: 'Name and email are required.' })
+                  return
+                }
+                setCareerLoading(true)
+                try {
+                  await submitCareerApplication({
+                    job_title: selectedJob.title,
+                    full_name: careerForm.full_name.trim(),
+                    email: careerForm.email.trim(),
+                    phone: careerForm.phone.trim(),
+                    graduation_year: careerForm.graduation_year,
+                    gender: careerForm.gender.trim(),
+                    experience: careerForm.experience,
+                    current_ctc: careerForm.current_ctc.trim(),
+                    expected_ctc: careerForm.expected_ctc.trim(),
+                    notice_period: careerForm.notice_period.trim(),
+                    location: careerForm.location.trim(),
+                  })
+                  setCareerFeedback({ type: 'success', text: 'Thank you! Your application has been submitted. We will review it and get in touch. A confirmation email has been sent to you.' })
+                  setCareerForm({ full_name: '', email: '', phone: '', graduation_year: '', gender: '', experience: '', current_ctc: '', expected_ctc: '', notice_period: '', location: '' })
+                  setTimeout(() => closeApplyModal(), 2500)
+                } catch (err) {
+                  setCareerFeedback({ type: 'error', text: err.message || 'Something went wrong. Please try again or email your CV to us.' })
+                } finally {
+                  setCareerLoading(false)
+                }
               }}
             >
+              {careerFeedback && (
+                <p className={`mb-4 rounded-xl px-3 py-2 text-sm ${careerFeedback.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                  {careerFeedback.text}
+                </p>
+              )}
               <div className="space-y-4">
                 <div>
                   <label htmlFor="fullName" className="mb-1.5 block text-sm font-medium text-slate-700">
@@ -204,6 +245,8 @@ function Careers() {
                     type="text"
                     required
                     placeholder="Enter your full name"
+                    value={careerForm.full_name}
+                    onChange={(e) => setCareerForm((p) => ({ ...p, full_name: e.target.value }))}
                     className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
@@ -217,6 +260,8 @@ function Careers() {
                     type="email"
                     required
                     placeholder="Enter your email address"
+                    value={careerForm.email}
+                    onChange={(e) => setCareerForm((p) => ({ ...p, email: e.target.value }))}
                     className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
@@ -230,6 +275,8 @@ function Careers() {
                     type="tel"
                     required
                     placeholder="Enter your phone number"
+                    value={careerForm.phone}
+                    onChange={(e) => setCareerForm((p) => ({ ...p, phone: e.target.value }))}
                     className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
@@ -245,6 +292,8 @@ function Careers() {
                     max="2100"
                     required
                     placeholder="e.g., 2020"
+                    value={careerForm.graduation_year}
+                    onChange={(e) => setCareerForm((p) => ({ ...p, graduation_year: e.target.value }))}
                     className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
@@ -256,12 +305,11 @@ function Careers() {
                   <select
                     id="gender"
                     required
-                    defaultValue=""
+                    value={careerForm.gender}
+                    onChange={(e) => setCareerForm((p) => ({ ...p, gender: e.target.value }))}
                     className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   >
-                    <option value="" disabled>
-                      Select Gender
-                    </option>
+                    <option value="">Select Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
@@ -280,6 +328,8 @@ function Careers() {
                     max="60"
                     required
                     placeholder="e.g., 5"
+                    value={careerForm.experience}
+                    onChange={(e) => setCareerForm((p) => ({ ...p, experience: e.target.value }))}
                     className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
@@ -293,6 +343,8 @@ function Careers() {
                     type="text"
                     required
                     placeholder="e.g., 5,00,000"
+                    value={careerForm.current_ctc}
+                    onChange={(e) => setCareerForm((p) => ({ ...p, current_ctc: e.target.value }))}
                     className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
@@ -306,6 +358,8 @@ function Careers() {
                     type="text"
                     required
                     placeholder="e.g., 7,00,000"
+                    value={careerForm.expected_ctc}
+                    onChange={(e) => setCareerForm((p) => ({ ...p, expected_ctc: e.target.value }))}
                     className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
@@ -319,6 +373,8 @@ function Careers() {
                     type="text"
                     required
                     placeholder="e.g., 30 days"
+                    value={careerForm.notice_period}
+                    onChange={(e) => setCareerForm((p) => ({ ...p, notice_period: e.target.value }))}
                     className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
@@ -332,20 +388,19 @@ function Careers() {
                     type="text"
                     required
                     placeholder="Enter your current location"
+                    value={careerForm.location}
+                    onChange={(e) => setCareerForm((p) => ({ ...p, location: e.target.value }))}
                     className="h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition hover:border-slate-400 focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
                   />
                 </div>
               </div>
 
-              <SmoothParagraph className="mt-5 text-sm text-slate-500">
-                Verification will appear when you click Submit.
-              </SmoothParagraph>
-
               <button
                 type="submit"
-                className="mt-5 w-full rounded-xl bg-linear-to-r from-jaz-dark to-jaz px-6 py-3.5 text-base font-semibold text-white shadow-md transition hover:opacity-95 hover:shadow-lg active:scale-[0.99]"
+                disabled={careerLoading}
+                className="mt-5 w-full rounded-xl bg-linear-to-r from-jaz-dark to-jaz px-6 py-3.5 text-base font-semibold text-white shadow-md transition hover:opacity-95 hover:shadow-lg active:scale-[0.99] disabled:opacity-70"
               >
-                Submit Application
+                {careerLoading ? 'Submitting...' : 'Submit Application'}
               </button>
             </form>
           </div>

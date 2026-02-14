@@ -9,12 +9,12 @@ function Footer() {
   const [activePopup, setActivePopup] = useState(null)
 
   const services = [
-    { label: 'Construction Project', to: '/service' },
-    { label: 'PEB (Pre-Engineered Buildings)', to: '/service' },
-    { label: 'Real Estate', to: '/service' },
-    { label: 'Joint Venture', to: '/service' },
-    { label: 'Architectural Design', to: '/service' },
-    { label: 'Project Consulting', to: '/service' },
+    { label: 'Construction Project', to: '/service/construction-project' },
+    { label: 'PEB (Pre-Engineered Buildings)', to: '/service/peb' },
+    { label: 'Real Estate', to: '/service/real-estate' },
+    { label: 'Joint Venture', to: '/service/joint-venture' },
+    { label: 'Architectural Design', to: '/service/architectural-design' },
+    { label: 'Project Consulting', to: '/service/project-consulting' },
   ]
 
   const companyLinks = [
@@ -27,11 +27,11 @@ function Footer() {
   ]
 
   const socialLinks = [
-    { label: 'LinkedIn', href: 'https://www.linkedin.com', icon: FaLinkedinIn },
-    { label: 'Instagram', href: 'https://www.instagram.com', icon: FaInstagram },
-    { label: 'Facebook', href: 'https://www.facebook.com', icon: FaFacebookF },
-    { label: 'YouTube', href: 'https://www.youtube.com', icon: FaYoutube },
-    { label: 'X', href: 'https://x.com', icon: FaXTwitter },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jaz-builders-and-promoters-11aa662b1/', icon: FaLinkedinIn },
+    { label: 'Instagram', href: 'https://www.instagram.com/jazbuilders_promoters/', icon: FaInstagram },
+    { label: 'Facebook', href: 'https://www.facebook.com/people/Jaz-Builders-And-Promoters/61587101391523/', icon: FaFacebookF },
+    { label: 'YouTube', href: 'https://www.youtube.com/@jazbuilderspromoters', icon: FaYoutube },
+    { label: 'X', href: 'https://x.com/builders_jaz', icon: FaXTwitter },
   ]
 
   const popupContent = {
@@ -134,7 +134,12 @@ function Footer() {
             </div>
 
             <div>
-              <h3 className="mb-1 text-xl font-medium">Contact Us</h3>
+              <Link
+                to="/contact"
+                className="mb-1 inline-block text-xl font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:[text-shadow:0_1px_8px_rgba(255,255,255,0.45)]"
+              >
+                Contact Us
+              </Link>
               <div className="mb-4 h-0.5 w-12 bg-white/80" />
 
               <ul className="space-y-3 text-base">
