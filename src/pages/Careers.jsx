@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiX } from 'react-icons/fi'
+import PageSEO from '../components/PageSEO'
 import HomeBuildTogetherSection from '../components/HomeBuildTogetherSection'
 import SmoothParagraph from '../components/SmoothParagraph'
 import { submitCareerApplication } from '../api'
@@ -89,8 +90,14 @@ function Careers() {
 
   return (
     <>
+      <PageSEO
+        title="Careers"
+        description="Join JAZ Builders and Promoters – Careers in construction, site engineering, structural engineering, marketing and CAD design. Apply now in Tenkasi."
+        keywords="careers JAZ Builders, construction jobs Tenkasi, site engineer, structural engineer jobs"
+      />
       <section
         ref={heroRef}
+        aria-label="Careers hero"
         className="relative flex min-h-[110vh] items-center justify-center overflow-hidden pt-20"
       >
         <div

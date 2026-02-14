@@ -98,6 +98,7 @@ function HomeServicesSection() {
   return (
     <section
       ref={sectionRef}
+      aria-labelledby="services-heading"
       className={`overflow-hidden bg-jaz-light py-12 sm:py-16 md:py-20 transition-all duration-1000 ease-out ${
         isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
       }`}
@@ -110,7 +111,8 @@ function HomeServicesSection() {
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white">
+          <h2 id="services-heading" className="sr-only">Our Services</h2>
+          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white" aria-hidden="true">
             Our Services
           </span>
         </div>

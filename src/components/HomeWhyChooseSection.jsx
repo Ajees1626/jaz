@@ -57,6 +57,7 @@ function HomeWhyChooseSection() {
   return (
     <section
       ref={sectionRef}
+      aria-labelledby="why-choose-heading"
       className="overflow-hidden bg-[#f7f8f9] py-14 sm:py-16 md:py-20 lg:py-24"
     >
       {/* Proper Left & Right Space Container */}
@@ -71,6 +72,7 @@ function HomeWhyChooseSection() {
         >
           {/* Heading */}
           <div className="mb-14 text-center">
+            <h2 id="why-choose-heading" className="sr-only">Why Choose Us?</h2>
             <AnimatedLetters
               as="span"
               className="inline-flex rounded-full bg-jaz-dark px-9 py-2.5 text-sm font-medium uppercase tracking-wide text-white shadow-md"

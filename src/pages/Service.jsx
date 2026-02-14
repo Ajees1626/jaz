@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiArrowRight } from 'react-icons/fi'
+import PageSEO from '../components/PageSEO'
 import services from '../data/services.json'
 import SmoothParagraph from '../components/SmoothParagraph'
 import HomeBuildTogetherSection from '../components/HomeBuildTogetherSection'
@@ -67,9 +68,14 @@ function Service() {
 
   return (
     <>
-      {/* HERO SECTION - same pattern as About */}
+      <PageSEO
+        title="Services"
+        description="JAZ Builders services: Construction Project, PEB, Real Estate, Joint Venture, Architectural Design, Project Consulting. Execution-ready solutions in Tenkasi."
+        keywords="construction services, PEB buildings, real estate development, architectural design, project consulting, JAZ Builders services"
+      />
       <section
         ref={heroRef}
+        aria-label="Services hero"
         className="relative flex min-h-[110vh] items-center justify-center overflow-hidden pt-20"
       >
         <div

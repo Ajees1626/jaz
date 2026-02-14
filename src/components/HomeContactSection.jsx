@@ -46,13 +46,14 @@ function HomeContactSection() {
   }
 
   return (
-    <section className="overflow-hidden bg-[#f7f8fa] py-14 sm:py-16 md:py-20 lg:py-24">
+    <section aria-labelledby="contact-heading" className="overflow-hidden bg-[#f7f8fa] py-14 sm:py-16 md:py-20 lg:py-24">
       
       {/* Proper Container */}
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10">
 
         {/* Heading Animation */}
         <motion.h2
+          id="contact-heading"
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}

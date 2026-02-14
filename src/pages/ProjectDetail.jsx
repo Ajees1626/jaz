@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { FiChevronRight, FiMail, FiPhone, FiCheck } from 'react-icons/fi'
+import PageSEO from '../components/PageSEO'
 import projects from '../data/projects.json'
 import SmoothParagraph from '../components/SmoothParagraph'
 
@@ -60,9 +61,15 @@ function ProjectDetail() {
 
   return (
     <>
-      {/* ---------------- HERO ---------------- */}
+      <PageSEO
+        title={project.title}
+        description={project.detailBody?.replace(/<[^>]+>/g, '').slice(0, 155) || `${project.title} – ${project.type || 'Project'} by JAZ Builders and Promoters.`}
+        image={project.heroImage || project.image}
+        path={`/project/${project.slug}`}
+      />
       <section
         ref={heroRef}
+        aria-label={`${project.title} hero`}
         className="relative flex min-h-[100vh] items-center justify-center overflow-hidden pt-20"
       >
         <div

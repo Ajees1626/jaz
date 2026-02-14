@@ -46,6 +46,7 @@ function HomeAboutSection() {
   return (
     <section
     ref={sectionRef}
+    aria-labelledby="about-heading"
     className="relative z-20 -mt-16 overflow-hidden rounded-t-[3rem] bg-white 
     pt-16 pb-12 sm:-mt-20 sm:rounded-t-[4rem] sm:pt-20 sm:pb-16 md:pb-20"
   >
@@ -84,9 +85,9 @@ function HomeAboutSection() {
           >
             {/* HEADING */}
             <div className="mb-4">
-              <span className="text-jaz text-sm sm:text-2xl font-normal uppercase tracking-wider">
+              <h2 id="about-heading" className="text-jaz text-sm sm:text-2xl font-normal uppercase tracking-wider">
                 ABOUT US
-              </span>
+              </h2>
             </div>
 
             {/* Paragraph 1 */}

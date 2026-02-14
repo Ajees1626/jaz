@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiPhone, FiSmartphone, FiMail, FiMapPin } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
+import PageSEO from '../components/PageSEO'
 import SmoothParagraph from '../components/SmoothParagraph'
 import { submitContact } from '../api'
 
@@ -90,9 +91,14 @@ function Contact() {
 
   return (
     <>
-      {/* Hero section */}
+      <PageSEO
+        title="Contact Us"
+        description="Contact JAZ Builders and Promoters – Tenkasi. Phone, WhatsApp, email and office address. Get in touch for construction, PEB and real estate enquiries."
+        keywords="contact JAZ Builders, Tenkasi builders contact, construction enquiry"
+      />
       <section
         ref={heroRef}
+        aria-label="Contact hero"
         className="relative flex min-h-[110vh] items-center justify-center overflow-hidden pt-20"
       >
         <div

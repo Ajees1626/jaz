@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { FiCheck, FiChevronRight, FiMail, FiPhone } from 'react-icons/fi'
+import PageSEO from '../components/PageSEO'
 import services from '../data/services.json'
 import SmoothParagraph from '../components/SmoothParagraph'
 
@@ -78,7 +79,7 @@ function ServiceDetail() {
 
   if (!service) {
     return (
-      <section className="bg-slate-100 py-20 text-center">
+      <section className="bg-slate-100 py-20 text-center" aria-label="Service not found">
         <h1 className="mb-5 text-2xl font-semibold">Service not found</h1>
         <Link to="/service" className="text-jaz-dark underline">
           Back to Services
@@ -89,9 +90,15 @@ function ServiceDetail() {
 
   return (
     <>
-      {/* HERO SECTION */}
+      <PageSEO
+        title={service.title}
+        description={service.shortDescription || `${service.title} – JAZ Builders and Promoters. Quality construction and execution-ready solutions.`}
+        image={service.heroImage || service.image}
+        path={`/service/${service.slug}`}
+      />
       <section
         ref={heroRef}
+        aria-label={`${service.title} hero`}
         className="relative flex min-h-[100vh] items-center justify-center overflow-hidden pt-20"
       >
         <div

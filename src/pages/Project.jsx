@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiArrowRight } from 'react-icons/fi'
+import PageSEO from '../components/PageSEO'
 import projects from '../data/projects.json'
 import HomeBuildTogetherSection from '../components/HomeBuildTogetherSection'
 
@@ -54,9 +55,14 @@ function Project() {
 
   return (
     <>
-      {/* HERO */}
+      <PageSEO
+        title="Our Projects"
+        description="JAZ Builders and Promoters projects – Residential, Commercial and Industrial construction. View our completed and ongoing work in Tenkasi and Tamil Nadu."
+        keywords="JAZ Builders projects, construction projects Tenkasi, residential commercial industrial"
+      />
       <section
         ref={heroRef}
+        aria-label="Projects hero"
         className="relative flex min-h-[110vh] items-center justify-center overflow-hidden pt-20"
       >
         <div

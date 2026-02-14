@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import PageSEO from '../components/PageSEO'
 import HomeAboutSection from '../components/HomeAboutSection'
 import AboutHistorySection from '../components/AboutHistorySection'
 import AboutVisionMissionSection from '../components/AboutVisionMissionSection'
@@ -37,8 +38,14 @@ function About() {
 
   return (
     <>
+      <PageSEO
+        title="About Us"
+        description="Learn about JAZ Builders and Promoters – our history, vision, mission and technical team. Quality construction and execution in Tenkasi, Tamil Nadu."
+        keywords="about JAZ Builders, construction company Tenkasi, builders history, vision mission"
+      />
       <section
         ref={heroRef}
+        aria-label="About us hero"
         className="relative flex min-h-[110vh] items-center justify-center overflow-hidden pt-20"
       >
         <div

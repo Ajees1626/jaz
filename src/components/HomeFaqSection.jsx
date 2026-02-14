@@ -55,7 +55,7 @@ function HomeFaqSection() {
   }
 
   return (
-    <section className="relative z-10 overflow-hidden bg-jaz py-14 sm:py-16 md:py-20 lg:py-24">
+    <section aria-labelledby="faq-heading" className="relative z-10 overflow-hidden bg-jaz py-14 sm:py-16 md:py-20 lg:py-24">
       {/* Proper Container Spacing */}
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10">
 
@@ -67,7 +67,8 @@ function HomeFaqSection() {
           viewport={{ once: true }}
           className="mb-10 text-center"
         >
-          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white shadow-md">
+          <h2 id="faq-heading" className="sr-only">Frequently Asked Questions</h2>
+          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white shadow-md" aria-hidden="true">
             <LetterAnimation text="Frequently Asked Questions" />
           </span>
         </motion.div>

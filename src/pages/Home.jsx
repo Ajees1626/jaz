@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import PageSEO from '../components/PageSEO'
 import SmoothParagraph from '../components/SmoothParagraph'
 import AnimatedLetters from '../components/AnimatedLetters'
 import HomeAboutSection from '../components/HomeAboutSection'
@@ -18,6 +19,17 @@ const HERO_IMAGES = [
   'https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839305/h4_h7v16z.webp',
 ]
 
+const HOME_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'JAZ Builders and Promoters',
+  url: 'https://jazbuildersgroup.com',
+  logo: 'https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839658/LOGO_1_wfi62m.webp',
+  description: 'Construction, PEB, Real Estate, Architectural Design & Project Consulting in Tenkasi.',
+  address: { '@type': 'PostalAddress', addressLocality: 'Tenkasi', addressRegion: 'Tamil Nadu', postalCode: '627811' },
+  contactPoint: { '@type': 'ContactPoint', telephone: '+91-93639-33050', email: 'info@jazbuildersgroup.com', contactType: 'customer service' },
+}
+
 function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
@@ -30,8 +42,15 @@ function Home() {
 
   return (
     <>
+      <PageSEO
+        title="Home"
+        description="JAZ Builders and Promoters – Construction, PEB, Real Estate, Architectural Design & Project Consulting in Tenkasi. Quality construction and execution-ready projects."
+        keywords="JAZ Builders, construction Tenkasi, PEB, real estate, architectural design, project consulting, Tenkasi builders"
+        jsonLd={HOME_JSON_LD}
+      />
       <section
         id="hero"
+        aria-label="Hero"
         className="relative min-h-screen overflow-hidden bg-slate-100 pt-20"
       >
         {/* Background slideshow */}

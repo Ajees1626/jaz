@@ -31,7 +31,7 @@ function Navbar() {
     >
       {/* Wrap nav content in the same container as your section */}
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10">
-        <nav className="flex w-full items-center justify-between">
+        <nav className="flex w-full items-center justify-between" aria-label="Main navigation">
           {/* Logo */}
           <Link
             to="/"
