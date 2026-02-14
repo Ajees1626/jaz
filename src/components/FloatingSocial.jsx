@@ -1,7 +1,5 @@
-import { useState } from 'react'
-import { FaWhatsapp } from 'react-icons/fa'
+import { FaWhatsapp, FaInstagram } from 'react-icons/fa'
 import { FiChevronLeft, FiChevronRight, FiPhone, FiMail } from 'react-icons/fi'
-import { FaInstagram } from 'react-icons/fa'
 
 const ICONS = [
   {
@@ -36,11 +34,13 @@ function FloatingSocial({ isOpen, onToggle }) {
       className="fixed right-0 top-1/2 z-40 flex -translate-y-1/2 flex-col items-end"
       aria-label="Social and contact links"
     >
-      {/* Icon strip - above the arrow, slides right when closed */}
-      <div className="h-48 w-12 overflow-hidden">
+      {/* Icon strip */}
+      <div className="overflow-hidden">
         <div
-          className="flex flex-col rounded-l-xl shadow-lg transition-transform duration-300 ease-out will-change-transform"
-          style={{ transform: isOpen ? 'translateX(0)' : 'translateX(100%)' }}
+          className="flex flex-col rounded-l-xl shadow-lg transition-transform duration-300 ease-out"
+          style={{
+            transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
+          }}
         >
           {ICONS.map((item, index) => (
             <a
@@ -48,9 +48,12 @@ function FloatingSocial({ isOpen, onToggle }) {
               href={item.href}
               target={item.href.startsWith('http') ? '_blank' : undefined}
               rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className={`flex h-12 w-12 shrink-0 items-center justify-center text-white transition-colors duration-200 ease-out ${item.className} ${
-                index === 0 ? 'rounded-tl-xl' : ''
-              } ${index === ICONS.length - 1 ? 'rounded-bl-xl' : ''}`}
+              className={`flex items-center justify-center transition-colors duration-200 ease-out
+                ${item.className}
+                ${index === 0 ? 'rounded-tl-xl' : ''}
+                ${index === ICONS.length - 1 ? 'rounded-bl-xl' : ''}
+                h-10 w-10
+              `}
               title={item.label}
             >
               <item.icon className="h-5 w-5" />
@@ -59,19 +62,15 @@ function FloatingSocial({ isOpen, onToggle }) {
         </div>
       </div>
 
-      {/* Arrow toggle - at bottom, rounded left only */}
+      {/* Arrow toggle */}
       <button
         type="button"
         onClick={onToggle}
-        className="mt-0 flex h-12 w-12 shrink-0 items-center justify-center rounded-l-xl bg-jaz-dark/55 text-white shadow-lg transition-colors duration-200 ease-out hover:bg-slate-600"
+        className="mt-1 flex h-10 w-10 items-center justify-center rounded-l-xl bg-jaz-dark/55 text-white shadow-lg transition-colors duration-200 ease-out hover:bg-jaz-dark"
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
         title={isOpen ? 'Close' : 'Open'}
       >
-        {isOpen ? (
-          <FiChevronRight className="h-5 w-5" />
-        ) : (
-          <FiChevronLeft className="h-5 w-5" />
-        )}
+        {isOpen ? <FiChevronRight className="h-5 w-5" /> : <FiChevronLeft className="h-5 w-5" />}
       </button>
     </div>
   )

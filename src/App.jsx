@@ -25,7 +25,30 @@ function PageLoader() {
 }
 
 function App() {
+  const [pageLoading, setPageLoading] = useState(true)
   const [socialOpen, setSocialOpen] = useState(false)
+
+  useEffect(() => {
+    const minTime = 1200
+    const start = Date.now()
+    let timeoutId
+
+    const hideLoader = () => {
+      const elapsed = Date.now() - start
+      const remaining = Math.max(0, minTime - elapsed)
+      timeoutId = setTimeout(() => setPageLoading(false), remaining)
+    }
+
+    if (document.readyState === 'complete') {
+      hideLoader()
+    } else {
+      window.addEventListener('load', hideLoader)
+    }
+    return () => {
+      window.removeEventListener('load', hideLoader)
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+  }, [])
 
   useEffect(() => {
     const timer = setTimeout(() => setSocialOpen(true), 10000)
@@ -33,7 +56,13 @@ function App() {
   }, [])
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <>
+      {/* Initial load screen - website open agum pothu */}
+      <div className={`app-loader ${pageLoading ? '' : 'hidden'}`} aria-hidden={!pageLoading}>
+        <div className="loader" aria-label="Loading" />
+      </div>
+
+      <div className="flex min-h-screen flex-col">
       <ScrollToTop />
       <Navbar />
 
@@ -56,6 +85,7 @@ function App() {
       <QuickEnquiryModal onClose={() => setSocialOpen(true)} />
       <FloatingSocial isOpen={socialOpen} onToggle={() => setSocialOpen((prev) => !prev)} />
     </div>
+    </>
   )
 }
 
