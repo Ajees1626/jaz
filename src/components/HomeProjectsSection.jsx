@@ -68,7 +68,7 @@ function HomeProjectsSection() {
                     <div className="absolute right-3 top-3 rounded-full bg-jaz-dark/90 p-2 text-white">
                       <FiEye className="h-4 w-4" />
                     </div>
-                    <h3 className="absolute bottom-4 left-4 right-4 text-2xl font-semibold text-white">
+                    <h3 className="absolute bottom-4 left-4 right-4 text-2xl font-normal text-white">
                       {project.title}
                     </h3>
                   </div>

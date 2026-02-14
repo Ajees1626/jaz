@@ -24,7 +24,7 @@ function HomeContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
           viewport={{ once: true }}
-          className="mb-8 text-4xl font-medium text-jaz-dark sm:text-5xl"
+          className="mb-8 text-4xl font-normal text-jaz-dark sm:text-5xl"
         >
           Contact Us
         </motion.h2>

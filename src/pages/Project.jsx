@@ -93,7 +93,7 @@ function Project() {
         ref={gridRef}
         className="relative z-20 -mt-16 rounded-t-[3rem] bg-jaz-dark pt-20 pb-24"
       >
-        <div className="px-6">
+        <div className="px-6 ">
           <div className="grid gap-10 sm:grid-cols-2">
             {projects.map((item, index) => (
               <AnimatedCard
@@ -130,7 +130,7 @@ function AnimatedCard({ item, index, gridVisible }) {
     <article
       ref={ref}
       style={{ transitionDelay: `${index * 120}ms` }}
-      className={`group rounded-xl bg-slate-100 shadow-2xl transition-all duration-700 ease-out ${
+      className={`group rounded-xl  bg-slate-100 shadow-2xl transition-all duration-700 ease-out ${
         visible
           ? 'opacity-100 translate-y-0 scale-100 blur-0'
           : 'opacity-0 translate-y-20 scale-95 blur-sm'
@@ -139,7 +139,7 @@ function AnimatedCard({ item, index, gridVisible }) {
       <Link to={`/project/${item.slug}`} className="block">
 
         {/* IMAGE */}
-        <div className="relative h-72 overflow-hidden sm:h-80">
+        <div className="relative h-72 overflow-hidden sm:h-80 rounded-t-xl">
           <img
             src={item.image}
             alt={item.title}
@@ -164,9 +164,9 @@ function AnimatedCard({ item, index, gridVisible }) {
           </h2>
 
           <p className="mt-4 text-slate-600 leading-relaxed">
-            {item.description.length > 95
-              ? `${item.description.slice(0, 95)}...`
-              : item.description}
+            {(item.detailBody || item.description || '').length > 95
+              ? `${(item.detailBody || item.description || '').slice(0, 95)}...`
+              : (item.detailBody || item.description || '')}
           </p>
 
           <span className="mt-4 inline-flex items-center gap-2 font-medium text-jaz-dark transition group-hover:text-jaz">

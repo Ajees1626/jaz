@@ -144,7 +144,7 @@ function HomeServicesSection() {
                   className="group relative block h-[460px] overflow-hidden rounded-2xl border-2 border-jaz-dark/30 bg-slate-900 transform-gpu transition-all duration-300 ease-out hover:z-20 hover:-translate-y-3 hover:scale-[1.02] hover:border-jaz hover:shadow-[0_26px_42px_-16px_rgba(0,163,160,0.62),0_14px_24px_-12px_rgba(15,23,42,0.6),inset_0_1px_0_rgba(255,255,255,0.26)]"
                 >
                   <img
-                    src={service.image}
+                    src={service.cardImage || service.image}
                     alt={service.title}
                     loading="lazy"
                     decoding="async"
@@ -152,7 +152,7 @@ function HomeServicesSection() {
                   />
 
                   <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/95 via-black/70 to-transparent p-5">
-                    <h3 className="mb-1 text-3xl font-semibold text-white transition-colors duration-200 ease-out group-hover:text-jaz">
+                    <h3 className="mb-1 text-3xl font-normal text-white transition-colors duration-200 ease-out group-hover:text-jaz">
                       {service.title}
                     </h3>
                     <div className="flex items-center gap-2 text-sm text-jaz-light group-hover:text-jaz">

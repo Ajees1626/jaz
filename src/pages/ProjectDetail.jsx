@@ -188,18 +188,12 @@ function ProjectDetail() {
               }`}
             >
               <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <FiCheck className="mt-1 text-jaz-dark" />
-                  <span>Systematic construction methodology</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <FiCheck className="mt-1 text-jaz-dark" />
-                  <span>Quality checks at every stage</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <FiCheck className="mt-1 text-jaz-dark" />
-                  <span>Reliable structural execution</span>
-                </li>
+                {(project.highlights || []).map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <FiCheck className="mt-1 shrink-0 text-jaz-dark" />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
             </div>
 

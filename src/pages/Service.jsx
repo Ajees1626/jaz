@@ -147,7 +147,7 @@ function Service() {
                 {/* IMAGE SIDE */}
                 <div className="relative w-full md:w-1/2 overflow-hidden">
                   <img
-                    src={item.image}
+                    src={item.cardImage || item.image}
                     alt={item.title}
                     loading="lazy"
                     className="w-full h-[250px] sm:h-[300px] md:h-[420px] lg:h-[480px] object-cover transition-all duration-500 ease-out"

@@ -217,7 +217,7 @@ function Contact() {
       <section className="bg-slate-100 py-12 sm:py-16">
         <div className="mx-auto max-w-2xl px-4 sm:px-6">
           <div className="rounded-2xl bg-white p-6 shadow-xl sm:p-8">
-            <h2 className="mb-6 text-left text-3xl font-semibold text-jaz-dark sm:text-4xl">
+            <h2 className="mb-6 text-left text-3xl font-normal text-jaz-dark sm:text-4xl">
               Contact Us
             </h2>
             <form
@@ -268,7 +268,7 @@ function Contact() {
               </SmoothParagraph>
               <button
                 type="submit"
-                className="w-full rounded-xl bg-jaz-dark px-6 py-4 text-xl font-semibold text-white shadow-md transition-all duration-200 ease-out hover:opacity-95 hover:shadow-lg"
+                className="w-full rounded-xl bg-jaz-dark px-6 py-4 text-xl font-normal text-white shadow-md transition-all duration-200 ease-out hover:opacity-95 hover:shadow-lg"
               >
                 Submit Form
               </button>

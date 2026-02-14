@@ -102,7 +102,7 @@ function HomeWhyChooseSection() {
                 </div>
 
                 {/* Title */}
-                <h3 className="mb-3 text-xl font-medium text-jaz-dark sm:text-2xl">
+                <h3 className="mb-3 text-xl font-normal text-jaz-dark sm:text-2xl">
                   {item.title}
                 </h3>
 

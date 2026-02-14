@@ -6,11 +6,11 @@
     "type": "Residential",
     "location": "Tenkasi",
     "year": "2023",
-    "heroImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
-    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=80",
-    "description": "This independent residential building was constructed using a systematic construction methodology, covering foundation, superstructure, and finishing work. The project followed defined quality checks at each stage to ensure structural reliability and execution consistency.",
-    "detailIntro": "This independent residential building was constructed using a systematic construction methodology, covering foundation, superstructure, and finishing work.",
-    "detailBody": "The project followed defined quality checks at each stage to ensure structural reliability and execution consistency.",
+    "heroImage": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839838/P3.7_fgfvbr.webp",
+    "image": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839838/P3.7_fgfvbr.webp",
+    
+    "detailIntro": "",
+    "detailBody": "This independent residential building was constructed using a systematic construction methodology, covering foundation, superstructure, and finishing works. The project followed defined quality checks at each stage to ensure structural reliability and execution consistency.",
     "highlights": [
       "Systematic construction methodology",
       "Quality checks at each stage",
@@ -24,15 +24,15 @@
     "type": "Commercial",
     "location": "Coimbatore",
     "year": "2024",
-    "heroImage": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80",
-    "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1400&q=80",
-    "description": "This commercial building was designed and constructed as a functional business facility, with coordinated structural planning, optimized usable floor space, and a premium front elevation that supports strong brand visibility.",
-    "detailIntro": "This commercial building was designed and constructed as a functional business facility, with coordinated structural planning.",
-    "detailBody": "The project combines optimized usable floor space and a premium front elevation that supports strong brand visibility.",
+    "heroImage": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839804/P2.3_ivipph.webp",
+    "image": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839804/P2.3_ivipph.webp",
+     
+    "detailIntro": "",
+    "detailBody": "This commercial building was designed and constructed as a functional commercial facility, with coordinated structural planning and elevation execution. The project scope included design detailing, construction execution, and finishing works, delivered through controlled project management practices.",
     "highlights": [
-      "Functional layout for business operations",
       "Coordinated structural planning",
-      "High-visibility architectural frontage"
+      "Design detailing and execution",
+      "Controlled project management"
     ]
   },
   {
@@ -42,15 +42,15 @@
     "type": "Interior + Architecture",
     "location": "Madurai",
     "year": "2022",
-    "heroImage": "https://images.unsplash.com/photo-1616594039964-3f3b8d9c20f9?w=1920&q=80",
-    "image": "https://images.unsplash.com/photo-1616594039964-3f3b8d9c20f9?w=1400&q=80",
-    "description": "Our Architectural design service focuses on creating practical, execution-ready design solutions that align with construction feasibility and client expectations. We blend modern aesthetics with functional planning to ensure both visual appeal and buildability.",
-    "detailIntro": "Our architectural design service focuses on creating practical, execution-ready design solutions.",
-    "detailBody": "We blend modern aesthetics with functional planning to ensure both visual appeal and buildability.",
+    "heroImage": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839791/P4.4_k4dxsu.webp",
+    "image": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839791/P4.4_k4dxsu.webp",
+    
+    "detailIntro": "",
+    "detailBody": "Our Architectural design service focuses on creating practical, execution-ready designs that align with construction feasibility. We develop comprehensive architectural plans, elevations, and detailed drawings that support smooth project execution and cost-effective construction.",
     "highlights": [
-      "Execution-ready architectural output",
-      "Functional and modern space planning",
-      "Design aligned with construction feasibility"
+      "Practical and execution-ready designs",
+      "Comprehensive architectural planning",
+      "Construction-aligned design approach"
     ]
   },
   {
@@ -60,15 +60,15 @@
     "type": "Industrial",
     "location": "Tiruppur",
     "year": "2023",
-    "heroImage": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1920&q=80",
-    "image": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1400&q=80",
-    "description": "This project showcases our expertise in PEB and industrial construction, executed for efficient operations and long-term durability. The planning focused on optimized movement flow, structural strength, and future expansion readiness.",
-    "detailIntro": "This project showcases our expertise in PEB and industrial construction, executed for efficient operations and long-term durability.",
-    "detailBody": "Planning focused on optimized movement flow, structural strength, and future expansion readiness.",
+    "heroImage": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839770/P1.1_pmnx3i.webp",
+    "image": "https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839770/P1.1_pmnx3i.webp",
+    
+    "detailIntro": "",
+    "detailBody": "This project showcases our expertise in PEB and industrial construction, executed for efficient operations and long-term durability. The structure is designed with a strong steel framework, proper ventilation, and smooth vehicle movement for logistics and storage purposes. JAZ Builders & Promoters handled the complete project execution, including civil works, PEB erection, boundary works, and site coordination, ensuring structural stability and timely delivery.",
     "highlights": [
-      "Industrial-grade structural execution",
-      "Operationally efficient planning",
-      "Long-term durability and expansion readiness"
+      "Complete project execution",
+      "Civil works and PEB erection",
+      "Structural stability and timely delivery"
     ]
   }
 ]

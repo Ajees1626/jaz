@@ -203,7 +203,7 @@ function HomeFaqSection() {
           className="mt-14 text-center"
         >
           <div className="mx-auto w-full max-w-2xl rounded-2xl bg-white px-6 py-8 shadow-lg sm:px-7">
-            <h3 className="text-2xl font-semibold text-jaz-dark sm:text-3xl">
+            <h3 className="text-2xl font-normal text-jaz-dark sm:text-3xl">
               <LetterAnimation text="Still have questions?" />
             </h3>
 
