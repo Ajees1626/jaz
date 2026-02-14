@@ -6,8 +6,19 @@ import SmoothParagraph from '../components/SmoothParagraph'
 import HomeBuildTogetherSection from '../components/HomeBuildTogetherSection'
 
 function Service() {
+  const heroRef = useRef(null)
+  const [heroVisible, setHeroVisible] = useState(false)
   const [visibleCards, setVisibleCards] = useState({})
   const cardRefs = useRef([])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    if (heroRef.current) observer.observe(heroRef.current)
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -38,30 +49,48 @@ function Service() {
     return () => observer.disconnect()
   }, [])
 
+  const AnimatedLetters = ({ text, visible }) => (
+    <>
+      {(text || '').split('').map((char, i) => (
+        <span
+          key={i}
+          style={{ transitionDelay: `${i * 35}ms` }}
+          className={`inline-block transition-all duration-500 ease-out ${
+            visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          }`}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </>
+  )
+
   return (
     <>
-      {/* HERO SECTION */}
+      {/* HERO SECTION - same pattern as About */}
       <section
-        className="relative flex min-h-[85vh] md:min-h-[100vh] items-center justify-center overflow-hidden pt-20"
-        style={{
-          backgroundImage:
-            "linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.55) 100%), url('https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839671/service_ko4wrb.webp')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: window.innerWidth > 1024 ? 'fixed' : 'scroll', // FIX lag on mobile
-        }}
+        ref={heroRef}
+        className="relative flex min-h-[110vh] items-center justify-center overflow-hidden pt-20"
       >
-        <div className="px-4 text-center text-white">
-          <h1 className="mb-5 text-4xl sm:text-6xl md:text-7xl font-normal tracking-wide">
-            SERVICES
+        <div
+          className={`hero-bg-zoom absolute inset-0 z-0 bg-fixed bg-cover bg-center bg-no-repeat ${
+            heroVisible ? 'is-visible' : ''
+          }`}
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839671/service_ko4wrb.webp')",
+          }}
+        />
+        <div className="relative z-10 w-full overflow-hidden px-4 text-center text-white sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <h1 className="mb-5 text-4xl font-normal sm:text-6xl md:text-7xl lg:text-8xl">
+            <AnimatedLetters text="SERVICES" visible={heroVisible} />
           </h1>
-
-          <div className="flex items-center justify-center gap-3 text-sm sm:text-base text-white/90">
-            <Link
-              to="/"
-              className="transition-colors duration-200 ease-out hover:text-white"
-            >
+          <div
+            className={`flex items-center justify-center gap-3 text-base text-white/90 transition-all duration-500 ${
+              heroVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+            }`}
+          >
+            <Link to="/" className="transition-colors duration-200 ease-out hover:text-white">
               Home
             </Link>
             <span>/</span>

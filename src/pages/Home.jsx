@@ -32,17 +32,17 @@ function Home() {
     <>
       <section
         id="hero"
-        className="relative min-h-[100vh] overflow-hidden bg-slate-100 pt-20"
+        className="relative min-h-screen overflow-hidden bg-slate-100 pt-20"
       >
         {/* Background slideshow */}
         <div className="absolute inset-0">
           {HERO_IMAGES.map((url, index) => (
             <div
               key={url}
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500 ease-out"
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-700 ease-out"
               style={{
                 backgroundImage: `url('${url}')`,
-                backgroundAttachment: 'fixed',
+                backgroundAttachment: window.innerWidth > 768 ? 'fixed' : 'scroll',
                 opacity: index === currentImageIndex ? 1 : 0,
                 pointerEvents: 'none',
               }}
@@ -50,24 +50,24 @@ function Home() {
             />
           ))}
         </div>
+
         {/* Dark overlay */}
         <div
-          className="absolute inset-0 z-1"
-          style={{
-            background: 'rgba(0, 0, 0, 0.3)',
-            pointerEvents: 'none',
-          }}
+          className="absolute inset-0 z-1 bg-black/40"
           aria-hidden
         />
+
         <div
           id="content"
           className="relative z-10 flex min-h-[calc(110vh-5rem)] w-full items-center justify-center px-4 py-12 sm:px-6 sm:py-14 md:px-8 lg:px-10"
         >
-          <div className="mx-auto w-full max-w-container rounded-2xl bg-white/10 px-6 py-10 text-center backdrop-blur-xs sm:px-10 sm:py-12 md:max-w-5xl lg:px-12 lg:py-14">
-            <SmoothParagraph className="mb-3 text-large uppercase tracking-[0.16em] text-white/95 sm:text-xl md:text-[1.25rem]">
+          <div className="mx-auto w-full max-w-6xl rounded-2xl bg-white/10 px-6 py-10 text-center backdrop-blur-sm sm:px-10 sm:py-12 md:px-12 md:py-14">
+            
+            <SmoothParagraph className="mb-3 text-sm uppercase tracking-[0.14em] text-white/95 sm:text-base md:text-lg">
               Welcome to JAZ Builders and Promoters
             </SmoothParagraph>
-            <h1 className="mb-7 text-4xl leading-[1.08] font-normal text-white drop-shadow-md sm:text-6xl md:text-7xl lg:text-8xl">
+
+            <h1 className="mb-7 text-3xl leading-[1.1] font-normal text-white drop-shadow-md sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
               <AnimatedLetters delayPerLetter={40} durationMs={500}>
                 A Foundation for
               </AnimatedLetters>
@@ -80,10 +80,13 @@ function Home() {
                 Your Future
               </AnimatedLetters>
             </h1>
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+
+            {/* Buttons */}
+            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
+              
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2.5 rounded-md border border-white/80 bg-black/10 px-6 py-2.5 text-base font-medium lowercase text-white transition-colors duration-200 ease-out hover:bg-white/10 sm:px-7 sm:py-3 sm:text-lg"
+                className="inline-flex w-full max-w-xs items-center justify-center gap-2.5 rounded-md border border-white/80 bg-black/10 px-6 py-3 text-base font-medium lowercase text-white transition-colors duration-200 ease-out hover:bg-white/10 sm:w-auto sm:px-7 sm:text-lg"
               >
                 <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white text-white">
                   <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -97,9 +100,10 @@ function Home() {
                 </span>
                 get started
               </Link>
+
               <Link
                 to="/project"
-                className="inline-flex items-center gap-2.5 rounded-md px-6 py-2.5 text-base font-medium text-[#127f83] transition-opacity duration-200 ease-out hover:opacity-90 sm:px-7 sm:py-3 sm:text-lg"
+                className="inline-flex w-full max-w-xs items-center justify-center gap-2.5 rounded-md px-6 py-3 text-base font-medium text-[#127f83] transition-opacity duration-200 ease-out hover:opacity-90 sm:w-auto sm:px-7 sm:text-lg"
                 style={{ backgroundColor: '#8FD8D3' }}
               >
                 <span className="flex h-7 w-7 items-center justify-center rounded bg-white/25">
@@ -114,6 +118,7 @@ function Home() {
                 </span>
                 view Projects
               </Link>
+
             </div>
           </div>
         </div>

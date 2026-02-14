@@ -42,13 +42,12 @@ function About() {
         className="relative flex min-h-[110vh] items-center justify-center overflow-hidden pt-20"
       >
         <div
-          className={`hero-bg-zoom absolute inset-0 z-0 bg-cover bg-center bg-no-repeat ${
+          className={`hero-bg-zoom absolute inset-0 z-0 bg-fixed bg-cover bg-center bg-no-repeat ${
             heroVisible ? 'is-visible' : ''
           }`}
           style={{
             backgroundImage:
               "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839737/about1_ewbam5.webp')",
-            backgroundAttachment: 'fixed',
           }}
         />
         <div className="relative z-10 w-full overflow-hidden px-4 text-center text-white sm:px-6 md:px-8 lg:px-10 xl:px-12">
