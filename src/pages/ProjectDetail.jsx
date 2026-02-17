@@ -164,7 +164,7 @@ function ProjectDetail() {
             {/* P TAG 1 */}
             <p
               ref={p1Ref}
-              className={`text-lg leading-relaxed text-slate-700 transition-all duration-1000 ${
+              className={`text-md leading-relaxed text-slate-700 transition-all duration-1000 ${
                 p1Visible
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-16'
@@ -176,7 +176,7 @@ function ProjectDetail() {
             {/* P TAG 2 */}
             <p
               ref={p2Ref}
-              className={`text-lg leading-relaxed text-slate-700 transition-all duration-1000 ${
+              className={`text-md leading-relaxed text-slate-700 transition-all duration-1000 ${
                 p2Visible
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-16'

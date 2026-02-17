@@ -4,22 +4,23 @@ import { FiChevronDown } from 'react-icons/fi'
 import { MdKeyboardArrowRight, MdOutlineApartment } from 'react-icons/md'
 import { motion } from 'framer-motion'
 import SmoothParagraph from './SmoothParagraph'
+import AnimatedLetters from './AnimatedLetters'
 
 const faqItems = [
   {
     question: 'What services do you offer?',
     answer:
-      'JAZ Builders offers a comprehensive range of construction services including building construction, architecture design, building renovation, building maintenance, flooring and roofing, and project management.',
+      'Jaz Builders offers a comprehensive range of construction services including building construction, architecture design, building renovation, building maintenance, flooring & roofing, and project management. We handle everything from initial design to final completion.',
   },
   {
     question: 'What types of projects do you specialize in?',
     answer:
-      'We specialize in residential, commercial, and industrial construction projects.',
+      "We specialize in residential, commercial, and industrial construction projects. Our expertise includes new construction, renovations, restorations, and mixed-use developments. With over 25 years of experience, we've successfully completed over 800 projects across various sectors.",
   },
   {
     question: 'How do I start a project with your company?',
     answer:
-      'Starting a project with us is easy! Contact us to schedule a consultation.',
+      "Starting a project with us is easy! First, contact us through our website or phone to schedule a consultation. During the consultation, we'll discuss your vision, requirements, and budget. Then we'll provide a detailed proposal and timeline. Once approved, we'll begin the project with regular updates throughout the construction process.",
   },
 ]
 
@@ -151,7 +152,7 @@ function HomeFaqSection() {
                   }}
                   viewport={{ once: true }}
                   whileHover={{ y: -3 }}
-                  className="rounded-xl bg-white shadow-md transition-shadow duration-300 hover:shadow-xl"
+                  className="rounded-xl bg-white shadow-md transition-shadow duration-300 p-3 hover:shadow-xl"
                 >
                   <button
                     type="button"
@@ -184,9 +185,15 @@ function HomeFaqSection() {
                       transition={{ duration: 0.4 }}
                       className="overflow-hidden border-t border-slate-100 px-4 pb-5 pt-3 sm:px-5"
                     >
-                      <SmoothParagraph className="text-base leading-relaxed text-slate-600">
-                        {item.answer}
-                      </SmoothParagraph>
+                      <AnimatedLetters
+                        as="p"
+                        text={item.answer}
+                        visible={isActive}
+                        className="text-lg leading-relaxed text-slate-600"
+                        startDelay={80}
+                        delayPerLetter={12}
+                        durationMs={340}
+                      />
                     </motion.div>
                   )}
                 </motion.div>

@@ -1,7 +1,7 @@
 /**
  * Backend API base URL. Set VITE_API_URL in .env to override.
  */
-const API_BASE = import.meta.env.VITE_API_URL || 'http://192.168.1.7:5000'
+const API_BASE = import.meta.env.VITE_API_URL || ''
 
 export async function submitEnquiry({ name, email, phone, message }) {
   const res = await fetch(`${API_BASE}/api/enquiry`, {

@@ -1,8 +1,21 @@
 import { useEffect, useRef, useState } from 'react'
 
+const HISTORY_PARAGRAPH = 'Founded in 2008 by Mr. Sultan Syed Ibrahim, Founder & Managing Director, JAZ BUILDERS & PROMOTERS is a trusted name in real estate, construction, and designing in Tenkasi and South Tamil Nadu. With over a decade of experience, we deliver projects that combine innovative design, superior quality, and lasting value. Our commitment to customer satisfaction, ethical practices, and transparency has made us one of the most respected and reliable brands in the region.'
+
 function AboutHistorySection() {
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
+  const [hasTriggered, setHasTriggered] = useState(false)
+  const displayVisible = isVisible && hasTriggered
+
+  useEffect(() => {
+    if (!isVisible) {
+      setHasTriggered(false)
+      return
+    }
+    const id = requestAnimationFrame(() => setHasTriggered(true))
+    return () => cancelAnimationFrame(id)
+  }, [isVisible])
 
   useEffect(() => {
     const section = sectionRef.current
@@ -97,24 +110,21 @@ function AboutHistorySection() {
               <BadgeLetters text="Our History" />
             </span>
 
-            {/* Paragraph */}
-            <p
-              className={`mt-6 text-justify text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-slate-800 transition-all duration-700 ease-out ${
-                isVisible
-                  ? 'translate-y-0 opacity-100'
-                  : 'translate-y-6 opacity-0'
-              }`}
-              style={{
-                transitionDelay: '400ms', // smoother delay
-              }}
-            >
-              Founded in 2008 by Mr. Sultan Syed Ibrahim, Founder & Managing Director,
-              JAZ BUILDERS & PROMOTERS is a trusted name in real estate, construction,
-              and designing in Tenkasi and South Tamil Nadu. With over a decade of
-              experience, we deliver projects that combine innovative design,
-              superior quality, and lasting value. Our commitment to customer
-              satisfaction, ethical practices, and transparency has made us one of
-              the most respected and reliable brands in the region.
+            {/* Paragraph — word-by-word animation so words stay together and wrap correctly */}
+            <p className="mt-6 text-justify text-sm leading-relaxed text-slate-800 sm:text-base md:text-lg lg:text-xl">
+              {HISTORY_PARAGRAPH.split(/\s+/).map((word, index) => (
+                <span
+                  key={`${index}-${word.slice(0, 8)}`}
+                  style={{
+                    opacity: displayVisible ? 1 : 0,
+                    transition: 'opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1)',
+                    transitionDelay: displayVisible ? `${350 + index * 28}ms` : '0ms',
+                  }}
+                  className="inline"
+                >
+              {index > 0 ? ' ' : ''}{word}
+                </span>
+              ))}
             </p>
           </div>
 

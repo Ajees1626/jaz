@@ -58,7 +58,7 @@ function AboutTechnicalTeamSection() {
   return (
     <section
       ref={sectionRef}
-      className="overflow-hidden bg-jaz-light py-12 sm:py-16 md:py-20 lg:py-24"
+      className="overflow-hidden bg- py-12 sm:py-16 md:py-20 lg:py-24"
     >
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10">
         {/* Heading */}

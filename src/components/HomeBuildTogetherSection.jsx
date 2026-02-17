@@ -19,12 +19,9 @@ function HomeBuildTogetherSection() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true)   // once true, no toggle (prevent lag)
-          observer.unobserve(el)
-        }
+        setIsInView(entry.isIntersecting) // keep observing so animations can re-run
       },
-      { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
     )
 
     observer.observe(el)
@@ -39,88 +36,95 @@ function HomeBuildTogetherSection() {
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
 
-          {/* LEFT CONTENT */}
+          {/* LEFT CONTENT — scroll + letter animation (all visible) */}
           <div
-            className={`transition-all duration-700 ease-out ${
-              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            className={`transition-all duration-1000 ease-out ${
+              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            {/* Badge */}
+            {/* Badge — letter animation so text shows on turquoise bar */}
             <AnimatedLetters
               as="span"
-              className="inline-flex rounded-full bg-jaz-dark px-5 py-2 text-xs sm:text-sm font-medium uppercase tracking-wide text-white"
-              delayPerLetter={26}
-              durationMs={380}
+              text="Get Start Today"
               visible={isInView}
-            >
-              Get Start Today
-            </AnimatedLetters>
+              opacityOnly
+              className="inline-flex rounded-full bg-jaz-dark px-5 py-2 text-xs sm:text-sm font-medium uppercase tracking-wide text-white"
+              delayPerLetter={35}
+              durationMs={450}
+              startDelay={0}
+              maxStaggerLetters={20}
+            />
 
-            {/* Heading */}
+            {/* Heading — letter animation */}
             <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal leading-tight text-slate-800">
               <AnimatedLetters
                 as="span"
+                text="Let's build"
                 className="block"
-                delayPerLetter={32}
-                durationMs={420}
                 visible={isInView}
-              >
-                Let&apos;s build
-              </AnimatedLetters>
+                delayPerLetter={38}
+                durationMs={480}
+                startDelay={80}
+                maxStaggerLetters={12}
+              />
 
               <span className="block">
                 <AnimatedLetters
                   as="span"
+                  text="something"
                   className="inline-block"
-                  delayPerLetter={28}
-                  durationMs={400}
                   visible={isInView}
-                  startDelay={200}
-                >
-                  something
-                </AnimatedLetters>{' '}
+                  delayPerLetter={36}
+                  durationMs={460}
+                  startDelay={320}
+                  maxStaggerLetters={12}
+                />{' '}
                 <span className="text-jaz-dark inline-block">
                   <AnimatedLetters
                     as="span"
-                    delayPerLetter={28}
-                    durationMs={400}
+                    text="great"
                     visible={isInView}
-                    startDelay={350}
-                  >
-                    great
-                  </AnimatedLetters>
+                    delayPerLetter={36}
+                    durationMs={460}
+                    startDelay={520}
+                    maxStaggerLetters={6}
+                  />
                 </span>
               </span>
 
               <AnimatedLetters
                 as="span"
+                text="together!"
                 className="block"
-                delayPerLetter={32}
-                durationMs={420}
                 visible={isInView}
-                startDelay={480}
-              >
-                together!
-              </AnimatedLetters>
+                delayPerLetter={38}
+                durationMs={480}
+                startDelay={720}
+                maxStaggerLetters={10}
+              />
             </h2>
 
-            {/* Paragraph */}
+            {/* Paragraph — letter animation, capped so all letters show */}
             <p className="mt-5 max-w-xl text-sm sm:text-base md:text-lg leading-relaxed text-slate-600">
               <AnimatedLetters
                 as="span"
-                delayPerLetter={12}
-                durationMs={320}
-                startDelay={600}
+                text="Don't wait any longer to bring your construction dreams to life. Partner with JAZ Builders and Promoters and experience unparalleled service and quality."
                 visible={isInView}
-              >
-                Don&apos;t wait any longer to bring your construction dreams to life.
-                Partner with JAZ Builders and Promoters and experience unparalleled
-                service and quality.
-              </AnimatedLetters>
+                opacityOnly
+                delayPerLetter={14}
+                durationMs={380}
+                startDelay={880}
+                maxStaggerLetters={28}
+              />
             </p>
 
-            {/* Buttons */}
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            {/* Buttons — fade in */}
+            <div
+              className={`mt-8 flex flex-wrap items-center gap-3 transition-all duration-600 ease-out ${
+                isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: isInView ? '1000ms' : '0ms' }}
+            >
               <Link
                 to="/contact"
                 className="inline-flex items-center gap-2 rounded-lg bg-jaz-dark px-6 sm:px-7 py-3 text-sm sm:text-base font-medium text-white transition-transform duration-200 hover:scale-105"
@@ -138,10 +142,16 @@ function HomeBuildTogetherSection() {
               </Link>
             </div>
 
-            {/* Stats */}
+            {/* Stats — staggered fade in */}
             <div className="mt-10 grid grid-cols-3 gap-4 max-w-sm">
-              {stats.map((item) => (
-                <div key={item.label}>
+              {stats.map((item, index) => (
+                <div
+                  key={item.label}
+                  className={`transition-all duration-500 ease-out ${
+                    isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+                  }`}
+                  style={{ transitionDelay: isInView ? `${1100 + index * 100}ms` : '0ms' }}
+                >
                   <p className="text-2xl sm:text-3xl md:text-4xl font-normal text-slate-700">
                     {item.value}
                   </p>
@@ -153,23 +163,33 @@ function HomeBuildTogetherSection() {
             </div>
           </div>
 
-          {/* RIGHT IMAGE */}
+          {/* RIGHT IMAGE — slow scroll + image reveal animation */}
           <div
-            className={`relative transition-all duration-700 ease-out ${
-              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            className={`relative transition-all duration-[1200ms] ease-out delay-150 ${
+              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
             }`}
           >
-            <div className="overflow-hidden rounded-2xl shadow-xl">
+            <div
+              className={`overflow-hidden rounded-2xl shadow-xl transition-all duration-[1000ms] ease-out delay-300 ${
+                isInView ? 'scale-100 opacity-100' : 'scale-[0.96] opacity-90'
+              }`}
+            >
               <img
                 src="https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839324/GET_yvbzsb.webp"
                 alt="Modern building"
                 loading="lazy"
-                className="w-full h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] object-cover transition-transform duration-700 hover:scale-105"
+                className={`w-full h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] object-cover transition-all duration-[1000ms] ease-out delay-200 hover:scale-105 ${
+                  isInView ? 'translate-y-0 scale-100' : 'translate-y-6 scale-[1.02]'
+                }`}
               />
             </div>
 
-            {/* Floating Card */}
-            <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 lg:-left-8 flex items-center gap-3 rounded-xl border border-jaz-dark/20 bg-white px-4 sm:px-5 py-3 shadow-lg">
+            {/* Floating Card — appears after image */}
+            <div
+              className={`absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 lg:-left-8 flex items-center gap-3 rounded-xl border border-jaz-dark/20 bg-white px-4 sm:px-5 py-3 shadow-lg transition-all duration-700 ease-out delay-500 ${
+                isInView ? 'opacity-100 translate-x-0 translate-y-0' : 'opacity-0 translate-x-4 translate-y-4'
+              }`}
+            >
               <div className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-jaz-dark text-white">
                 <FiCheckCircle className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>

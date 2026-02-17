@@ -74,7 +74,7 @@ function Project() {
               "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839588/project_lavxtb.webp')",
           }}
         />
-        <div className="relative z-10 overflow-hidden text-center text-white">
+        <div className="relative z-10 mx-auto w-full max-w-7xl overflow-hidden px-6 text-center text-white sm:px-8 md:px-10 lg:px-12">
           <h1 className="mb-6 text-4xl sm:text-6xl md:text-7xl lg:text-8xl">
             <AnimatedLetters text="OUR PROJECTS" visible={heroVisible} />
           </h1>
@@ -99,7 +99,7 @@ function Project() {
         ref={gridRef}
         className="relative z-20 -mt-16 rounded-t-[3rem] bg-jaz-dark pt-20 pb-24"
       >
-        <div className="px-6 ">
+        <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 md:px-10 lg:px-12">
           <div className="grid gap-10 sm:grid-cols-2">
             {projects.map((item, index) => (
               <AnimatedCard

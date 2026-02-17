@@ -21,16 +21,28 @@ function AnimatedLetters({
   triggerOnScroll = false,
   scrollThreshold = 0.4,
   visible: visibleProp,
+  opacityOnly = false,
+  maxStaggerLetters = 28,
   ...props
 }) {
   const [visibleState, setVisibleState] = useState(false)
+  const [hasTriggered, setHasTriggered] = useState(false)
   const ref = useRef(null)
   const text = textProp ?? (typeof children === 'string' ? children : '')
   const isControlled = visibleProp !== undefined && visibleProp !== null
   const visible = isControlled ? visibleProp : visibleState
+  /* When controlled and visible, start hidden then trigger on next frame so transition runs (e.g. FAQ open) */
+  const displayVisible = isControlled ? (visible && hasTriggered) : visible
 
   useEffect(() => {
-    if (isControlled) return
+    if (isControlled) {
+      if (visible) {
+        const id = requestAnimationFrame(() => setHasTriggered(true))
+        return () => cancelAnimationFrame(id)
+      }
+      setHasTriggered(false)
+      return
+    }
     if (triggerOnScroll && ref.current) {
       const el = ref.current
       const observer = new IntersectionObserver(
@@ -44,7 +56,7 @@ function AnimatedLetters({
     }
     const t = requestAnimationFrame(() => setVisibleState(true))
     return () => cancelAnimationFrame(t)
-  }, [triggerOnScroll, scrollThreshold, isControlled])
+  }, [triggerOnScroll, scrollThreshold, isControlled, visible])
 
   const durationSec = duration != null ? Number(duration) : durationMs / 1000
   const letters = text.split('')
@@ -56,21 +68,25 @@ function AnimatedLetters({
       aria-label={text}
       {...props}
     >
-      {letters.map((letter, index) => (
-        <span
-          key={`${index}-${letter}`}
-          style={{
-            display: 'inline-block',
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0)' : 'translateY(40px)',
-            transition: `all ${durationSec}s cubic-bezier(0.22, 1, 0.36, 1)`,
-            transitionDelay: `${startDelay + index * delayPerLetter}ms`,
-          }}
-          aria-hidden
-        >
-          {letter === ' ' ? '\u00A0' : letter}
-        </span>
-      ))}
+      {letters.map((letter, index) => {
+        const delayMs = startDelay + Math.min(index, maxStaggerLetters) * delayPerLetter
+        return (
+          <span
+            key={`${index}-${letter}`}
+            style={{
+              display: 'inline-block',
+              opacity: displayVisible ? 1 : 0,
+              transform: opacityOnly ? 'translateY(0)' : (displayVisible ? 'translateY(0)' : 'translateY(28px)'),
+              transition: `opacity ${durationSec}s cubic-bezier(0.22, 1, 0.36, 1), transform ${durationSec}s cubic-bezier(0.22, 1, 0.36, 1)`,
+              transitionDelay: `${delayMs}ms`,
+              willChange: displayVisible ? 'auto' : 'opacity, transform',
+            }}
+            aria-hidden
+          >
+            {letter === ' ' ? '\u00A0' : letter}
+          </span>
+        )
+      })}
     </Tag>
   )
 }

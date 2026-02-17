@@ -66,7 +66,7 @@ function Footer() {
   return (
     <>
       <footer className="mt-auto bg-jaz-dark text-[15px] text-white" role="contentinfo">
-        <div className="w-full px-4 py-14 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="mx-auto w-full max-w-7xl px-6 py-14 sm:px-8 md:px-10 lg:px-12 xl:px-16">
           <div className="grid items-start gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr_0.9fr_1.1fr] lg:gap-12">
             <div>
               <Link to="/" className="inline-flex items-center">

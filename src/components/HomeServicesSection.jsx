@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import services from '../data/services.json'
 
 function HomeServicesSection() {
@@ -23,7 +24,7 @@ function HomeServicesSection() {
     return () => observer.disconnect()
   }, [])
 
-  /* Responsive Visible Count */
+  /* Always show 3 cards on desktop; 1 on small screens */
   useEffect(() => {
     const updateVisibleCount = () => {
       const count = window.innerWidth < 768 ? 1 : 3
@@ -99,51 +100,49 @@ function HomeServicesSection() {
     <section
       ref={sectionRef}
       aria-labelledby="services-heading"
-      className={`overflow-hidden bg-jaz-light py-12 sm:py-16 md:py-20 transition-all duration-1000 ease-out ${
+      className={`overflow-hidden bg-jaz-light py-16 sm:py-20 md:py-24 transition-all duration-1000 ease-out ${
         isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
       }`}
     >
-      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-
-        {/* Heading Reveal */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        {/* Heading */}
         <div
           className={`mb-12 text-center transition-all duration-700 delay-200 ease-out ${
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <h2 id="services-heading" className="sr-only">Our Services</h2>
+          <h2 id="services-heading" className="sr-only">
+            Our Services
+          </h2>
           <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white" aria-hidden="true">
             Our Services
           </span>
         </div>
 
-        {/* Slider Reveal */}
+        {/* Slider — exactly 3 cards visible with gap between */}
         <div
           className={`overflow-hidden pt-4 transition-all duration-700 delay-300 ease-out ${
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
+          style={{ minHeight: '520px' }}
         >
           <div
             className="flex will-change-transform"
             style={{
-              transform: `translateX(-${
-                (currentIndex * 100) / visibleCount
-              }%)`,
-              transition: enableTransition
-                ? 'transform 0.35s ease-out'
-                : 'none',
+              transform: `translateX(-${(currentIndex * 100) / visibleCount}%)`,
+              transition: enableTransition ? 'transform 0.35s ease-out' : 'none',
             }}
             onTransitionEnd={handleTrackTransitionEnd}
           >
             {sliderItems.map((service, idx) => (
               <div
                 key={`${service.slug}-${idx}`}
-                className="shrink-0 px-2.5"
+                className="shrink-0 px-3"
                 style={{ flex: `0 0 ${100 / visibleCount}%` }}
               >
                 <Link
                   to={`/service/${service.slug}`}
-                  className="group relative block h-[460px] overflow-hidden rounded-2xl border-2 border-jaz-dark/30 bg-slate-900 transform-gpu transition-all duration-300 ease-out hover:z-20 hover:-translate-y-3 hover:scale-[1.02] hover:border-jaz hover:shadow-[0_26px_42px_-16px_rgba(0,163,160,0.62),0_14px_24px_-12px_rgba(15,23,42,0.6),inset_0_1px_0_rgba(255,255,255,0.26)]"
+                  className="group relative block h-[520px] overflow-hidden rounded-2xl border-2 border-jaz-dark/30 bg-slate-900 transform-gpu transition-all duration-300 ease-out hover:z-20 hover:-translate-y-3 hover:scale-[1.02] hover:border-jaz hover:shadow-[0_26px_42px_-16px_rgba(0,163,160,0.62),0_14px_24px_-12px_rgba(15,23,42,0.6),inset_0_1px_0_rgba(255,255,255,0.26)]"
                 >
                   <img
                     src={service.cardImage || service.image}
@@ -167,7 +166,7 @@ function HomeServicesSection() {
           </div>
         </div>
 
-        {/* Dots Reveal */}
+        {/* Dots */}
         <div
           className={`mt-10 flex items-center justify-center gap-2 transition-all duration-700 delay-500 ${
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
@@ -178,15 +177,37 @@ function HomeServicesSection() {
               key={dotIndex}
               onClick={() => setCurrentIndex(dotIndex + visibleCount)}
               className={`h-2.5 rounded-full transition-all ${
-                dotIndex === logicalIndex
-                  ? 'w-8 bg-jaz-dark'
-                  : 'w-2.5 bg-jaz-dark/40'
+                dotIndex === logicalIndex ? 'w-8 bg-jaz-dark' : 'w-2.5 bg-jaz-dark/40'
               }`}
             />
           ))}
         </div>
 
-        {/* View All Button Reveal */}
+        {/* Manual prev/next — below dots, icon only */}
+        <div
+          className={`mt-4 flex items-center justify-center gap-4 transition-all duration-700 delay-500 ${
+            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
+        >
+          <button
+            type="button"
+            onClick={handlePrevious}
+            aria-label="Previous services"
+            className="text-2xl text-jaz-dark transition-opacity hover:opacity-70"
+          >
+            <FiChevronLeft />
+          </button>
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label="Next services"
+            className="text-2xl text-jaz-dark transition-opacity hover:opacity-70"
+          >
+            <FiChevronRight />
+          </button>
+        </div>
+
+        {/* View All Button */}
         <div
           className={`mt-10 text-center transition-all duration-700 delay-700 ${
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
@@ -199,7 +220,6 @@ function HomeServicesSection() {
             View All Services →
           </Link>
         </div>
-
       </div>
     </section>
   )

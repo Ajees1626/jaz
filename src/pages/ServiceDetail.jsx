@@ -208,7 +208,7 @@ function ServiceDetail() {
             />
 
             <div className="mt-10 space-y-8 text-slate-600">
-              <p className="text-base leading-relaxed sm:text-lg">
+              <p className="text-base leading-relaxed sm:text-md">
                 {service.detailIntro && (
                   <span className="font-semibold text-slate-800">
                     {service.detailIntro}{' '}
@@ -217,7 +217,7 @@ function ServiceDetail() {
                 <span dangerouslySetInnerHTML={{ __html: service.detailBody || '' }} />
               </p>
 
-              <p className="text-base leading-relaxed sm:text-lg">
+              <p className="text-base leading-relaxed sm:text-md">
                 <span dangerouslySetInnerHTML={{ __html: service.detailBody2 || '' }} />
               </p>
             </div>
