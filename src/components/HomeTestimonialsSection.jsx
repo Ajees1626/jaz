@@ -96,7 +96,7 @@ function HomeTestimonialsSection() {
     <section className="relative z-10 bg-white py-10 sm:py-12 md:py-16">
       <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="mb-7 text-center sm:mb-8">
-          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-1.5 text-xs font-medium uppercase tracking-wide text-white sm:px-7 sm:text-sm">
+          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-1.5 text-sm font-medium uppercase tracking-wide text-white sm:px-7 sm:text-lg">
             Testimonials
           </span>
         </div>

@@ -104,7 +104,7 @@ function HomeServicesSection() {
         isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
       }`}
     >
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         {/* Heading */}
         <div
           className={`mb-12 text-center transition-all duration-700 delay-200 ease-out ${
@@ -114,7 +114,7 @@ function HomeServicesSection() {
           <h2 id="services-heading" className="sr-only">
             Our Services
           </h2>
-          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white" aria-hidden="true">
+          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-xl font-medium uppercase tracking-wide text-white" aria-hidden="true">
             Our Services
           </span>
         </div>
@@ -124,7 +124,7 @@ function HomeServicesSection() {
           className={`overflow-hidden pt-4 transition-all duration-700 delay-300 ease-out ${
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
-          style={{ minHeight: '520px' }}
+          style={{ minHeight: '460px' }}
         >
           <div
             className="flex will-change-transform"
@@ -137,12 +137,12 @@ function HomeServicesSection() {
             {sliderItems.map((service, idx) => (
               <div
                 key={`${service.slug}-${idx}`}
-                className="shrink-0 px-3"
+                className="shrink-0 px-4"
                 style={{ flex: `0 0 ${100 / visibleCount}%` }}
               >
                 <Link
                   to={`/service/${service.slug}`}
-                  className="group relative block h-[520px] overflow-hidden rounded-2xl border-2 border-jaz-dark/30 bg-slate-900 transform-gpu transition-all duration-300 ease-out hover:z-20 hover:-translate-y-3 hover:scale-[1.02] hover:border-jaz hover:shadow-[0_26px_42px_-16px_rgba(0,163,160,0.62),0_14px_24px_-12px_rgba(15,23,42,0.6),inset_0_1px_0_rgba(255,255,255,0.26)]"
+                  className="group relative block h-[460px] overflow-hidden rounded-xl border-2 border-jaz-dark/30 bg-slate-900 transform-gpu transition-all duration-300 ease-out hover:z-20 hover:-translate-y-2 hover:scale-[1.02] hover:border-jaz hover:shadow-[0_26px_42px_-16px_rgba(0,163,160,0.62),0_14px_24px_-12px_rgba(15,23,42,0.6),inset_0_1px_0_rgba(255,255,255,0.26)]"
                 >
                   <img
                     src={service.cardImage || service.image}
@@ -152,8 +152,8 @@ function HomeServicesSection() {
                     className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
                   />
 
-                  <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/95 via-black/70 to-transparent p-5">
-                    <h3 className="mb-1 text-3xl font-normal text-white transition-colors duration-200 ease-out group-hover:text-jaz">
+                  <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/95 via-black/70 to-transparent p-4">
+                    <h3 className="mb-1 text-2xl font-normal text-white transition-colors duration-200 ease-out group-hover:text-jaz sm:text-2xl">
                       {service.title}
                     </h3>
                     <div className="flex items-center gap-2 text-sm text-jaz-light group-hover:text-jaz">
@@ -215,7 +215,7 @@ function HomeServicesSection() {
         >
           <Link
             to="/service"
-            className="inline-flex items-center gap-2 rounded-xl bg-jaz-dark px-8 py-3 text-sm font-medium text-white shadow-md transition-opacity duration-200 ease-out hover:opacity-90"
+            className="inline-flex items-center gap-2 rounded-xl bg-jaz-dark px-10 py-4 text-sm font-medium text-white shadow-md transition-opacity duration-200 ease-out hover:opacity-90"
           >
             View All Services →
           </Link>

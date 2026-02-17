@@ -67,7 +67,7 @@ function AboutTechnicalTeamSection() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <span className="inline-flex rounded-full bg-jaz-dark px-8 py-2 text-sm font-medium uppercase tracking-wide text-white shadow-md sm:text-base">
+          <span className="inline-flex rounded-full bg-jaz-dark px-8 py-2 text-md font-medium uppercase tracking-wide text-white shadow-md sm:text-2xl">
             Our Technical Team
           </span>
         </div>

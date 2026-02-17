@@ -3,6 +3,34 @@ import { Link } from 'react-router-dom'
 import { FiArrowRight, FiCheckCircle } from 'react-icons/fi'
 import AnimatedLetters from './AnimatedLetters'
 
+// Parse "150+", "99%" -> { number: 150, suffix: '+' }
+function parseValue(str) {
+  const match = String(str).match(/^(\d+)(.*)$/)
+  if (!match) return { number: 0, suffix: '' }
+  return { number: parseInt(match[1], 10), suffix: match[2] || '' }
+}
+
+function CountUp({ target, suffix = '', durationMs = 1800, start = false }) {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    if (!start) {
+      setCount(0)
+      return
+    }
+    let startTime = null
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp
+      const elapsed = timestamp - startTime
+      const progress = Math.min(elapsed / durationMs, 1)
+      const eased = 1 - (1 - progress) ** 4
+      setCount(Math.round(eased * target))
+      if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  }, [target, durationMs, start])
+  return <>{count}{suffix}</>
+}
+
 const stats = [
   { value: '150+', label: 'Projects' },
   { value: '18+', label: 'Years' },
@@ -48,7 +76,7 @@ function HomeBuildTogetherSection() {
               text="Get Start Today"
               visible={isInView}
               opacityOnly
-              className="inline-flex rounded-full bg-jaz-dark px-5 py-2 text-xs sm:text-sm font-medium uppercase tracking-wide text-white"
+              className="inline-flex rounded-full bg-jaz-dark px-5 py-2 text-sm sm:text-lg  uppercase tracking-wide text-white"
               delayPerLetter={35}
               durationMs={450}
               startDelay={0}
@@ -152,8 +180,13 @@ function HomeBuildTogetherSection() {
                   }`}
                   style={{ transitionDelay: isInView ? `${1100 + index * 100}ms` : '0ms' }}
                 >
-                  <p className="text-2xl sm:text-3xl md:text-4xl font-normal text-slate-700">
-                    {item.value}
+                  <p className="text-xl sm:text-2xl md:text-2xl font-normal text-slate-700 tabular-nums">
+                    <CountUp
+                      target={parseValue(item.value).number}
+                      suffix={parseValue(item.value).suffix}
+                      start={isInView}
+                      durationMs={2000}
+                    />
                   </p>
                   <p className="mt-1 text-[10px] sm:text-xs uppercase tracking-wider text-slate-500">
                     {item.label}

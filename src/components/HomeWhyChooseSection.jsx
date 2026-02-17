@@ -1,7 +1,35 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { FiCheckCircle, FiStar, FiSun } from 'react-icons/fi'
 import AnimatedLetters from './AnimatedLetters'
 import { motion, useInView } from 'framer-motion'
+
+// Parse "150+", "18+", "1000+" -> { number: 150, suffix: '+' }
+function parseValue(str) {
+  const match = String(str).match(/^(\d+)(.*)$/)
+  if (!match) return { number: 0, suffix: '' }
+  return { number: parseInt(match[1], 10), suffix: match[2] || '' }
+}
+
+function CountUp({ target, suffix = '', durationMs = 1800, start = false }) {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    if (!start) {
+      setCount(0)
+      return
+    }
+    let startTime = null
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp
+      const elapsed = timestamp - startTime
+      const progress = Math.min(elapsed / durationMs, 1)
+      const eased = 1 - (1 - progress) ** 4
+      setCount(Math.round(eased * target))
+      if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  }, [target, durationMs, start])
+  return <>{count}{suffix}</>
+}
 
 const whyChooseItems = [
   {
@@ -93,7 +121,7 @@ function HomeWhyChooseSection() {
           <div className="mb-14 text-center">
             <AnimatedLetters
               as="span"
-              className="inline-flex rounded-full bg-jaz-dark px-9 py-2.5 text-sm font-medium uppercase tracking-wide text-white shadow-md"
+              className="inline-flex rounded-full bg-jaz-dark px-9 py-2.5 text-lg font-medium uppercase tracking-wide text-white shadow-md"
               delayPerLetter={28}
               durationMs={400}
               triggerOnScroll
@@ -131,8 +159,13 @@ function HomeWhyChooseSection() {
                   whileHover={{ scale: 1.03 }}
                   className="mt-auto rounded-xl bg-gradient-to-r from-jaz to-jaz-light px-4 py-6 text-white shadow-inner"
                 >
-                  <p className="text-4xl font-semibold leading-none">
-                    {item.value}
+                  <p className="text-4xl leading-none tabular-nums">
+                    <CountUp
+                      target={parseValue(item.value).number}
+                      suffix={parseValue(item.value).suffix}
+                      start={isInView}
+                      durationMs={2000}
+                    />
                   </p>
                   <p className="mt-2 text-xs uppercase tracking-widest text-white/90">
                     {item.label}

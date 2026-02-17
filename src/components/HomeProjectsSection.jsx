@@ -26,11 +26,11 @@ function HomeProjectsSection() {
 
   return (
     <section ref={sectionRef} aria-labelledby="projects-heading" className="reveal-section bg-jaz-light py-12 sm:py-16 md:py-20">
-      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+      <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 md:px-10 lg:px-12">
         <div className={`projects-section-reveal ${isInView ? 'projects-section-reveal-visible' : ''}`}>
           <div className="projects-reveal-header mb-10 text-center">
             <h2 id="projects-heading" className="sr-only">Our Projects</h2>
-            <span className="inline-flex rounded-full bg-jaz-dark px-7 py-2 text-sm font-medium uppercase tracking-wide text-white" aria-hidden="true">
+            <span className="inline-flex rounded-full bg-jaz-dark px-7 py-2 text-lg font-medium uppercase tracking-wide text-white" aria-hidden="true">
               Our Projects
             </span>
           </div>
@@ -123,7 +123,7 @@ function HomeProjectsSection() {
           <div className="projects-reveal-footer mt-10 text-center">
             <Link
               to="/project"
-              className="inline-flex items-center gap-2 rounded-xl bg-jaz-dark px-8 py-3 text-sm font-medium text-white shadow-md transition-opacity duration-200 ease-out hover:opacity-90"
+              className="inline-flex items-center gap-2 rounded-xl bg-jaz-dark px-10 py-4 text-sm font-medium text-white shadow-md transition-opacity duration-200 ease-out hover:opacity-90"
             >
               View All Projects
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

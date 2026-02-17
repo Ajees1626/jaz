@@ -132,7 +132,7 @@ function Service() {
                   </span>
 
                   <h2 className="mb-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal text-slate-900">
-                    <span className="inline-block rounded-full border border-slate-200 bg-slate-50 py-2 px-4 sm:py-3 sm:px-6">
+                    <span className="inline-block rounded-2xl  bg-slate-50 py-2 px-4 sm:py-3 sm:px-6">
                       {item.title}
                     </span>
                   </h2>

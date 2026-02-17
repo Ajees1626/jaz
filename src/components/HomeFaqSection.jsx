@@ -69,7 +69,7 @@ function HomeFaqSection() {
           className="mb-10 text-center"
         >
           <h2 id="faq-heading" className="sr-only">Frequently Asked Questions</h2>
-          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-sm font-medium uppercase tracking-wide text-white shadow-md" aria-hidden="true">
+          <span className="inline-flex rounded-full bg-jaz-dark px-6 py-2 text-lg font-medium uppercase tracking-wide text-white shadow-md" aria-hidden="true">
             <LetterAnimation text="Frequently Asked Questions" />
           </span>
         </motion.div>

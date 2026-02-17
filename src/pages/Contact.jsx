@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiPhone, FiSmartphone, FiMail, FiMapPin } from 'react-icons/fi'
+import {  FiSmartphone, FiMail, FiMapPin } from 'react-icons/fi'
+import { GiRotaryPhone } from "react-icons/gi";
 import { FaWhatsapp } from 'react-icons/fa'
 import PageSEO from '../components/PageSEO'
 import SmoothParagraph from '../components/SmoothParagraph'
@@ -10,7 +11,7 @@ const CONTACT_CARDS = [
   {
     title: 'Land Line',
     value: '04633 210218',
-    icon: FiPhone,
+    icon: GiRotaryPhone,
   },
   {
     title: 'Mobile',
@@ -110,7 +111,7 @@ function Contact() {
               "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://res.cloudinary.com/dz8q7z6vq/image/upload/v1769839710/contact_ongaeq.webp')",
           }}
         />
-        <div className="relative z-10 w-full overflow-hidden px-4 text-center text-white sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="relative z-10 mx-auto w-full max-w-7xl overflow-hidden px-6 text-center text-white sm:px-8 md:px-10 lg:px-12">
           <h1 className="mb-5 text-4xl font-normal sm:text-6xl md:text-7xl lg:text-8xl">
             <AnimatedLetters text="CONTACT US" visible={heroVisible} />
           </h1>
@@ -133,7 +134,7 @@ function Contact() {
         ref={cardsRef}
         className="relative z-20 -mt-16 rounded-t-[3rem] bg-white pt-4 sm:-mt-20 sm:rounded-t-[4rem]"
       >
-        <div className="w-full px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-16 lg:px-10 lg:py-20 xl:px-12">
+        <div className="mx-auto w-full max-w-7xl px-6 py-12 sm:px-8 sm:py-16 md:px-10 md:py-16 lg:px-12 lg:py-20">
           <div
             className={`mb-8 flex justify-center transition-all duration-500 ${
               cardsVisible ? 'opacity-100' : 'opacity-0'
@@ -223,15 +224,15 @@ function Contact() {
         </div>
       </section>
 
-      {/* Contact Us form - white card */}
+      {/* Contact Us form - white card (wider) */}
       <section className="bg-slate-100 py-12 sm:py-16">
-        <div className="mx-auto max-w-2xl px-4 sm:px-6">
-          <div className="rounded-2xl bg-white p-6 shadow-xl sm:p-8">
-            <h2 className="mb-6 text-left text-3xl font-normal text-jaz-dark sm:text-4xl">
+        <div className="mx-auto max-w-5xl px-6 sm:px-8 md:px-10 lg:px-12">
+          <div className="rounded-2xl bg-white p-8 shadow-xl sm:p-10 md:p-12">
+            <h2 className="mb-8 text-left text-3xl  text-jaz-dark sm:text-4xl md:text-5xl">
               Contact Us
             </h2>
             <form
-              className="space-y-5"
+              className="space-y-6"
               onSubmit={async (e) => {
                 e.preventDefault()
                 setFormFeedback(null)
@@ -262,14 +263,14 @@ function Contact() {
                   {formFeedback.text}
                 </p>
               )}
-              <div className="grid gap-5 sm:grid-cols-2">
+              <div className="grid gap-6 sm:grid-cols-2">
                 <div>
                   <input
                     type="text"
                     placeholder="Name Of The Owner"
                     value={formData.name}
                     onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
-                    className="h-12 w-full rounded-xl border border-slate-300 bg-white px-4 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
+                    className="h-14 w-full rounded-xl border border-slate-300 bg-white px-5 text-base text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20 sm:text-sm"
                   />
                 </div>
                 <div>
@@ -278,18 +279,18 @@ function Contact() {
                     placeholder="Phone Number"
                     value={formData.phone}
                     onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
-                    className="h-12 w-full rounded-xl border border-slate-300 bg-white px-4 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
+                    className="h-14 w-full rounded-xl border border-slate-300 bg-white px-5 text-base text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20 sm:text-sm"
                   />
                 </div>
               </div>
-              <div className="grid gap-5 sm:grid-cols-2">
+              <div className="grid gap-6 sm:grid-cols-2">
                 <div>
                   <input
                     type="email"
                     placeholder="Email Address"
                     value={formData.email}
                     onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
-                    className="h-12 w-full rounded-xl border border-slate-300 bg-white px-4 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
+                    className="h-14 w-full rounded-xl border border-slate-300 bg-white px-5 text-base text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20 sm:text-sm"
                   />
                 </div>
                 <div>
@@ -298,23 +299,23 @@ function Contact() {
                     placeholder="Property Location"
                     value={formData.property_location}
                     onChange={(e) => setFormData((p) => ({ ...p, property_location: e.target.value }))}
-                    className="h-12 w-full rounded-xl border border-slate-300 bg-white px-4 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
+                    className="h-14 w-full rounded-xl border border-slate-300 bg-white px-5 text-base text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20 sm:text-sm"
                   />
                 </div>
               </div>
               <div>
                 <textarea
-                  rows={5}
+                  rows={6}
                   placeholder="Leave Your Comment"
                   value={formData.comment}
                   onChange={(e) => setFormData((p) => ({ ...p, comment: e.target.value }))}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20"
+                  className="min-h-[140px] w-full rounded-xl border border-slate-300 bg-white px-5 py-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition-colors duration-200 ease-out focus:border-jaz-dark focus:ring-2 focus:ring-jaz-dark/20 sm:text-sm"
                 />
               </div>
               <button
                 type="submit"
                 disabled={formLoading}
-                className="w-full rounded-xl bg-jaz-dark px-6 py-4 text-xl font-normal text-white shadow-md transition-all duration-200 ease-out hover:opacity-95 hover:shadow-lg disabled:opacity-70"
+                className="w-full rounded-xl bg-jaz-dark px-6 py-5 text-xl font-normal text-white shadow-md transition-all duration-200 ease-out hover:opacity-95 hover:shadow-lg disabled:opacity-70 sm:text-xl"
               >
                 {formLoading ? 'Sending...' : 'Submit Form'}
               </button>
@@ -325,7 +326,7 @@ function Contact() {
 
       {/* Map section */}
       <section className="bg-white py-12 sm:py-16">
-        <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 md:px-10 lg:px-12">
           <div className="overflow-hidden rounded-2xl shadow-xl">
             <div className="relative h-[400px] w-full sm:h-[480px]">
               <iframe

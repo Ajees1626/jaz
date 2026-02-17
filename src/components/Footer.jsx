@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp, FaYoutube } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
-import { FiChevronRight, FiMail, FiMapPin, FiPhone, FiSmartphone, FiX } from 'react-icons/fi'
+import { FiChevronRight, FiMail, FiMapPin, FiX } from 'react-icons/fi'
+import { MdOutlinePhoneIphone } from "react-icons/md";
+import { GiRotaryPhone } from 'react-icons/gi'
 
 function Footer() {
   const currentYear = new Date().getFullYear()
@@ -145,13 +147,13 @@ function Footer() {
               <ul className="space-y-3 text-base">
                 <li className="group flex items-center gap-3">
                   <span className="inline-flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 group-hover:-translate-y-0.5 group-hover:bg-white/22 group-hover:shadow-[0_8px_16px_-8px_rgba(255,255,255,0.65),inset_0_1px_0_rgba(255,255,255,0.25)]">
-                    <FiPhone className="h-4 w-4" />
+                    <GiRotaryPhone className="h-4 w-4" />
                   </span>
                   <a href="tel:+914633210218" className="text-white/90 transition-all duration-300 hover:-translate-y-0.5 hover:text-white hover:[text-shadow:0_1px_8px_rgba(255,255,255,0.45)]">04633 210218</a>
                 </li>
                 <li className="group flex items-center gap-3">
                   <span className="inline-flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 group-hover:-translate-y-0.5 group-hover:bg-white/22 group-hover:shadow-[0_8px_16px_-8px_rgba(255,255,255,0.65),inset_0_1px_0_rgba(255,255,255,0.25)]">
-                    <FiSmartphone className="h-4 w-4" />
+                    <MdOutlinePhoneIphone  className="h-4 w-4" />
                   </span>
                   <a href="tel:+919486322351" className="text-white/90 transition-all duration-300 hover:-translate-y-0.5 hover:text-white hover:[text-shadow:0_1px_8px_rgba(255,255,255,0.45)]">+91 9486322351</a>
                 </li>

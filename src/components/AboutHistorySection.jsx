@@ -93,7 +93,7 @@ function AboutHistorySection() {
               alt="Founder portrait"
               loading="lazy"
               decoding="async"
-              className="w-full h-[260px] sm:h-[340px] md:h-[420px] lg:h-[480px] xl:h-[520px] object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
+              className="w-full h-[240px] sm:h-[300px] md:h-[380px] lg:h-[440px] xl:h-[480px] object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
             />
           </div>
 
@@ -106,12 +106,12 @@ function AboutHistorySection() {
             }`}
           >
             {/* Badge */}
-            <span className="inline-flex overflow-hidden rounded-full bg-jaz-dark px-5 py-2 text-xs sm:text-sm font-medium uppercase tracking-wide text-white">
+            <span className="inline-flex overflow-hidden rounded-full bg-jaz-dark px-5 py-2 text-md sm:text-2xl font- uppercase tracking-wide text-white">
               <BadgeLetters text="Our History" />
             </span>
 
             {/* Paragraph — word-by-word animation so words stay together and wrap correctly */}
-            <p className="mt-6 text-justify text-sm leading-relaxed text-slate-800 sm:text-base md:text-lg lg:text-xl">
+            <p className="mt-2  text-xs leading-relaxed text-slate-800 sm:text-base md:text-md lg:text-lg">
               {HISTORY_PARAGRAPH.split(/\s+/).map((word, index) => (
                 <span
                   key={`${index}-${word.slice(0, 8)}`}
