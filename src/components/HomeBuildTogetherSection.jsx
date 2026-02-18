@@ -62,7 +62,7 @@ function HomeBuildTogetherSection() {
       className="bg-white py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden"
     >
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
 
           {/* LEFT CONTENT — scroll + letter animation (all visible) */}
           <div

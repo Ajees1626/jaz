@@ -78,9 +78,9 @@ function AboutHistorySection() {
       className="overflow-hidden bg-jaz-light py-12 sm:py-16 md:py-20 lg:py-24"
     >
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10">
-        <div className="grid items-center gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
 
-          {/* IMAGE SIDE */}
+          {/* IMAGE SIDE — responsive heights; object-position keeps face in frame on mobile/tablet */}
           <div
             className={`overflow-hidden rounded-xl shadow-lg transition-all duration-700 ease-out ${
               isVisible
@@ -93,7 +93,7 @@ function AboutHistorySection() {
               alt="Founder portrait"
               loading="lazy"
               decoding="async"
-              className="w-full h-[240px] sm:h-[300px] md:h-[380px] lg:h-[440px] xl:h-[480px] object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
+              className="w-full h-[260px] sm:h-[320px] md:h-[400px] lg:h-[440px] xl:h-[480px] object-cover object-[50%_18%] sm:object-[50%_20%] md:object-[50%_22%] lg:object-top transition-transform duration-700 ease-out hover:scale-[1.03]"
             />
           </div>
 

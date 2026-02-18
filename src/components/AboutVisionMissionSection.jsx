@@ -73,11 +73,11 @@ function AboutVisionMissionSection() {
           </h2>
         </div>
 
-        <div className="grid gap-8 sm:gap-10 lg:grid-cols-3">
+        <div className="grid gap-8 sm:gap-10 md:grid-cols-2 md:gap-10 lg:grid-cols-3">
 
-          {/* VISION CARD — strong scroll + letter animation */}
+          {/* VISION CARD — full width on tablet; strong scroll + letter animation */}
           <div
-            className={`flex flex-col items-center rounded-2xl bg-white p-6 sm:p-8 shadow-lg transition-all duration-1000 ease-out hover:shadow-xl ${
+            className={`flex flex-col items-center rounded-2xl bg-white p-6 sm:p-8 shadow-lg transition-all duration-1000 ease-out hover:shadow-xl md:col-span-2 lg:col-span-1 ${
               isVisible
                 ? 'translate-y-0 opacity-100'
                 : 'translate-y-12 opacity-0'
